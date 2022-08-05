@@ -64,7 +64,12 @@ public class BlockSapling extends BlockFlower {
     }
 
     protected int a_(int i) {
-        return i & 3;
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
+            return 0;
+        } else {
+            return i & 3;
+        }
     }
 
     // CraftBukkit start

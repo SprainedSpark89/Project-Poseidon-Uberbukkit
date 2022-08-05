@@ -156,7 +156,12 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     protected int a_(int i) {
-        return i & 3;
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
+            return 0;
+        } else {
+            return i & 3;
+        }
     }
 
     public boolean a() {

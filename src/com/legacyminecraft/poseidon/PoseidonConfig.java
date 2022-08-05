@@ -134,6 +134,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.spiders_climb_walls", true);
         generateConfigOption("version.mechanics.allow_blocks_at_y_127", false);
         generateConfigOption("version.mechanics.drop_lapis_as_b1_2", false);
+        generateConfigOption("version.mechanics.allow_milking_squids", false);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
         generateConfigOption("version.experimental.force_fix_chunk_coords_corruption", false);
