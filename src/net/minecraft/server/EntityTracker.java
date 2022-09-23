@@ -38,9 +38,10 @@ public class EntityTracker {
         } else if (entity instanceof EntityFish) {
             this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityArrow) {
-            this.a(entity, 64, 20, false);
-            // uberbukkit
+            // uberbukkit start
+            this.a(entity, 64, 20, Uberbukkit.getPVN() < 12);
         } else if (entity instanceof EntitySnowball || (entity instanceof EntityFireball && Uberbukkit.getPVN() < 12)) {
+            // uberbukkit end
             this.a(entity, 64, 10, true);
         } else if (entity instanceof EntityFireball && Uberbukkit.getPVN() >= 12) {
             this.a(entity, 64, 10, false);
