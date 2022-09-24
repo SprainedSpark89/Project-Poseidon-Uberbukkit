@@ -46,7 +46,7 @@ public class BlockPumpkin extends Block {
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
         double dt = 2.5D;
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre-b1-5-pumpkins", true)) {
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_5_pumpkins", true)) {
             dt = 0.5D;
         }
         if (PoseidonConfig.instance.getBoolean("wirl")
