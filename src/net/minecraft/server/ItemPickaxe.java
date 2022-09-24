@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 public class ItemPickaxe extends ItemTool {
 
     private static Block[] bk;
