@@ -49,7 +49,6 @@ public class BlockPumpkin extends Block {
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_5_pumpkins", true)) {
             dt = 0.5D;
         }
-        if (PoseidonConfig.instance.getBoolean("wirl")
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + dt) & 3;
 
         world.setData(i, j, k, l);
