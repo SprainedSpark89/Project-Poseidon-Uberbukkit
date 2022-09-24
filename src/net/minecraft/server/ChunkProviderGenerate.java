@@ -469,7 +469,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         // uberbukkit
         Object object = biomebase.a(this.j);
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_ore_generation", false)) {
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_tree_generation", false)) {
             object = new WorldGenTrees();
             if (this.j.nextInt(10) == 0) {
                 object = new WorldGenBigTree();
