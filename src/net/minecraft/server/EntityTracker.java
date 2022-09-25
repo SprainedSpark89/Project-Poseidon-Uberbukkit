@@ -39,14 +39,14 @@ public class EntityTracker {
             this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityArrow) {
             // uberbukkit start
-            this.a(entity, 64, 20, Uberbukkit.getPVN() < 12);
+            this.a(entity, 64, Uberbukkit.getPVN() < 12 ? 5 : 20, Uberbukkit.getPVN() < 12);
         } else if (entity instanceof EntitySnowball || (entity instanceof EntityFireball && Uberbukkit.getPVN() < 12)) {
             // uberbukkit end
-            this.a(entity, 64, 10, true);
+            this.a(entity, 64, Uberbukkit.getPVN() < 12 ? 5 : 10, true);
         } else if (entity instanceof EntityFireball && Uberbukkit.getPVN() >= 12) {
             this.a(entity, 64, 10, false);
         } else if (entity instanceof EntityEgg) {
-            this.a(entity, 64, 10, true);
+            this.a(entity, 64, Uberbukkit.getPVN() < 12 ? 5 : 10, true);
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {
