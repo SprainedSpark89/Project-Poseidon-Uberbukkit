@@ -1809,7 +1809,7 @@ public class World implements IBlockAccess {
 
             if (j <= 0) {
                 if (this.worldData.hasStorm()) {
-                    this.worldData.setfDuration(this.random.nextInt(12000) + 12000);
+                    this.worldData.setWeatherDuration(this.random.nextInt(12000) + 12000);
                 } else {
                     this.worldData.setWeatherDuration(this.random.nextInt(168000) + 12000);
                 }
