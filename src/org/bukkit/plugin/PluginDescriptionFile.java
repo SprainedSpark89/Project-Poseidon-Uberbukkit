@@ -24,6 +24,7 @@ public final class PluginDescriptionFile {
     private String classLoaderOf = null;
     private ArrayList<String> depend = null;
     private ArrayList<String> softDepend = null;
+    private ArrayList<String> dependencies = null;
     private String version = null;
     private Object commands = null;
     private String description = null;
@@ -111,6 +112,10 @@ public final class PluginDescriptionFile {
 
     public Object getDepend() {
         return depend;
+    }
+
+    public ArrayList<String> getDependencies() {
+        return dependencies;
     }
 
     public Object getSoftDepend() {
@@ -210,6 +215,14 @@ public final class PluginDescriptionFile {
             }
         }
 
+        if (map.containsKey("dependencies")) {
+            try {
+                dependencies = (ArrayList<String>) map.get("dependencies");
+            } catch (ClassCastException ex) {
+                throw new InvalidDescriptionException(ex, "dependencies is of wrong type");
+            }
+        }
+
         if (map.containsKey("softdepend")) {
             try {
                 softDepend = (ArrayList<String>) map.get("softdepend");
@@ -306,6 +319,9 @@ public final class PluginDescriptionFile {
         }
         if (depend != null) {
             map.put("depend", depend);
+        }
+        if (dependencies != null) {
+            map.put("dependencies", dependencies);
         }
         if (softDepend != null) {
             map.put("softdepend", softDepend);
