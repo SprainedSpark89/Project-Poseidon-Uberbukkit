@@ -56,7 +56,7 @@ public class ItemInWorldManager {
                 Block.byId[i1].b(this.world, i, j, k, this.player);
             }
             // Allow fire punching to be blocked
-            this.world.douseFire((EntityHuman) null, i, j, k, l);
+            this.world.douseFire(player, i, j, k, l);
         }
         // CraftBukkit end
 

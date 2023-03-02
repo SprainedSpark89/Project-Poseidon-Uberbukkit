@@ -74,7 +74,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("world.settings.block-tree-growth.info", "This setting allows for server owners to easily block trees growing from automatically destroying certain blocks. The list must be a string with numerical item ids separated by commas.");
         generateConfigOption("world.settings.block-pistons-pushing-furnaces.info", "This workaround prevents pistons from pushing furnaces which prevents a malicious server crash.");
         generateConfigOption("world.settings.block-pistons-pushing-furnaces.enabled", true);
-        generateConfigOption("world.settings.skeleton-shooting-sound-fix.info", "This setting fixes the sound of skeletons shooting not playing on clients.");
+        generateConfigOption("world.settings.skeleton-shooting-sound-fix.info", "This setting fixes the sound of skeletons and players shooting not playing on clients.");
         generateConfigOption("world.settings.skeleton-shooting-sound-fix.enabled", true);
         generateConfigOption("world.settings.speed-hack-check.enable", true);
         generateConfigOption("world.settings.speed-hack-check.teleport", true);
@@ -87,6 +87,12 @@ public class PoseidonConfig extends Configuration {
         //Release2Beta Settings
         generateConfigOption("settings.release2beta.enable-ip-pass-through", false);
         generateConfigOption("settings.release2beta.proxy-ip", "127.0.0.1");
+		
+		//BungeeCord
+		generateConfigOption("settings.bungeecord.bungee-mode.enable", false);
+		generateConfigOption("settings.bungeecord.bungee-mode.kick-message", "You must connect through BungeeCord to join this server!");
+		generateConfigOption("settings.bungeecord.bungee-mode.info", "Only allows connections via BungeeCord to join. Includes optional custom kick message for players not using BungeeCord.");
+		
         //Modded Jar Support
         generateConfigOption("settings.support.modloader.enable", false);
         generateConfigOption("settings.support.modloader.info", "EXPERIMENTAL support for ModloaderMP.");
@@ -96,6 +102,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.regex", "[a-zA-Z0-9_?]*");
         generateConfigOption("settings.check-username-validity.max-length", 16);
         generateConfigOption("settings.check-username-validity.min-length", 3);
+
         // Uberbukkit settings
         generateConfigOption("version.worldgen.cocoabeans_loot", true);
         generateConfigOption("version.worldgen.pre_b1_2_ore_generation", false);
@@ -136,11 +143,16 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.drop_lapis_as_b1_2", false);
         generateConfigOption("version.mechanics.allow_milking_squids", false);
         generateConfigOption("version.mechanics.pre_b1_6_block_opacity", false);
+        generateConfigOption("version.mechanics.pre_b1_5_pumpkins", false);
+        generateConfigOption("version.mechanics.allow_bone_meal_on_grass", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
         generateConfigOption("version.experimental.force_fix_chunk_coords_corruption", false);
         generateConfigOption("version.allow_join.protocol", "14");
         generateConfigOption("version.allow_join.info", "Specify client versions to accept; 6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3");
+
+        generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
+        generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
 
 
         //Tree Leave Destroy Blacklist
