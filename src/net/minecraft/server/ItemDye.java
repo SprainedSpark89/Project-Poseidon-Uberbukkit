@@ -35,7 +35,7 @@ public class ItemDye extends Item {
                 return true;
             }
 
-            if (i1 == Block.GRASS.id) {
+            if (i1 == Block.GRASS.id && PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_bone_meal_on_grass", true)) {
                 if (!world.isStatic) {
                     --itemstack.count;
 
