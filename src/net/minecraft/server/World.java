@@ -1618,6 +1618,9 @@ public class World implements IBlockAccess {
     }
 
     public boolean e(int i, int j, int k) {
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_6_block_opacity", false)) {
+            return this.p(i, j, k);
+        }
         Block block = Block.byId[this.getTypeId(i, j, k)];
 
         return block == null ? false : block.material.h() && block.b();

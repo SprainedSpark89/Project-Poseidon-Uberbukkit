@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class ChunkCache implements IBlockAccess {
 
     private int a;
@@ -67,8 +69,17 @@ public class ChunkCache implements IBlockAccess {
 
         return l == 0 ? Material.AIR : Block.byId[l].material;
     }
+    
+    public boolean p(int i, int j, int k) {
+        Block block = Block.byId[this.getTypeId(i, j, k)];
+        
+        return block == null ? false : block.a();
+    }
 
     public boolean e(int i, int j, int k) {
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_6_block_opacity", false)) {
+            return this.p(i, j, k);
+        }
         Block block = Block.byId[this.getTypeId(i, j, k)];
 
         return block == null ? false : block.material.isSolid() && block.b();

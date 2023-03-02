@@ -142,6 +142,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.allow_blocks_at_y_127", false);
         generateConfigOption("version.mechanics.drop_lapis_as_b1_2", false);
         generateConfigOption("version.mechanics.allow_milking_squids", false);
+        generateConfigOption("version.mechanics.pre_b1_6_block_opacity", false);
         generateConfigOption("version.mechanics.pre_b1_5_pumpkins", false);
         generateConfigOption("version.mechanics.allow_bone_meal_on_grass", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
