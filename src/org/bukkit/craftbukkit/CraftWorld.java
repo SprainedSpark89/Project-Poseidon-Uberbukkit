@@ -395,6 +395,13 @@ public class CraftWorld implements World {
             EntityLiving entityCreature = (EntityLiving) EntityTypes.a(creatureType.getName(), world);
             entityCreature.setPosition(loc.getX(), loc.getY(), loc.getZ());
             creature = (LivingEntity) CraftEntity.getEntity(server, entityCreature);
+            
+            // uberbukkit
+			if (!Uberbukkit.getProtocolHandler().canSeeMob(creature.getClass())) {
+				entityCreature.die();
+				return null;
+			}
+            
             world.addEntity(entityCreature, SpawnReason.CUSTOM);
         } catch (Exception e) {
             // if we fail, for any reason, return null.
