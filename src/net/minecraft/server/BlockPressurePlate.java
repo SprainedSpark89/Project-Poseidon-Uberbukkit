@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 // CraftBukkit start
+import pl.moresteck.uberbukkit.Uberbukkit;
 // CraftBukkit end
 
 public class BlockPressurePlate extends Block {
@@ -15,7 +16,7 @@ public class BlockPressurePlate extends Block {
     private EnumMobType a;
 
     protected BlockPressurePlate(int i, int j, EnumMobType enummobtype, Material material) {
-        super(i, j, material);
+        super(i, j, Uberbukkit.getPVN() >= 12 ? material : Material.STONE);
         this.a = enummobtype;
         this.a(true);
         float f = 0.0625F;
