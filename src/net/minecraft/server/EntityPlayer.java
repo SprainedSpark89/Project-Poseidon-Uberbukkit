@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
