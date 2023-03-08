@@ -134,6 +134,9 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.generate_steveco_chests", false);
         generateConfigOption("version.worldgen.generate_lapis_ores", true);
         generateConfigOption("version.worldgen.generate_tallgrass", true);
+        generateConfigOption("version.worldgen.ores.world.custom_seed", false);
+        generateConfigOption("version.worldgen.ores.world.seed", 0L);
+        
         generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
         generateConfigOption("version.mechanics.glowstone_pre1_6_6", false);
@@ -166,8 +169,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.pre_b1_6_block_opacity", false);
         generateConfigOption("version.mechanics.pre_b1_5_pumpkins", false);
         generateConfigOption("version.mechanics.allow_bone_meal_on_grass", true);
-        generateConfigOption("version.worldgen.ores.world.custom_seed", false);
-        generateConfigOption("version.worldgen.ores.world.seed", 0L);
+        
         generateConfigOption("version.experimental.force_fix_chunk_coords_corruption", false);
         generateConfigOption("version.allow_join.protocol", "14");
         generateConfigOption("version.allow_join.info", "Specify client versions to accept; 6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3");
