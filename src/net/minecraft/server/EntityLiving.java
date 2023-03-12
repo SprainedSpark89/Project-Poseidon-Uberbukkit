@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
 import org.bukkit.craftbukkit.TrigMath;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
@@ -154,7 +155,9 @@ public abstract class EntityLiving extends Entity {
                 this.world.getServer().getPluginManager().callEvent(event);
 
                 if (!event.isCancelled() && event.getDamage() != 0) {
+                    boolean vc = this.velocityChanged;
                     this.damageEntity((Entity) null, event.getDamage());
+                    if (PoseidonConfig.getInstance().getBoolean("settings.fix-drowning-push-down.enabled", true)) this.velocityChanged = vc;
                 }
                 // CraftBukkit end
             }
@@ -371,6 +374,7 @@ public abstract class EntityLiving extends Entity {
                     this.world.a(this, (byte) 2);
                     this.af();
                     if (entity != null) {
+                        this.airBorne = true;
                         double d0 = entity.locX - this.locX;
 
                         double d1;
@@ -726,6 +730,7 @@ public abstract class EntityLiving extends Entity {
 
     protected void O() {
         this.motY = 0.41999998688697815D;
+        this.airBorne = true;
     }
 
     protected boolean h_() {
