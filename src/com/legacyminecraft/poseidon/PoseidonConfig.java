@@ -55,7 +55,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.use-get-for-uuids.enabled", false);
         generateConfigOption("settings.use-get-for-uuids.info", "This setting causes the server to use the GET method for Username to UUID conversion. This is useful incase the POST method goes offline.");
 
-        generateConfigOption("settings.faster-packets.enabled", true);
+        generateConfigOption("settings.faster-packets.enabled", false);
         generateConfigOption("settings.faster-packets.info", "This setting increases the speed of packets, a fix from newer Minecraft versions.");
 
         generateConfigOption("settings.fix-drowning-push-down.enabled", true);
