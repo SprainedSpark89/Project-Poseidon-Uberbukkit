@@ -1,11 +1,12 @@
-# Project-Poseidon
-![](/img/banner.png)
-## What's Project Poseidon?
-A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.<br>
-Discord: https://discord.gg/FwKg676
+# Project-Poseidon-Uberbukkit
+![](/img/banner.jpg)
 
-## Want to use Project Poseidon on your server?
-Please read the following article before changing over to Project Poseidon: https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
+## What's UberBukkit?
+A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.<br>
+Discord (Project Poseidon): https://discord.gg/FwKg676
+
+## Want to use UberBukkit on your server?
+Please read the following article before changing over to UberBukkit (From Project-Poseidon): https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
 
 ## Licensing
 CraftBukkit and Bukkit are licensed under GNU General Public License v3.0<br>
@@ -14,12 +15,10 @@ Libraries in the compiled .jar files distrusted may contain their own licenses.<
 This project contains decompiled code that is copyrighted by Mojang AB typically under the `net.minecraft.server` package.<br>
 
 ## How To Setup - IntelliJ IDEA
-
 1. Clone this project using Git or a desktop client.
 2. Open IntelliJ and create a new project in the same directory as the Project Poseidon folder.
 
 ## Compiling
-
 Compiling is done via maven. To compile a JAR, cd into the Project Poseidon directory and run the following command:
 
 ```
