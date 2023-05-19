@@ -16,7 +16,7 @@ public class BlockOre extends Block {
 
     public int a(Random random) {
         if (this.id == Block.LAPIS_ORE.id) {
-            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_lapis_as_b1_2", false))) {
+            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_lapis_as_b1_2", false)) {
                 return 1;
             }
             return 4 + random.nextInt(5);
