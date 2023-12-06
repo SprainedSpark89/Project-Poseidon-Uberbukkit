@@ -1,5 +1,6 @@
 package org.bukkit.craftbukkit.entity;
 
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.ConnectionType;
 import net.minecraft.server.*;
 import pl.moresteck.uberbukkit.Uberbukkit;
@@ -450,5 +451,9 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
             NetServerHandler nsh = getHandle().netServerHandler;
             nsh.sendPacket(packet);
         }
+    }
+
+    public boolean isCracked() {
+        return CrackedAllowlist.get().contains(getName());
     }
 }

@@ -2,12 +2,12 @@ package com.projectposeidon.johnymuffin;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.PoseidonPlugin;
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.legacyminecraft.poseidon.uuid.ThreadUUIDFetcher;
 import net.minecraft.server.NetLoginHandler;
 import net.minecraft.server.Packet1Login;
 import net.minecraft.server.ThreadLoginVerifier;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerConnectionInitializationEvent;
@@ -81,7 +81,8 @@ public class LoginProcessHandler {
             return;
         }
 
-        if (onlineMode) {
+        // Account for cracked allowlist
+        if (onlineMode && !CrackedAllowlist.get().contains(this.packet1Login.name)) {
             //Server is running online mode
             verifyMojangSession();
         } else {

@@ -44,7 +44,8 @@ public class SimpleCommandMap implements CommandMap {
 
     private void setDefaultCommands(final Server server) {
         register("poseidon", new PoseidonCommand("poseidon"));
-        register("bukkit", new FlushInvCommand());
+        register("poseidon", new CrackedAllowlistCommand());
+        register("uberbukkit", new FlushInvCommand());
         register("bukkit", new VersionCommand("version"));
         register("bukkit", new ReloadCommand("reload"));
         register("bukkit", new PluginsCommand("plugins"));

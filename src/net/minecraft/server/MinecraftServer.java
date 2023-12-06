@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.johnymuffin.UUIDManager;
 import com.legacyminecraft.poseidon.watchdog.WatchDogThread;
 import jline.ConsoleReader;
@@ -365,6 +366,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         //Project Poseidon Start
         UUIDManager.getInstance().saveJsonArray();
+        CrackedAllowlist.get().saveAllowlist();
         if (watchDogThread != null) {
             log.info("Stopping Poseidon Watchdog");
             watchDogThread.interrupt();
