@@ -25,6 +25,7 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.packet.PacketReceivedEvent;
+import org.bukkit.event.packet.PacketSentEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -936,8 +937,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
         //Poseidon End
 
+        // UberBukkit
+        PacketSentEvent packetSentEvent = new PacketSentEvent(getPlayer(), packet);
+        Bukkit.getPluginManager().callEvent(packetSentEvent);
+        if (packetSentEvent.isCancelled()) {
+            return;
+        }
+        packet = packetSentEvent.getPacket();
 
-        // uberbukkit
         Protocol protocol = Uberbukkit.getProtocolHandler();
         if (!protocol.canReceivePacket(packet.b())) {
             this.g = this.f;
