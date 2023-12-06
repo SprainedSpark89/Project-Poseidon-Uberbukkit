@@ -25,7 +25,6 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 import org.bukkit.event.world.*;
 import org.bukkit.plugin.*;
-import org.bukkit.plugin.lib.LibraryLoader;
 import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.error.YAMLException;
 
@@ -52,7 +51,6 @@ public class JavaPluginLoader implements PluginLoader
     protected final Pattern[] fileFilters = new Pattern[] { Pattern.compile("\\.jar$"), };
     protected final Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
     protected final Map<String, PluginClassLoader> loaders = new HashMap<String, PluginClassLoader>();
-    private final LibraryLoader libraryLoader = new LibraryLoader();
 
     public JavaPluginLoader(Server instance)
     {
@@ -187,13 +185,7 @@ public class JavaPluginLoader implements PluginLoader
             URL[] urls = new URL[1];
 
             urls[0] = file.toURI().toURL();
-            if (description.getClassLoaderOf() != null) {
-                loader = loaders.get(description.getClassLoaderOf());
-                loader.addURL(urls[0]);
-            } else {
-                loader = new PluginClassLoader(this, urls, getClass().getClassLoader(), (description.getDependencies() == null) ? null : libraryLoader.createLoader(description));
-            }
-
+            loader = new PluginClassLoader(this, urls, getClass().getClassLoader());
             Class<?> jarClass = Class.forName(description.getMain(), true, loader);
             Class<? extends JavaPlugin> plugin = jarClass.asSubclass(JavaPlugin.class);
 
