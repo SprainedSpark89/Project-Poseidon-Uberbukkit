@@ -9,7 +9,7 @@ Discord (Project Poseidon): https://discord.gg/FwKg676
 Please read the following article before changing over to UberBukkit (From Project-Poseidon): https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
 
 # Download
-You can download the latest builds at the [Glass Launcher Jenkins](https://jenkins.glass-launcher.net/job/Project-Poseidon/).
+You can download the latest build [here](https://betacraft.uk/utilities).
 
 ## Licensing
 CraftBukkit and Bukkit are licensed under GNU General Public License v3.0<br>
