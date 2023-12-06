@@ -543,6 +543,9 @@ public class Block {
         Item.byId[LEAVES.id] = (new ItemLeaves(LEAVES.id - 256)).a("leaves");
         Item.byId[PISTON.id] = new ItemPiston(PISTON.id - 256);
         Item.byId[PISTON_STICKY.id] = new ItemPiston(PISTON_STICKY.id - 256);
+        // Make different data values of tallgrass and cake block placeable by hand 
+        Item.byId[LONG_GRASS.id] = new ItemLongGrass(LONG_GRASS.id - 256).a("tallgrass");
+        Item.byId[CAKE_BLOCK.id] = new ItemCake(CAKE_BLOCK.id - 256);
 
         for (int i = 0; i < 256; ++i) {
             if (byId[i] != null && Item.byId[i] == null) {

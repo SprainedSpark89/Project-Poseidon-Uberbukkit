@@ -2,9 +2,8 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
 public class BlockTNT extends Block {
+	// TODO: reimplement tnt ignition modes
 
     public BlockTNT(int i, int j) {
         super(i, j, Material.TNT);
@@ -44,7 +43,7 @@ public class BlockTNT extends Block {
 
     public void postBreak(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
-            if ((l & 1) == 0 && PoseidonConfig.getInstance().getBoolean("version.mechanics.tnt_require_lighter", true)) {
+            if ((l & 1) == 0) {
                 this.a(world, i, j, k, new ItemStack(Block.TNT.id, 1, 0));
             } else {
                 EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
@@ -56,8 +55,7 @@ public class BlockTNT extends Block {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        // uberbukkit
-        if ((entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id) && !PoseidonConfig.getInstance().getBoolean("version.mechanics.tnt_require_lighter", true)) {
+        if ((entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id)) {
             world.setRawData(i, j, k, 1);
         }
 
