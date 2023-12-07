@@ -154,6 +154,8 @@ public abstract class Event implements Serializable {
 
         PACKET_RECEIVED(Category.PACKET),
 
+        PACKET_SENT(Category.PACKET),
+
 
         /**
          * Called when a player first starts their connection. Called before UUID is known.

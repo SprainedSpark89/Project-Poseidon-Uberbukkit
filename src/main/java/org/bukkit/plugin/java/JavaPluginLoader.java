@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryListener;
 import org.bukkit.event.inventory.InventoryTransactionEvent;
 import org.bukkit.event.packet.PacketListener;
 import org.bukkit.event.packet.PacketReceivedEvent;
+import org.bukkit.event.packet.PacketSentEvent;
 import org.bukkit.event.painting.PaintingBreakEvent;
 import org.bukkit.event.painting.PaintingPlaceEvent;
 import org.bukkit.event.player.*;
@@ -348,6 +349,14 @@ public class JavaPluginLoader implements PluginLoader
 
         switch (type)
         {
+            // UberBukkit events
+            case PACKET_SENT:
+                return new EventExecutor() {
+                    public void execute(Listener listener, Event event) {
+                        ((PacketListener) listener).onPacketSent((PacketSentEvent) event);
+                    }
+                };
+
             // Poseidon events
             case PACKET_RECEIVED:
                 return new EventExecutor()
