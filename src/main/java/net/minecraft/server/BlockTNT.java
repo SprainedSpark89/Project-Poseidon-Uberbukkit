@@ -2,8 +2,9 @@ package net.minecraft.server;
 
 import java.util.Random;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class BlockTNT extends Block {
-	// TODO: reimplement tnt ignition modes
 
     public BlockTNT(int i, int j) {
         super(i, j, Material.TNT);
@@ -55,6 +56,11 @@ public class BlockTNT extends Block {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.tnt_require_lighter", true)) {
+            world.setRawData(i, j, k, 1);
+        }
+        
         if ((entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id)) {
             world.setRawData(i, j, k, 1);
         }
