@@ -128,6 +128,8 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.max-length", 16);
         generateConfigOption("settings.check-username-validity.min-length", 3);
 
+        generateConfigOption("settings.exempt-staff-from-flight-kick", false);
+
         // Uberbukkit settings
         generateConfigOption("version.worldgen.cocoabeans_loot", true);
         generateConfigOption("version.worldgen.pre_b1_2_ore_generation", false);

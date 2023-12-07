@@ -49,6 +49,7 @@ import pl.moresteck.uberbukkit.protocol.Protocol;
 
 public class NetServerHandler extends NetHandler implements ICommandListener {
 
+    private static boolean isStaffExemptFromFlyKick = PoseidonConfig.getInstance().getBoolean("settings.exempt-staff-from-flight-kick", false);
     public static Logger a = Logger.getLogger("Minecraft");
     public NetworkManager networkManager;
     public boolean disconnected = false;
@@ -441,7 +442,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
-            if (!this.minecraftServer.allowFlight && !worldserver.b(axisalignedbb)) {
+            // uberbukkit
+            boolean bool = false;
+            if (isStaffExemptFromFlyKick) {
+                Player bukkitPlayer = (Player)this.player.getBukkitEntity();
+                bool = bukkitPlayer.isOp() || bukkitPlayer.hasPermission("uberbukkit.fly");
+            }
+            
+            if (!this.minecraftServer.allowFlight && !worldserver.b(axisalignedbb) && !bool) {
                 if (d6 >= -0.03125D) {
                     ++this.h;
                     if (this.h > 80) {
