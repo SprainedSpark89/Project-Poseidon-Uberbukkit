@@ -10,20 +10,16 @@ public class CrackedAllowlistCommand extends Command {
         super("cracked");
         this.description = "Manages the cracked names allowlist";
         this.usageMessage = "/cracked";
+        this.setPermission("uberbukkit.command.cracked");
     }
 
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
-        if (args.length == 1 && args[0].equalsIgnoreCase("save")) {
-            CrackedAllowlist.get().saveAllowlist();
-            sender.sendMessage(ChatColor.GREEN + "Cracked names allowlist was saved to disk!");
-            return true;
-        }
+        if (!testPermission(sender)) return true;
 
         if (args.length < 2) {
             sender.sendMessage(ChatColor.GRAY + "/cracked add <username> - Adds the username to cracked names allowlist");
             sender.sendMessage(ChatColor.GRAY + "/cracked rem <username> - Removes the username from cracked names allowlist");
-            sender.sendMessage(ChatColor.GRAY + "/cracked save - Saves the allowlist to disk");
             return true;
         }
 

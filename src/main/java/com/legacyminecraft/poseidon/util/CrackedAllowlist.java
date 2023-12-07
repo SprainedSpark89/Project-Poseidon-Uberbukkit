@@ -69,6 +69,7 @@ public class CrackedAllowlist {
         }
         
         namesJsonArray.add(jsonString);
+        saveAllowlist();
         return true;
     }
 
@@ -81,7 +82,10 @@ public class CrackedAllowlist {
     public boolean removeName(String name) {
         JsonPrimitive jsonString = new JsonPrimitive(name.toLowerCase());
 
-        return namesJsonArray.remove(jsonString);
+        boolean removed = namesJsonArray.remove(jsonString);
+        saveAllowlist();
+        
+        return removed;
     }
 
     public boolean contains(String name) {
