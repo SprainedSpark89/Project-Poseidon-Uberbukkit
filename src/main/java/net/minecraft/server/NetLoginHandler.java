@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import com.projectposeidon.ConnectionType;
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
 
 import pl.moresteck.uberbukkit.Uberbukkit;
@@ -76,7 +77,7 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void a(Packet2Handshake packet2handshake) {
-        if (this.server.onlineMode) {
+        if (this.server.onlineMode && !CrackedAllowlist.get().contains(packet2handshake.a)) {
             this.serverId = Long.toHexString(d.nextLong());
             this.networkManager.queue(new Packet2Handshake(this.serverId));
         } else {
