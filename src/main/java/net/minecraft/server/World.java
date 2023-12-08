@@ -39,6 +39,9 @@ import pl.moresteck.uberbukkit.Uberbukkit;
 
 public class World implements IBlockAccess {
 
+    // uberbukkit
+    private static boolean pre1_5_placement_rules = PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_5_block_placement_rules", false);
+
     public boolean a = false;
     private List C = new ArrayList();
     public List entityList = new ArrayList();
@@ -2151,11 +2154,16 @@ public class World implements IBlockAccess {
         if (axisalignedbb != null && !this.containsEntity(axisalignedbb)) {
             defaultReturn = false; // CraftBukkit
         } else {
-            if (block == Block.WATER || block == Block.STATIONARY_WATER || block == Block.LAVA || block == Block.STATIONARY_LAVA || block == Block.FIRE || block == Block.SNOW) {
-                block = null;
-            }
+            // uberbukkit - allow placing triple chests
+            if (pre1_5_placement_rules) {
+                defaultReturn = (block != Block.WATER && block != Block.STATIONARY_WATER && block != Block.LAVA && block != Block.STATIONARY_LAVA && block != Block.FIRE && block != Block.SNOW ? i > 0 && block == null && block1.canPlace(this, j, k, l) : true);
+            } else {
+                if (block == Block.WATER || block == Block.STATIONARY_WATER || block == Block.LAVA || block == Block.STATIONARY_LAVA || block == Block.FIRE || block == Block.SNOW) {
+                    block = null;
+                }
 
-            defaultReturn = i > 0 && block == null && block1.canPlace(this, j, k, l, i1); // CraftBukkit
+                defaultReturn = i > 0 && block == null && block1.canPlace(this, j, k, l, i1); // CraftBukkit
+            }
         }
 
         // CraftBukkit start
