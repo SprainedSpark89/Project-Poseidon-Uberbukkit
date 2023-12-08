@@ -177,6 +177,8 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.allow_bone_meal_on_grass", true);
         generateConfigOption("version.mechanics.beds_pre_b1_6_5", false);
         generateConfigOption("version.mechanics.pre_b1_5_block_placement_rules", false);
+        generateConfigOption("version.mechanics.trample_farmland_above_fence", false);
+        generateConfigOption("version.mechanics.seeds_replace_blocks", false);
         
         generateConfigOption("version.mechanics.boats.drop_boat_not_wood", false);
         generateConfigOption("version.mechanics.boats.break_boat_on_collision", true);
