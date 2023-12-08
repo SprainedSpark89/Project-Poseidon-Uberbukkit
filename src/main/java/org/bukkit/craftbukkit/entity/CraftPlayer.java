@@ -454,7 +454,39 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         }
     }
 
+    // uberbukkit start
+
     public boolean isCracked() {
         return CrackedAllowlist.get().contains(getName());
     }
+
+    public boolean hasBed() {
+        return ((EntityHuman)getHandle()).b != null;
+    }
+
+    public Location getBedLocation() {
+        ChunkCoordinates coords = ((EntityHuman)getHandle()).b;
+        String worldname = getHandle().spawnWorld;
+
+        org.bukkit.World world = getServer().getWorld(worldname);
+        if (world == null) {
+            return null;
+        }
+
+        return new Location(world, coords.x, coords.y, coords.z);
+    }
+
+    public void setBedLocation(Location location) {
+        ChunkCoordinates coords = new ChunkCoordinates(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+
+        ((EntityHuman)getHandle()).b = coords;
+
+        String worldname = "";
+        if (location.getWorld() != null)
+            worldname = location.getWorld().getName();
+
+        getHandle().spawnWorld = worldname;
+    }
+
+    // uberbukkit end
 }
