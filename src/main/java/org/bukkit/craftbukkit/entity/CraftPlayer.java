@@ -469,9 +469,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         String worldname = getHandle().spawnWorld;
 
         org.bukkit.World world = getServer().getWorld(worldname);
-        if (world == null) {
-            return null;
-        }
 
         return new Location(world, coords.x, coords.y, coords.z);
     }
