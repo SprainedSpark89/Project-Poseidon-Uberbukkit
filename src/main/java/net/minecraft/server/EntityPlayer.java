@@ -423,12 +423,18 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (enumbederror == EnumBedError.OK) {
             EntityTracker entitytracker = this.b.getTracker(this.dimension);
             Packet17 packet17 = new Packet17(this, 0, i, j, k);
-            // uberbukkit
+            // uberbukkit start - beds (b1.3 - b1.6.4)
             boolean send = Uberbukkit.getProtocolHandler().canReceivePacket(17);
 
-            if (send) entitytracker.a(this, packet17);
-            this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
-            if (send) this.netServerHandler.sendPacket(packet17);
+            if (send)
+                entitytracker.a(this, packet17);
+
+            if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
+                this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+
+            if (send)
+                this.netServerHandler.sendPacket(packet17);
+            // uberbukkit end
         }
 
         return enumbederror;
@@ -618,6 +624,10 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(String s) {
+        // uberbukkit - fix for multiple bed alerts (b1.3 - b1.6.4)
+        if (Uberbukkit.getPVN() <= 11 || PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
+            return;
+        
         StatisticStorage statisticstorage = StatisticStorage.a();
         String s1 = statisticstorage.a(s);
 
