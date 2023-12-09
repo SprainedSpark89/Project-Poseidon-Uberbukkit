@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import me.devcody.uberbukkit.nms.patch.IllegalContainerInteractionFix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,7 +20,6 @@ import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.StorageMinecart;
 import org.bukkit.event.Event;
-import org.bukkit.event.Event.Type;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
@@ -1063,6 +1063,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public boolean chat(String s) {
         if (!this.player.dead) {
+            // UberBukkit - Start
+            // Forcefully closes a container when a player sends a chat message
+            if (player.activeContainer != player.defaultContainer) {
+                player.y();
+            }
+            // UberBukkit - End
+
             if (s.startsWith("/")) {
                 this.handleCommand(s);
                 return true;
@@ -1362,6 +1369,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (this.player.dead) return; // CraftBukkit
 
         if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
+            if (this.player.activeContainer.isPositioned()) {
+                if (IllegalContainerInteractionFix.checkForViolations(
+                        this.player.activeContainer.getPosition(),
+                        this.player)
+                ) {
+                    return;
+                }
+            }
+
             ItemStack itemstack = this.player.activeContainer.a(packet102windowclick.b, packet102windowclick.c, packet102windowclick.f, this.player);
 
             if (ItemStack.equals(packet102windowclick.e, itemstack)) {
@@ -1397,6 +1413,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         Short oshort = (Short) this.n.get(Integer.valueOf(this.player.activeContainer.windowId));
 
         if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
+            if (this.player.activeContainer.isPositioned()) {
+                if (IllegalContainerInteractionFix.checkForViolations(
+                        this.player.activeContainer.getPosition(),
+                        this.player)
+                ) {
+                    return;
+                }
+            }
+
             this.player.activeContainer.a(this.player, true);
         }
     }

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.Iterator;
 
+import me.devcody.uberbukkit.util.math.Vec3i;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -484,6 +485,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.ai();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 1, "Crafting", 9));
         this.activeContainer = new ContainerWorkbench(this.inventory, this.world, i, j, k);
+        this.activeContainer.setPosition(new Vec3i(i, j, k));
         this.activeContainer.windowId = this.bO;
         this.activeContainer.a((ICrafting) this);
     }
@@ -497,10 +499,21 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.activeContainer.a((ICrafting) this);
     }
 
+    public void a(IInventory iinventory, Vec3i position) {
+        this.ai();
+
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 0, iinventory.getName(), iinventory.getSize()));
+        this.activeContainer = new ContainerChest(this.inventory, iinventory);
+        this.activeContainer.setPosition(position);
+        this.activeContainer.windowId = this.bO;
+        this.activeContainer.a((ICrafting) this);
+    }
+
     public void a(TileEntityFurnace tileentityfurnace) {
         this.ai();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 2, tileentityfurnace.getName(), tileentityfurnace.getSize()));
         this.activeContainer = new ContainerFurnace(this.inventory, tileentityfurnace);
+        this.activeContainer.setPosition(new Vec3i(tileentityfurnace.x, tileentityfurnace.y, tileentityfurnace.z));
         this.activeContainer.windowId = this.bO;
         this.activeContainer.a((ICrafting) this);
     }
@@ -509,6 +522,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.ai();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 3, tileentitydispenser.getName(), tileentitydispenser.getSize()));
         this.activeContainer = new ContainerDispenser(this.inventory, tileentitydispenser);
+        this.activeContainer.setPosition(new Vec3i(tileentitydispenser.x, tileentitydispenser.y, tileentitydispenser.z));
         this.activeContainer.windowId = this.bO;
         this.activeContainer.a((ICrafting) this);
     }

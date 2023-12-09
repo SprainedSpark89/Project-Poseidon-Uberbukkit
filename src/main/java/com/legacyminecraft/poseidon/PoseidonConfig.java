@@ -187,6 +187,10 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.allow_join.protocol", "14");
         generateConfigOption("version.allow_join.info", "Specify client versions to accept; 6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3");
 
+        generateConfigOption("fix.illegal-container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
+        generateConfigOption("fix.illegal-container-interaction.max-distance", 4);
+        generateConfigOption("fix.illegal-container-interaction.log-violation", false);
+
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
 
