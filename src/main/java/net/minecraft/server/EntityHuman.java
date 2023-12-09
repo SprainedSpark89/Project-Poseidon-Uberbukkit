@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import me.devcody.uberbukkit.util.math.Vec3i;
 import org.bukkit.craftbukkit.TrigMath;
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.entity.Player;
@@ -370,6 +371,8 @@ public abstract class EntityHuman extends EntityLiving {
     }
 
     public void a(IInventory iinventory) {}
+
+    public void a(IInventory iinventory, Vec3i position) {}
 
     public void b(int i, int j, int k) {}
 
