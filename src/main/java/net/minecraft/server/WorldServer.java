@@ -128,7 +128,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         }
 
         // uberbukkit
-        if (super.strikeLightning(entity) && Uberbukkit.getProtocolHandler().canReceivePacket(71)) {
+        if (super.strikeLightning(entity)) {
             this.server.serverConfigurationManager.sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.dimension, new Packet71Weather(entity));
             // CraftBukkit end
             return true;
@@ -177,11 +177,8 @@ public class WorldServer extends World implements BlockChangeDelegate {
 
     public void playNote(int i, int j, int k, int l, int i1) {
         super.playNote(i, j, k, l, i1);
-        // uberbukkit
-        if (Uberbukkit.getProtocolHandler().canReceivePacket(54)) {
-            // CraftBukkit
-            this.server.serverConfigurationManager.sendPacketNearby((double) i, (double) j, (double) k, 64.0D, this.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
-        }
+        // CraftBukkit
+        this.server.serverConfigurationManager.sendPacketNearby((double) i, (double) j, (double) k, 64.0D, this.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
     }
 
     public void saveLevel() {
@@ -195,9 +192,9 @@ public class WorldServer extends World implements BlockChangeDelegate {
         if (flag != this.v()) {
             // CraftBukkit start - only sending weather packets to those affected
             for (int i = 0; i < this.players.size(); ++i) {
-                // uberbukkit
-                if (((EntityPlayer) this.players.get(i)).world == this && Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
-                    ((EntityPlayer) this.players.get(i)).netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
+                EntityPlayer eplayer = ((EntityPlayer) this.players.get(i));
+                if (eplayer.world == this) {
+                    eplayer.netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
                 }
             }
             // CraftBukkit end

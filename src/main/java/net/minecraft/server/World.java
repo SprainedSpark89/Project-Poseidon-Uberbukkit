@@ -509,7 +509,7 @@ public class World implements IBlockAccess {
                 int l = this.getTypeId(i, j, k);
                 
                 boolean check = false;
-                if (Uberbukkit.getPVN() >= 12) {
+                if (Uberbukkit.getTargetPVN() >= 12) {
                     check = l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id;
                 }
 
@@ -1780,7 +1780,7 @@ public class World implements IBlockAccess {
         }
 
         // uberbukkit
-        if (this.worldProvider instanceof WorldProviderHell && Uberbukkit.getPVN() < 12) {
+        if (this.worldProvider instanceof WorldProviderHell && Uberbukkit.getTargetPVN() < 12) {
             this.worldData.a(18000);
         } else {
             this.worldData.a(i);

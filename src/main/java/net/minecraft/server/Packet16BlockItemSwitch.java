@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet16BlockItemSwitch extends Packet {
 
     public int itemInHandIndex;
@@ -21,7 +19,7 @@ public class Packet16BlockItemSwitch extends Packet {
     }
 
     public void a(DataInputStream datainputstream) throws IOException {
-        if (Uberbukkit.getPVN() >= 7) {
+        if (this.pvn >= 7) {
             this.itemInHandIndex = datainputstream.readShort();
         } else {
             this.itemDamage = datainputstream.readInt();
@@ -30,7 +28,7 @@ public class Packet16BlockItemSwitch extends Packet {
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
-        if (Uberbukkit.getPVN() >= 7) {
+        if (this.pvn >= 7) {
             dataoutputstream.writeShort(this.itemInHandIndex);
         } else {
             dataoutputstream.writeInt(this.itemDamage);
@@ -43,6 +41,6 @@ public class Packet16BlockItemSwitch extends Packet {
     }
 
     public int a() {
-        return Uberbukkit.getPVN() >= 7 ? 2 : 6;
+        return this.pvn >= 7 ? 2 : 6;
     }
 }

@@ -15,7 +15,7 @@ public class BlockStairs extends Block {
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
-        if (Uberbukkit.getPVN() >= 11) {
+        if (Uberbukkit.getTargetPVN() >= 11) {
             this.f(255);
         }
     }

@@ -1,16 +1,9 @@
 package pl.moresteck.uberbukkit.protocol;
 
-public class Protocol14 implements Protocol {
+public class Protocol14 extends Protocol2000 {
 
-	public boolean canReceiveBlockItem(int id) {
-		return true;
-	}
-
+	@Override
 	public boolean canReceivePacket(int id) {
-		return true;
-	}
-
-	public boolean canSeeMob(Class<?> claz) {
-		return true;
+		return id != 62 && id != 63;
 	}
 }

@@ -211,4 +211,12 @@ public abstract class NetHandler {
     public void a(Packet61 packet61) {
         this.a((Packet) packet61);
     }
+    
+    public void handle62Sound(Packet62Sound packet62) {
+    	this.a((Packet) packet62);
+    }
+    
+    public void handle63Digging(Packet63Digging packet62) {
+    	this.a((Packet) packet62);
+    }
 }

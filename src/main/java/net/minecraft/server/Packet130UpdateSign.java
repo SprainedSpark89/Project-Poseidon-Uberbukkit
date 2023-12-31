@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet130UpdateSign extends Packet {
 
     public int x;
@@ -33,7 +31,7 @@ public class Packet130UpdateSign extends Packet {
 
         for (int i = 0; i < 4; ++i) {
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 11) {
+            if (this.pvn >= 11) {
                 this.lines[i] = a(datainputstream, 15);
             } else {
                 this.lines[i] = datainputstream.readUTF();
@@ -48,7 +46,7 @@ public class Packet130UpdateSign extends Packet {
 
         for (int i = 0; i < 4; ++i) {
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 11) {
+            if (this.pvn >= 11) {
                 a(this.lines[i], dataoutputstream);
             } else {
                 dataoutputstream.writeUTF(this.lines[i]);

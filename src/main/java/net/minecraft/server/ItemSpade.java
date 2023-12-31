@@ -15,7 +15,7 @@ public class ItemSpade extends ItemTool {
     }
     
     static {
-        if (Uberbukkit.getPVN() < 12) {
+        if (Uberbukkit.getTargetPVN() < 12) {
             bk = new Block[] { Block.GRASS, Block.DIRT, Block.SAND, Block.GRAVEL, Block.SNOW, Block.SNOW_BLOCK, Block.CLAY};
         } else {
             bk = new Block[] { Block.GRASS, Block.DIRT, Block.SAND, Block.GRAVEL, Block.SNOW, Block.SNOW_BLOCK, Block.CLAY, Block.SOIL};

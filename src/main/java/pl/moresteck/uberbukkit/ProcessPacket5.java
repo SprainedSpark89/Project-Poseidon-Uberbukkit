@@ -9,6 +9,7 @@ import net.minecraft.server.Packet5EntityEquipment;
 public class ProcessPacket5 {
     public InventoryQueue queue;
     private EntityHuman player;
+    public static boolean debug = false;
 
     public ProcessPacket5(EntityHuman player) {
         this.queue = new InventoryQueue();
@@ -16,6 +17,9 @@ public class ProcessPacket5 {
     }
 
     public void process(Packet5EntityEquipment packet) {
+        if (debug)
+            System.out.println("PACKET 5 received");
+    	
         // we have to find out what's being changed: if any item(stack) is being removed, or if any is being added
         // only allow additions of items if there's enough of them in the queue
         // mark removals by adding the removed items into the queue
@@ -32,19 +36,22 @@ public class ProcessPacket5 {
 
         // craft slots are always empty for some reason
         if (packet.a == -2) {
-            for (int i = 0; i < stackarray.length; i++) {
-                int clid = packet.items[i] != null ? packet.items[i].id : -1;
-                int cldmg = packet.items[i] != null ? packet.items[i].damage : -1;
-                int clcnt = packet.items[i] != null ? packet.items[i].count : -1;
-                
-                int srvid = stackarray[i] != null ? stackarray[i].id : -1;
-                int srvdmg = stackarray[i] != null ? stackarray[i].damage : -1;
-                int srvcnt = stackarray[i] != null ? stackarray[i].count : -1;
-                System.out.println("Index: " + i);
-                System.out.println("cl.id = " + clid + ", srv.id: " + srvid);
-                System.out.println("cl.dmg = " + cldmg + ", srv.dmg: " + srvdmg);
-                System.out.println("cl.cnt = " + clcnt + ", srv.cnt: " + srvcnt);
+            if (debug) {
+                for (int i = 0; i < stackarray.length; i++) {
+                    int clid = packet.items[i] != null ? packet.items[i].id : -1;
+                    int cldmg = packet.items[i] != null ? packet.items[i].damage : -1;
+                    int clcnt = packet.items[i] != null ? packet.items[i].count : -1;
+
+                    int srvid = stackarray[i] != null ? stackarray[i].id : -1;
+                    int srvdmg = stackarray[i] != null ? stackarray[i].damage : -1;
+                    int srvcnt = stackarray[i] != null ? stackarray[i].count : -1;
+                    System.out.println("Index: " + i);
+                    System.out.println("cl.id = " + clid + ", srv.id: " + srvid);
+                    System.out.println("cl.dmg = " + cldmg + ", srv.dmg: " + srvdmg);
+                    System.out.println("cl.cnt = " + clcnt + ", srv.cnt: " + srvcnt);
+                }
             }
+
             player.inventory.craft = packet.items;
             return;
         }
@@ -62,7 +69,7 @@ public class ProcessPacket5 {
                 // now we gotta find out what's different
                 if (client == null && serverside != null) {
                     unfinalized.addStackToQueue(serverside);
-                    System.out.println("Removing id: " + serverside.id + ", dmg: " + serverside.damage + ", cnt: " + serverside.count);
+                    if (debug) System.out.println("Removing id: " + serverside.id + ", dmg: " + serverside.damage + ", cnt: " + serverside.count);
 //                    for (int j = 0; j < serverside.count; j++) {
 //                        unfinalized.addStackToQueue(serverside);
 //                    }
@@ -73,7 +80,7 @@ public class ProcessPacket5 {
                         if (item != null && item instanceof ItemArmor) {
                             int fit = ((ItemArmor)item).bk;
                             if ((i == 0 && fit != 3) || (i == 1 && fit != 2) || (i == 2 && fit != 1) || (i == 3 && fit != 0)) {
-                                System.out.println("Armor slot " + i + " but item is at " + fit);
+                                if (debug) System.out.println("Armor slot " + i + " but item is at " + fit);
                                 return;
                             }
                         } else return;
@@ -81,34 +88,37 @@ public class ProcessPacket5 {
 
                     // check if we can allow for addition
                     if (!unfinalized.hasInQueue(client)) {
-                        System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                        if (debug) System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                         return;
                     }
-                    System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                    if (debug) System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                 } else if (client.count != serverside.count && client.id == serverside.id && client.damage == serverside.damage) {
                     int change = client.count - serverside.count;
                     if (change > 0) {
                         if (!unfinalized.hasInQueue(client)) {
-                            System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                            if (debug) System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                             return;
                         }
-                        System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                        if (debug) System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                     } else {
                         ItemStack toadd = client.cloneItemStack();
                         toadd.count = -change;
                         unfinalized.addStackToQueue(toadd);
-                        System.out.println("Removing id: " + toadd.id + ", dmg: " + toadd.damage + ", cnt: " + toadd.count);
+                        if (debug) System.out.println("Removing id: " + toadd.id + ", dmg: " + toadd.damage + ", cnt: " + toadd.count);
                     }
                 } else {
                     // itemstack swap request
                     if (unfinalized.hasInQueue(client)) {
                         unfinalized.addStackToQueue(serverside);
                     } else {
-                        System.out.println("What!!!");
-                        System.out.println("Index: " + i);
-                        System.out.println("cl.id = " + client.id + ", srv.id: " + serverside.id);
-                        System.out.println("cl.dmg = " + client.damage + ", srv.dmg: " + serverside.damage);
-                        System.out.println("cl.cnt = " + client.count + ", srv.cnt: " + serverside.count);
+                        if (debug) {
+                            System.out.println("What!!!");
+                            System.out.println("Index: " + i);
+                            System.out.println("cl.id = " + client.id + ", srv.id: " + serverside.id);
+                            System.out.println("cl.dmg = " + client.damage + ", srv.dmg: " + serverside.damage);
+                            System.out.println("cl.cnt = " + client.count + ", srv.cnt: " + serverside.count);
+                        }
+                        
                         // won't get accepted by the server
                         return;
                     }

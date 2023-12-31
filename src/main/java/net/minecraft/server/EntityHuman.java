@@ -546,7 +546,7 @@ public abstract class EntityHuman extends EntityLiving {
         int i = this.inventory.a(entity);
 
         if (i > 0) {
-            if (Uberbukkit.getPVN() >= 11) {
+            if (Uberbukkit.getTargetPVN() >= 11) {
                 if (this.motY < 0.0D) {
                     ++i;
                 }

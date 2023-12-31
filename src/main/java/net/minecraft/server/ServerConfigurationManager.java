@@ -181,7 +181,7 @@ public class ServerConfigurationManager {
         // Instead of kicking then returning, we need to store the kick reason
         // in the event, check with plugins to see if it's ok, and THEN kick
         // depending on the outcome. Also change any reference to this.e.c to entity.world
-        EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)), netloginhandler.pvn);
+        EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)), netloginhandler.networkManager.pvn);
         Player player = (entity == null) ? null : (Player) entity.getBukkitEntity();
         PlayerLoginEvent event = new PlayerLoginEvent(player, netloginhandler); //Project Poseidon - pass player IP through
 
@@ -251,10 +251,7 @@ public class ServerConfigurationManager {
                     isBedSpawn = true;
                     location = new Location(cworld, chunkcoordinates1.x + 0.5, chunkcoordinates1.y, chunkcoordinates1.z + 0.5);
                 } else {
-                    // uberbukkit
-                    if (Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
-                        entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
-                    }
+                    entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
                 }
             }
 
@@ -287,8 +284,8 @@ public class ServerConfigurationManager {
 
         // CraftBukkit start
         byte actualDimension = (byte) (worldserver.getWorld().getEnvironment().getId());
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) (actualDimension >= 0 ? -1 : 0)));
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn(actualDimension));
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) (actualDimension >= 0 ? -1 : 0), worldserver.getSeed()));
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn(actualDimension, worldserver.getSeed()));
         entityplayer1.spawnIn(worldserver);
         entityplayer1.dead = false;
         entityplayer1.netServerHandler.teleport(new Location(worldserver.getWorld(), entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch));
@@ -339,6 +336,9 @@ public class ServerConfigurationManager {
             finalLocation = event.getPortalTravelAgent().findOrCreate(finalLocation);
         }
         toWorld = ((CraftWorld) finalLocation.getWorld()).getHandle();
+        
+        this.sendPacketNearby(entityplayer, finalLocation.getX(), finalLocation.getY(), finalLocation.getZ(), 64D, toWorld.dimension, new Packet62Sound("portal.travel", finalLocation.getX(), finalLocation.getY(), finalLocation.getZ(), 1.0F, toWorld.random.nextFloat() * 0.4F + 0.8F));
+        
         this.moveToWorld(entityplayer, toWorld.dimension, finalLocation);
         // CraftBukkit end
     }
@@ -358,6 +358,9 @@ public class ServerConfigurationManager {
     public void sendAll(Packet packet) {
         for (int i = 0; i < this.players.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
+            
+            if (packet != null)
+            	packet.pvn = entityplayer.netServerHandler.networkManager.pvn;
 
             entityplayer.netServerHandler.sendPacket(packet);
         }
@@ -368,6 +371,9 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
 
             if (entityplayer.dimension == i) {
+            	if (packet != null)
+                	packet.pvn = entityplayer.netServerHandler.networkManager.pvn;
+            	
                 entityplayer.netServerHandler.sendPacket(packet);
             }
         }
@@ -597,6 +603,14 @@ public class ServerConfigurationManager {
     public void sendPacketNearby(double d0, double d1, double d2, double d3, int i, Packet packet) {
         this.sendPacketNearby((EntityHuman) null, d0, d1, d2, d3, i, packet);
     }
+    
+    public void sendPacketNearbyToScale(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
+    	float var10 = 16.0F;
+		if(d3 > 1.0F) {
+			var10 *= d3;
+		}
+        this.sendPacketNearby(entityhuman, d0, d1, d2, var10, i, packet);
+    }
 
     public void sendPacketNearby(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
         for (int j = 0; j < this.players.size(); ++j) {
@@ -621,6 +635,7 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (this.isOp(entityplayer.name)) {
+            	packet3chat.pvn = entityplayer.netServerHandler.networkManager.pvn;
                 entityplayer.netServerHandler.sendPacket(packet3chat);
             }
         }
@@ -666,8 +681,7 @@ public class ServerConfigurationManager {
 
     public void a(EntityPlayer entityplayer, WorldServer worldserver) {
         entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
-        // uberbukkit
-        if (worldserver.v() && Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
+        if (worldserver.v()) {
             entityplayer.netServerHandler.sendPacket(new Packet70Bed(1));
         }
     }

@@ -1,14 +1,17 @@
 package net.minecraft.server;
 
-// CraftBukkit start
-
-import com.legacyminecraft.poseidon.packets.ArtificialPacket53BlockChange;
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+// CraftBukkit start
+
+import com.legacyminecraft.poseidon.packets.ArtificialPacket53BlockChange;
 // CraftBukkit end
 
 public class ItemInWorldManager {
@@ -16,21 +19,23 @@ public class ItemInWorldManager {
     private WorldServer world;
     public EntityHuman player;
     private int c = 0;
-    private int lastDigTick;
-    private int e;
-    private int f;
-    private int g;
-    private int currentTick;
+    private long lastDigTick;
+    public int e;
+    public int f;
+    public int g;
+    private long currentTick;
     private boolean i;
     private int j;
     private int k;
     private int l;
-    private int m;
+    private long m;
 
     public double damageDealt;
+    public float delaySound; // uberbukkit
 
     public ItemInWorldManager(WorldServer worldserver) {
         this.world = worldserver;
+        this.delaySound = 0.0F;
     }
 
     // ======= UBERBUKKIT PRE-b1.3 AREA =======
@@ -84,16 +89,27 @@ public class ItemInWorldManager {
                 Block block = Block.byId[i1];
 
                 this.damageDealt += block.getDamage(this.player);
+                
+                // uberbukkit - play breaking sound for others
+                if (delaySound % 4.0F == 0.0F && block != null) {
+                    this.world.makeSound((double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, block.stepSound.getName(), (block.stepSound.getVolume1() + 1.0F) / 8.0F, block.stepSound.getVolume2() * 0.5F);
+                    ((CraftServer)Bukkit.getServer()).getHandle().sendPacketNearby(player, i, j, k, 64D, player.dimension, new Packet63Digging(i, j, k, l, (float)this.damageDealt));
+                }
+
+                delaySound++;
+                
                 if (this.damageDealt >= 1.0F) {
                     this.c(i, j, k);
                     this.damageDealt = 0.0F;
                     this.c = 5;
+                    delaySound = 0.0F;
                 }
             } else {
                 this.damageDealt = 0.0F;
                 this.e = i;
                 this.f = j;
                 this.g = k;
+                delaySound = 0.0F;
             }
         }
     }
@@ -101,9 +117,9 @@ public class ItemInWorldManager {
     // ======= END =======
 
     public void a() {
-        this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
+        this.currentTick = System.currentTimeMillis(); // CraftBukkit
         if (this.i) {
-            int i = this.currentTick - this.m;
+            int i = (int)((this.currentTick/50) - (this.m/50));
             int j = this.world.getTypeId(this.j, this.k, this.l);
 
             if (j != 0) {
@@ -119,10 +135,13 @@ public class ItemInWorldManager {
             }
         }
     }
+    
+    // uberbukkit - make toolDamage from dig(...) accessible for getExpectedDigEnd()
+    public float toolDamage = 1.0F;
 
     public void dig(int i, int j, int k, int l) {
         // this.world.douseFire((EntityHuman) null, i, j, k, l); // CraftBukkit - moved down
-        this.lastDigTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
+        this.lastDigTick = System.currentTimeMillis(); // CraftBukkit
         int i1 = this.world.getTypeId(i, j, k);
 
         // CraftBukkit start
@@ -150,7 +169,7 @@ public class ItemInWorldManager {
         }
 
         // Handle hitting a block
-        float toolDamage = Block.byId[i1].getDamage(this.player);
+        toolDamage = Block.byId[i1].getDamage(this.player);
         if (event.useItemInHand() == Event.Result.DENY) {
             // If we 'insta destroyed' then the client needs to be informed.
             if (toolDamage > 1.0f) {
@@ -167,6 +186,15 @@ public class ItemInWorldManager {
         if (blockEvent.getInstaBreak()) {
             toolDamage = 2.0f;
         }
+        
+        Block block = Block.byId[i1];
+        
+        // uberbukkit - send digging sound
+        if (block != null) {
+            float vol1 = (block.stepSound.getVolume1() + 1.0F) / 8.0F;
+
+            ((CraftServer)Bukkit.getServer()).getHandle().sendPacketNearbyToScale(this.player, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, vol1, ((WorldServer)this.player.world).dimension, new Packet62Sound(block.stepSound.getName(), (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, vol1, block.stepSound.getVolume2() * 0.5F));
+        }
 
         if (toolDamage >= 1.0F) {
             // CraftBukkit end
@@ -180,8 +208,8 @@ public class ItemInWorldManager {
 
     public void a(int i, int j, int k) {
         if (i == this.e && j == this.f && k == this.g) {
-            this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
-            int l = this.currentTick - this.lastDigTick;
+            this.currentTick = System.currentTimeMillis(); // CraftBukkit
+            int l = (int)((this.currentTick/50) - (this.lastDigTick/50));
             int i1 = this.world.getTypeId(i, j, k);
 
             if (i1 != 0) {
@@ -203,6 +231,14 @@ public class ItemInWorldManager {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             // CraftBukkit end
         }
+    }
+    
+    public long getExpectedDigEnd() {
+    	return (long)(1F/toolDamage/0.0214285703109844D) + this.lastDigTick;
+    }
+    
+    public int getCurrentMagic() {
+    	return (int)((System.currentTimeMillis()/50) - (this.lastDigTick/50));
     }
 
     public boolean b(int i, int j, int k) {

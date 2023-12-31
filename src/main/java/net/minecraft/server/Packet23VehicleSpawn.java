@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet23VehicleSpawn extends Packet {
 
     public int a;
@@ -74,7 +72,7 @@ public class Packet23VehicleSpawn extends Packet {
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 13) {
+        if (this.pvn >= 13) {
             this.i = datainputstream.readInt();
             if (this.i > 0) {
                 this.e = datainputstream.readShort();
@@ -93,7 +91,7 @@ public class Packet23VehicleSpawn extends Packet {
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 13) {
+        if (this.pvn >= 13) {
             dataoutputstream.writeInt(this.i);
             if (this.i > 0) {
                 dataoutputstream.writeShort(this.e);
@@ -109,6 +107,6 @@ public class Packet23VehicleSpawn extends Packet {
 
     public int a() {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 13 ? (21 + this.i > 0 ? 6 : 0) : 17;
+        return this.pvn >= 13 ? (21 + this.i > 0 ? 6 : 0) : 17;
     }
 }

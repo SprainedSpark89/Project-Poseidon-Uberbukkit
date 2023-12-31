@@ -22,6 +22,8 @@ public abstract class Packet {
     public boolean k = false;
     private static HashMap e;
     private static int f;
+    
+    protected int pvn; // uberbukkit
 
     public Packet() {}
 
@@ -84,7 +86,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static Packet a(DataInputStream datainputstream, boolean flag) throws IOException {
+    public static Packet a(DataInputStream datainputstream, boolean flag, int pvn) throws IOException {
         boolean flag1 = false;
         Packet packet = null;
 
@@ -107,6 +109,7 @@ public abstract class Packet {
                 throw new IOException("Bad packet id " + i);
             }
 
+            packet.pvn = pvn;
             packet.a(datainputstream);
         } catch (EOFException eofexception) {
             System.out.println("Reached end of stream");
@@ -229,6 +232,8 @@ public abstract class Packet {
         a(54, true, false, Packet54PlayNoteBlock.class);
         a(60, true, false, Packet60Explosion.class);
         a(61, true, false, Packet61.class);
+        a(62, true, false, Packet62Sound.class); // uberbukkit - protocol extension
+        a(63, true, false, Packet63Digging.class); // uberbukkit - protocol extension
         a(70, true, false, Packet70Bed.class);
         a(71, true, false, Packet71Weather.class);
         a(100, true, false, Packet100OpenWindow.class);

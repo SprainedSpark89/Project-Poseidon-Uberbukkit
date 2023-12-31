@@ -749,10 +749,6 @@ public class CraftWorld implements World {
     }
 
     public void playEffect(Location location, Effect effect, int data, int radius) {
-    	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
-    		return;
-    	}
 
         int packetData = effect.getId();
         Packet61 packet = new Packet61(packetData, location.getBlockX(), location.getBlockY(), location.getBlockZ(), data);

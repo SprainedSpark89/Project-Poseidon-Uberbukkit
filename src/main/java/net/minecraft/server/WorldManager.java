@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class WorldManager implements IWorldAccess {
 
     private MinecraftServer server;
@@ -22,7 +20,16 @@ public class WorldManager implements IWorldAccess {
         this.server.getTracker(this.world.dimension).untrackEntity(entity); // CraftBukkit
     }
 
-    public void a(String s, double d0, double d1, double d2, float f, float f1) {}
+    public void a(String s, double d0, double d1, double d2, float f, float f1) {
+        // uberbukkit start - use method to send sound
+        float var10 = 16.0F;
+        if(f > 1.0F) {
+            var10 *= f;
+        }
+
+        this.server.serverConfigurationManager.sendPacketNearby(d0, d1, d2, var10, this.world.dimension, new Packet62Sound(s, d0, d1, d2, f, f1));
+        // uberbukkit end
+    }
 
     public void a(int i, int j, int k, int l, int i1, int j1) {}
 
@@ -39,9 +46,6 @@ public class WorldManager implements IWorldAccess {
     }
 
     public void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1) {
-        // uberbukkit
-        if (Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
-            this.server.serverConfigurationManager.sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.dimension, new Packet61(i, j, k, l, i1)); // CraftBukkit
-        }
+        this.server.serverConfigurationManager.sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.dimension, new Packet61(i, j, k, l, i1)); // CraftBukkit
     }
 }

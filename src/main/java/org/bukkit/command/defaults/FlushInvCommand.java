@@ -35,7 +35,7 @@ public class FlushInvCommand extends Command {
         }
 
         EntityPlayer entity = ((CraftPlayer)player).getHandle();
-        if (Uberbukkit.getPVN() <= 6) {
+        if (entity.netServerHandler.networkManager.pvn <= 6) {
             ArrayList<ItemStack> queue = entity.packet5.queue.dropAllQueue();
             for (ItemStack item : queue) {
                 System.out.println("Drop queue id: " + item.id + ", dmg: " + item.damage + ", cnt: " + item.count);

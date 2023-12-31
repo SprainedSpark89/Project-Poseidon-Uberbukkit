@@ -6,6 +6,7 @@ import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
 
 import pl.moresteck.uberbukkit.Uberbukkit;
+import pl.moresteck.uberbukkit.protocol.Protocol;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,7 +35,6 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
-    public int pvn; // uberbukkit
     
     private final String msgKickShutdown;
 
@@ -79,9 +79,9 @@ public class NetLoginHandler extends NetHandler {
     public void a(Packet2Handshake packet2handshake) {
         if (this.server.onlineMode && !CrackedAllowlist.get().contains(packet2handshake.a)) {
             this.serverId = Long.toHexString(d.nextLong());
-            this.networkManager.queue(new Packet2Handshake(this.serverId));
+            this.networkManager.queue(new Packet2Handshake(this.serverId, packet2handshake.pvn11));
         } else {
-            this.networkManager.queue(new Packet2Handshake("-"));
+            this.networkManager.queue(new Packet2Handshake("-", packet2handshake.pvn11));
         }
     }
 
@@ -97,13 +97,16 @@ public class NetLoginHandler extends NetHandler {
         receivedLoginPacket = true;
         this.g = packet1login.name;
 
-        this.pvn = packet1login.a; // uberbukkit
-        if (this.pvn != Uberbukkit.getPVN() && (Uberbukkit.getPVN() == 7 && this.pvn != 8)) {
-            if (this.pvn > Uberbukkit.getPVN()) {
-                this.disconnect("Outdated server!");
-            } else {
-                this.disconnect("Outdated client!");
-            }
+        this.networkManager.pvn = packet1login.pvn; // uberbukkit
+        
+        // uberbukkit - account for b1.1_02's protocol version. assume b1.1_02
+        if (Uberbukkit.getTargetPVN() == 7 && this.networkManager.pvn == 8)
+            this.networkManager.pvn = 7;
+        
+        this.networkManager.protocol = Protocol.getProtocolClass(this.networkManager.pvn);
+        
+        if (!Uberbukkit.getAllowedPVNs().contains(this.networkManager.pvn)) {
+            this.disconnect("Client version not allowed!");
         } else {
             //Project Poseidon - Start (Release2Beta)
             if (packet1login.d == (byte) -999 || packet1login.d == (byte) 25) {
@@ -181,7 +184,7 @@ public class NetLoginHandler extends NetHandler {
             //Poseidon End
             // uberbukkit
             byte dim = (byte) worldserver.worldProvider.dimension;
-            if (Uberbukkit.getPVN() < 12) {
+            if (this.networkManager.pvn < 12) {
                 dim = 0;
             }
 

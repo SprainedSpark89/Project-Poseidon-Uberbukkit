@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet21PickupSpawn extends Packet {
 
     public int a;
@@ -39,7 +37,7 @@ public class Packet21PickupSpawn extends Packet {
         this.h = datainputstream.readShort();
         this.i = datainputstream.readByte();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (this.pvn >= 8) {
             this.l = datainputstream.readShort();
         } else {
             this.l = 0;
@@ -58,7 +56,7 @@ public class Packet21PickupSpawn extends Packet {
         dataoutputstream.writeShort(this.h);
         dataoutputstream.writeByte(this.i);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (this.pvn >= 8) {
             dataoutputstream.writeShort(this.l);
         }
 
@@ -76,6 +74,6 @@ public class Packet21PickupSpawn extends Packet {
 
     public int a() {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 24 : 22;
+        return this.pvn >= 8 ? 24 : 22;
     }
 }
