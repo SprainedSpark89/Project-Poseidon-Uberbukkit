@@ -596,7 +596,6 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public long lastMine = 0;
     public int delaySound = 0;
     public void a(Packet14BlockDig packet14blockdig) {
-    	//System.out.println("PACKET 14: " + packet14blockdig.e + ", " + this.mineExpire + ", " + this.lastMine);
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet14blockdig);
         server.getPluginManager().callEvent(event);

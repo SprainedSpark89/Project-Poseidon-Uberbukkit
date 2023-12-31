@@ -8,8 +8,6 @@ import org.bukkit.generator.ChunkGenerator;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,9 +190,9 @@ public class WorldServer extends World implements BlockChangeDelegate {
         if (flag != this.v()) {
             // CraftBukkit start - only sending weather packets to those affected
             for (int i = 0; i < this.players.size(); ++i) {
-                EntityPlayer eplayer = ((EntityPlayer) this.players.get(i));
-                if (eplayer.world == this) {
-                    eplayer.netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
+                EntityPlayer player = ((EntityPlayer) this.players.get(i));
+                if (player.world == this) {
+                    player.netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
                 }
             }
             // CraftBukkit end
