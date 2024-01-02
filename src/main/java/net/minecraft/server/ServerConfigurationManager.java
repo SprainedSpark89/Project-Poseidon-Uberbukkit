@@ -358,9 +358,6 @@ public class ServerConfigurationManager {
     public void sendAll(Packet packet) {
         for (int i = 0; i < this.players.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
-            
-            if (packet != null)
-            	packet.pvn = entityplayer.netServerHandler.networkManager.pvn;
 
             entityplayer.netServerHandler.sendPacket(packet);
         }
@@ -371,9 +368,6 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
 
             if (entityplayer.dimension == i) {
-            	if (packet != null)
-                	packet.pvn = entityplayer.netServerHandler.networkManager.pvn;
-            	
                 entityplayer.netServerHandler.sendPacket(packet);
             }
         }
@@ -635,7 +629,6 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (this.isOp(entityplayer.name)) {
-            	packet3chat.pvn = entityplayer.netServerHandler.networkManager.pvn;
                 entityplayer.netServerHandler.sendPacket(packet3chat);
             }
         }

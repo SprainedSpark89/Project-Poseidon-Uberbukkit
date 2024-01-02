@@ -231,14 +231,14 @@ public class EntityTrackerEntry {
         while (iterator.hasNext()) {
             EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-            entityplayer.netServerHandler.sendPacket(packet);
+            entityplayer.netServerHandler.sendPacket(packet.clone()); // uberbukkit - .clone()
         }
     }
 
     public void b(Packet packet) {
         this.a(packet);
         if (this.tracker instanceof EntityPlayer) {
-            ((EntityPlayer) this.tracker).netServerHandler.sendPacket(packet);
+            ((EntityPlayer) this.tracker).netServerHandler.sendPacket(packet.clone()); // uberbukkit - .clone()
         }
     }
 

@@ -187,6 +187,11 @@ public abstract class Packet {
 
     public abstract int a();
 
+    // uberbukkit - cloning assures that a packet queued for everyone is sent according to each player's PVN
+    public Packet clone() {
+        return this;
+    }
+
     static {
         a(0, true, true, Packet0KeepAlive.class);
         a(1, true, true, Packet1Login.class);
