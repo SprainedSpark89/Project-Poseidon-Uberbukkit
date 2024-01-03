@@ -67,4 +67,9 @@ public class Packet130UpdateSign extends Packet {
 
         return i;
     }
+
+    @Override
+    public Packet clone() {
+        return new Packet130UpdateSign(this.x, this.y, this.z, this.lines);
+    }
 }

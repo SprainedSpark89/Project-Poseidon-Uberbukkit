@@ -105,6 +105,7 @@ public class Packet5EntityEquipment extends Packet {
     }
 
     // uberbukkit
+    @Override
     public Packet clone() {
         Packet5EntityEquipment packet = new Packet5EntityEquipment();
         packet.a = this.a;
