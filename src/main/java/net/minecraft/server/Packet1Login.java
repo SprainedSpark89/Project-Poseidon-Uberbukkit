@@ -22,7 +22,7 @@ public class Packet1Login extends Packet {
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = this.pvn = datainputstream.readInt();
-        // uberbukkit
+        // uberbukkit start
         if (this.pvn >= 11) {
             this.name = a(datainputstream, 16);
         } else {
@@ -30,8 +30,11 @@ public class Packet1Login extends Packet {
             datainputstream.readUTF();
         }
 
-        this.c = datainputstream.readLong();
-        this.d = datainputstream.readByte();
+        if (this.pvn >= 3) {
+            this.c = datainputstream.readLong();
+            this.d = datainputstream.readByte();
+        }
+        // uberbukkit end
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
@@ -44,8 +47,10 @@ public class Packet1Login extends Packet {
             dataoutputstream.writeUTF("");
         }
 
-        dataoutputstream.writeLong(this.c);
-        dataoutputstream.writeByte(this.d);
+        if (this.pvn >= 3) {
+            dataoutputstream.writeLong(this.c);
+            dataoutputstream.writeByte(this.d);
+        }
     }
 
     public void a(NetHandler nethandler) {
@@ -53,6 +58,6 @@ public class Packet1Login extends Packet {
     }
 
     public int a() {
-        return 4 + this.name.length() + 4 + 5;
+        return 4 + this.name.length() + 4 + (this.pvn >= 3 ? 5 : 0); // uberbukkit
     }
 }

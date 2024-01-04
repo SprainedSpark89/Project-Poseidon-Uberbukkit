@@ -15,13 +15,19 @@ public class Packet7UseEntity extends Packet {
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();
         this.target = datainputstream.readInt();
-        this.c = datainputstream.readByte();
+        // uberbukkit
+        if (this.pvn >= 5)
+            this.c = datainputstream.readByte();
+        else
+            this.c = 0;
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeInt(this.target);
-        dataoutputstream.writeByte(this.c);
+        // uberbukkit
+        if (this.pvn >= 5)
+            dataoutputstream.writeByte(this.c);
     }
 
     public void a(NetHandler nethandler) {
@@ -29,6 +35,6 @@ public class Packet7UseEntity extends Packet {
     }
 
     public int a() {
-        return 9;
+        return 8 + (this.pvn >= 5 ? 1 : 0); // uberbukkit
     }
 }

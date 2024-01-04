@@ -22,6 +22,10 @@ public class Packet24MobSpawn extends Packet {
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
         this.b = (byte) EntityTypes.a(entityliving);
+        // uberbukkit - a1.1.2_01 doesn't recognize cows and sheep
+        if (this.pvn <= 2 && (this.b == 92 || this.b == 93))
+            this.b = 91;
+
         this.c = MathHelper.floor(entityliving.locX * 32.0D);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
         this.e = MathHelper.floor(entityliving.locZ * 32.0D);

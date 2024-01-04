@@ -1028,6 +1028,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.networkManager.queue(new Packet53BlockChange(packet53.a, packet53.b, packet53.c, 1, packet53.data));
                 packet = null;
             }
+        } else if (packet instanceof Packet18ArmAnimation) {
+            Packet18ArmAnimation packet18 = (Packet18ArmAnimation)packet;
+            
+            // skip riding/burning/sneaking packets for a1.1.2_01
+            if (this.networkManager.pvn <= 2 && packet18.b >= 100) {
+                this.g = this.f;
+                return;
+            }
         }
 
         // CraftBukkit start
