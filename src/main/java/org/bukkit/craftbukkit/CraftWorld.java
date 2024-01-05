@@ -99,7 +99,7 @@ import net.minecraft.server.WorldGenTaiga2;
 import net.minecraft.server.WorldGenTrees;
 import net.minecraft.server.WorldProvider;
 import net.minecraft.server.WorldServer;
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class CraftWorld implements World {
     private final WorldServer world;

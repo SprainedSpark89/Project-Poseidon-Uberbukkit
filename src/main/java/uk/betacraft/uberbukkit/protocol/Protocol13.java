@@ -1,4 +1,4 @@
-package pl.moresteck.uberbukkit.protocol;
+package uk.betacraft.uberbukkit.protocol;
 
 public class Protocol13 extends Protocol14 {
 

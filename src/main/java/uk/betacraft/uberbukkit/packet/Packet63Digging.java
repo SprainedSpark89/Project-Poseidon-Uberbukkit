@@ -1,8 +1,11 @@
-package net.minecraft.server;
+package uk.betacraft.uberbukkit.packet;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import net.minecraft.server.NetHandler;
+import net.minecraft.server.Packet;
 
 public class Packet63Digging extends Packet {
     public int x;

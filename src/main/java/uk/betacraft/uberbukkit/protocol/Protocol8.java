@@ -1,13 +1,12 @@
-package pl.moresteck.uberbukkit.protocol;
+package uk.betacraft.uberbukkit.protocol;
 
-public class Protocol10 extends Protocol11 {
+public class Protocol8 extends Protocol9 {
 
     @Override
     public boolean canReceiveBlockItem(int id) {
         switch (id) {
-            case 30: // cobweb
-            case 27: // powered rails
-            case 28: // detector rails
+            case 355: // bed
+            case 356: // redstone repeater
                 return false;
             default:
                 return super.canReceiveBlockItem(id);
@@ -17,8 +16,8 @@ public class Protocol10 extends Protocol11 {
     @Override
     public boolean canReceivePacket(int id) {
         switch (id) {
-            case 200: // statistics
-            case 71: // weather
+            case 17: // bed error
+            case 27: // sneak
                 return false;
             default:
                 return super.canReceivePacket(id);

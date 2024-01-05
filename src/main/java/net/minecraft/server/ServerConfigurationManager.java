@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,9 +15,6 @@ import org.bukkit.event.player.*;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
-
-// CraftBukkit start
-// CraftBukkit end
 
 public class ServerConfigurationManager {
 

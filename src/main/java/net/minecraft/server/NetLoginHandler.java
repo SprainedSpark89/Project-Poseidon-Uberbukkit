@@ -5,8 +5,8 @@ import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-import pl.moresteck.uberbukkit.protocol.Protocol;
+import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.protocol.Protocol;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

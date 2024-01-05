@@ -4,9 +4,9 @@ package net.minecraft.server;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.inventory.FurnaceSmeltEvent;
-
-import pl.moresteck.uberbukkit.Uberbukkit;
 // CraftBukkit end
+
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class TileEntityFurnace extends TileEntity implements IInventory {
 

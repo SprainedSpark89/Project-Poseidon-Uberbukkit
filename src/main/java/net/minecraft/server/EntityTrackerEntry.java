@@ -7,8 +7,6 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class EntityTrackerEntry {
 
     public Entity tracker;

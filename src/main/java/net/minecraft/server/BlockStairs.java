@@ -3,7 +3,7 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class BlockStairs extends Block {
 

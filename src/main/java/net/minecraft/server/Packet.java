@@ -3,6 +3,9 @@ package net.minecraft.server;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.packets.ArtificialPacket53BlockChange;
 
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.packet.Packet63Digging;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;

@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class EntityTracker {
 
     private Set a = new HashSet();

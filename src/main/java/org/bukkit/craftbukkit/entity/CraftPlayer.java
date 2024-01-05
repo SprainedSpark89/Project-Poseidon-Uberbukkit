@@ -3,7 +3,6 @@ package org.bukkit.craftbukkit.entity;
 import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.ConnectionType;
 import net.minecraft.server.*;
-import pl.moresteck.uberbukkit.Uberbukkit;
 
 import org.bukkit.Achievement;
 import org.bukkit.Material;

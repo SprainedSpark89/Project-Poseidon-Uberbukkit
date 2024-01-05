@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
-import pl.moresteck.uberbukkit.Uberbukkit;
 
 public class FlushInvCommand extends Command {
     public FlushInvCommand() {

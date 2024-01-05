@@ -1,11 +1,13 @@
-package pl.moresteck.uberbukkit.protocol;
+package uk.betacraft.uberbukkit.protocol;
 
-public class Protocol5 extends Protocol6 {
+public class Protocol4 extends Protocol5 {
 
     @Override
     public boolean canReceivePacket(int id) {
         switch (id) {
-            case 60: // explosion
+            case 8: // health update
+            case 9: // respawn
+            case 38: // entity status
                 return false;
             default:
                 return super.canReceivePacket(id);

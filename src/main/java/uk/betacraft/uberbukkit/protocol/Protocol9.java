@@ -1,14 +1,14 @@
-package pl.moresteck.uberbukkit.protocol;
+package uk.betacraft.uberbukkit.protocol;
 
-public class Protocol11 extends Protocol13 {
+import org.bukkit.entity.Wolf;
+
+public class Protocol9 extends Protocol10 {
 
     @Override
     public boolean canReceiveBlockItem(int id) {
         switch (id) {
-            case 31: // tallgrass
-            case 32: // dead bush
-            case 358: // map
-            case 96: // trapdoor
+            case 95: // locked chest
+            case 357: // cookie
                 return false;
             default:
                 return super.canReceiveBlockItem(id);
@@ -18,11 +18,18 @@ public class Protocol11 extends Protocol13 {
     @Override
     public boolean canReceivePacket(int id) {
         switch (id) {
-            case 61: // jukebox and effects
-            case 131: // map packet
+            case 70: // bed
                 return false;
             default:
                 return super.canReceivePacket(id);
         }
+    }
+
+    @Override
+    public boolean canSeeMob(Class<?> claz) {
+        if (Wolf.class.isAssignableFrom(claz))
+            return false;
+
+        return super.canSeeMob(claz);
     }
 }

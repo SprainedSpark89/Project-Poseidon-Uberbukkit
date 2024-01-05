@@ -21,8 +21,9 @@ import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
 import com.projectposeidon.api.PoseidonUUID;
 
 import me.devcody.uberbukkit.util.math.Vec3i;
-import pl.moresteck.uberbukkit.ProcessPacket5;
-import pl.moresteck.uberbukkit.protocol.Protocol;
+import uk.betacraft.uberbukkit.alpha_inventory.ProcessPacket5;
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.protocol.Protocol;
 
 // CraftBukkit start
 

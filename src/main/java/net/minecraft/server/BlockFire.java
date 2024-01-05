@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Random;
+
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
@@ -8,9 +10,7 @@ import org.bukkit.material.MaterialData;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
-import java.util.Random;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 // CraftBukkit start
 // CraftBukkit end

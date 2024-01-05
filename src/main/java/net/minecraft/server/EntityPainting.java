@@ -1,15 +1,12 @@
 package net.minecraft.server;
 
-import org.bukkit.event.painting.PaintingBreakByEntityEvent;
-import org.bukkit.event.painting.PaintingBreakByWorldEvent;
-
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 import java.util.ArrayList;
 import java.util.List;
 
-// CraftBukkit start
-// CraftBukkit end
+import org.bukkit.event.painting.PaintingBreakByEntityEvent;
+import org.bukkit.event.painting.PaintingBreakByWorldEvent;
+
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class EntityPainting extends Entity {
 

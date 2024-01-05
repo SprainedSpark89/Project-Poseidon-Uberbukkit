@@ -1,4 +1,6 @@
-package pl.moresteck.uberbukkit.protocol;
+package uk.betacraft.uberbukkit.protocol;
+
+import uk.betacraft.uberbukkit.protocol.extension.*;
 
 public interface Protocol {
     public boolean canReceiveBlockItem(int id);

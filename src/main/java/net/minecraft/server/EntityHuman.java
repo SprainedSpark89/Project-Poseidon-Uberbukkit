@@ -1,7 +1,8 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-import me.devcody.uberbukkit.util.math.Vec3i;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bukkit.craftbukkit.TrigMath;
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.entity.Player;
@@ -14,13 +15,10 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-import java.util.Iterator;
-import java.util.List;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
-// CraftBukkit start
-// CraftBukkit end
+import me.devcody.uberbukkit.util.math.Vec3i;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public abstract class EntityHuman extends EntityLiving {
 

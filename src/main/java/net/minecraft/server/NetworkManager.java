@@ -17,8 +17,8 @@ import org.bukkit.ChatColor;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerReceivePacketEvent;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-import pl.moresteck.uberbukkit.protocol.Protocol;
+import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.protocol.Protocol;
 
 public class NetworkManager {
 

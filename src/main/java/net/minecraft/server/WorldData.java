@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.List;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class WorldData {
 

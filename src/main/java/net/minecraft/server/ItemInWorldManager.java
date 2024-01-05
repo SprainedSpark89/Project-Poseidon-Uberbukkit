@@ -14,6 +14,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.legacyminecraft.poseidon.packets.ArtificialPacket53BlockChange;
 // CraftBukkit end
 
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.packet.Packet63Digging;
+
 public class ItemInWorldManager {
 
     private WorldServer world;

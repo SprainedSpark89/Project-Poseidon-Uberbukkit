@@ -32,7 +32,7 @@ import org.bukkit.generator.ChunkGenerator;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 // CraftBukkit start
 // CraftBukkit end

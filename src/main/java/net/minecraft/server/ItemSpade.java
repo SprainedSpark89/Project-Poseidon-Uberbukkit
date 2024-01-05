@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class ItemSpade extends ItemTool {
 

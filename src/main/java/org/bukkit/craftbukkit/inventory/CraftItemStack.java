@@ -3,7 +3,7 @@ package org.bukkit.craftbukkit.inventory;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class CraftItemStack extends ItemStack {
     protected net.minecraft.server.ItemStack item;

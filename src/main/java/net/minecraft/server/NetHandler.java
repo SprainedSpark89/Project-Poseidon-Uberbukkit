@@ -1,5 +1,8 @@
 package net.minecraft.server;
 
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.packet.Packet63Digging;
+
 public abstract class NetHandler {
 
     public NetHandler() {}

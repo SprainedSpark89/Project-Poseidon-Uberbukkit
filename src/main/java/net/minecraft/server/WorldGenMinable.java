@@ -4,8 +4,6 @@ import java.util.Random;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class WorldGenMinable extends WorldGenerator {
 
     private int a;

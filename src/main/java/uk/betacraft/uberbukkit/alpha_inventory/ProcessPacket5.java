@@ -1,4 +1,4 @@
-package pl.moresteck.uberbukkit;
+package uk.betacraft.uberbukkit.alpha_inventory;
 
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.Item;
@@ -19,7 +19,7 @@ public class ProcessPacket5 {
     public void process(Packet5EntityEquipment packet) {
         if (debug)
             System.out.println("PACKET 5 received");
-    	
+
         // we have to find out what's being changed: if any item(stack) is being removed, or if any is being added
         // only allow additions of items if there's enough of them in the queue
         // mark removals by adding the removed items into the queue
@@ -118,7 +118,7 @@ public class ProcessPacket5 {
                             System.out.println("cl.dmg = " + client.damage + ", srv.dmg: " + serverside.damage);
                             System.out.println("cl.cnt = " + client.count + ", srv.cnt: " + serverside.count);
                         }
-                        
+
                         // won't get accepted by the server
                         return;
                     }

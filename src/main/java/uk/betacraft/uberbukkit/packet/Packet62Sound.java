@@ -1,8 +1,11 @@
-package net.minecraft.server;
+package uk.betacraft.uberbukkit.packet;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import net.minecraft.server.NetHandler;
+import net.minecraft.server.Packet;
 
 public class Packet62Sound extends Packet {
     public String sound;

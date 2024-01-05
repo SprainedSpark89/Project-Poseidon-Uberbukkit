@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+
 public class WorldManager implements IWorldAccess {
 
     private MinecraftServer server;

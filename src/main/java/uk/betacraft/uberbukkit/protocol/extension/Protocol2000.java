@@ -1,4 +1,6 @@
-package pl.moresteck.uberbukkit.protocol;
+package uk.betacraft.uberbukkit.protocol.extension;
+
+import uk.betacraft.uberbukkit.protocol.Protocol;
 
 public class Protocol2000 implements Protocol {
 

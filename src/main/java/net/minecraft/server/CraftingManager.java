@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class CraftingManager {
 
