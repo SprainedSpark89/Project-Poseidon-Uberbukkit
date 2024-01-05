@@ -17,7 +17,7 @@ public class BlockWorkbench extends Block {
         } else {
             // uberbukkit
             if (entityhuman instanceof EntityPlayer) {
-                ((EntityPlayer)entityhuman).isInWorkbench = true;
+                ((EntityPlayer) entityhuman).isInWorkbench = true;
             }
 
             entityhuman.b(i, j, k);

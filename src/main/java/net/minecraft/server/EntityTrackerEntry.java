@@ -86,7 +86,7 @@ public class EntityTrackerEntry {
             int rotationUpdateTreshold = 1;
             boolean needsPositionUpdate = Math.abs(encodedDiffX) >= movementUpdateTreshold || Math.abs(encodedDiffY) >= movementUpdateTreshold || Math.abs(encodedDiffZ) >= movementUpdateTreshold
                     || tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
-            
+
             boolean needsRotationUpdate = Math.abs(newEncodedRotationYaw - this.g) >= rotationUpdateTreshold || Math.abs(newEncodedRotationPitch - this.h) >= rotationUpdateTreshold;
 
             // CraftBukkit start - Code moved from below
@@ -101,7 +101,7 @@ public class EntityTrackerEntry {
                 this.h = newEncodedRotationPitch;
             }
             // CraftBukkit end
-            
+
             if (encodedDiffX >= -128 && encodedDiffX < 128 && encodedDiffY >= -128 && encodedDiffY < 128 && encodedDiffZ >= -128 && encodedDiffZ < 128 && this.t <= 400) {
                 // entity has moved less than 4 blocks
                 if (needsPositionUpdate && needsRotationUpdate) {
@@ -118,13 +118,13 @@ public class EntityTrackerEntry {
                 //this.tracker.locY = (double) j / 32.0D;
                 //this.tracker.locZ = (double) k / 32.0D;
                 // entity has moved more than 4 blocks, send teleport
-                
+
                 // CraftBukkit start - Refresh list of who can see a player before sending teleport packet
                 if (this.tracker instanceof EntityPlayer) {
                     this.scanPlayers(new java.util.ArrayList(this.trackedPlayers));
                 }
                 // CraftBukkit end
-                
+
                 packet = new Packet34EntityTeleport(this.tracker.id, newEncodedPosX, newEncodedPosY, newEncodedPosZ, (byte) newEncodedRotationYaw, (byte) newEncodedRotationPitch);
             }
 
@@ -147,13 +147,13 @@ public class EntityTrackerEntry {
                 this.a((Packet) packet);
             }
 
-            
+
             DataWatcher datawatcher = this.tracker.aa();
 
             if (datawatcher.a()) {
                 this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));
             }
-            
+
             // uberbukkit - send both methods. legacy packet 18 gets ignored by clients that support packet 40
             if (this.b_ && this.tracker.vehicle == null) {
                 this.b_ = false;
@@ -200,22 +200,21 @@ public class EntityTrackerEntry {
             // CraftBukkit start - create PlayerVelocity event
             boolean cancelled = false;
 
-            if(this.tracker instanceof EntityPlayer) {
+            if (this.tracker instanceof EntityPlayer) {
                 org.bukkit.entity.Player player = (org.bukkit.entity.Player) this.tracker.getBukkitEntity();
                 org.bukkit.util.Vector velocity = player.getVelocity();
 
                 org.bukkit.event.player.PlayerVelocityEvent event = new org.bukkit.event.player.PlayerVelocityEvent(player, velocity);
                 this.tracker.world.getServer().getPluginManager().callEvent(event);
 
-                if(event.isCancelled()) {
+                if (event.isCancelled()) {
                     cancelled = true;
-                }
-                else if(!velocity.equals(event.getVelocity())) {
+                } else if (!velocity.equals(event.getVelocity())) {
                     player.setVelocity(velocity);
                 }
             }
 
-            if(!cancelled) {
+            if (!cancelled) {
                 this.b((Packet) (new Packet28EntityVelocity(this.tracker)));
             }
             // CraftBukkit end
@@ -274,12 +273,12 @@ public class EntityTrackerEntry {
                             return;
                         }
                     }
-                    
+
                     entityplayer.removeQueue.remove(Integer.valueOf(this.tracker.id));
                     // CraftBukkit end
-                    
+
                     this.trackedPlayers.add(entityplayer);
-					// Poseidon start
+                    // Poseidon start
                     Packet packet = this.b(entityplayer.netServerHandler.networkManager.pvn);
                     entityplayer.netServerHandler.sendPacket(packet);
 
@@ -297,12 +296,12 @@ public class EntityTrackerEntry {
                             entityplayer.netServerHandler.sendPacket((Packet) (new Packet18ArmAnimation(this.tracker, 102)));
                         }
                     } else {
-						if (!this.tracker.datawatcher.getD()) {
-							entityplayer.netServerHandler.sendPacket(new Packet40EntityMetadata(this.tracker.id, this.tracker.datawatcher));
-						}
-					}
+                        if (!this.tracker.datawatcher.getD()) {
+                            entityplayer.netServerHandler.sendPacket(new Packet40EntityMetadata(this.tracker.id, this.tracker.datawatcher));
+                        }
+                    }
 
-					this.i = this.tracker.motX;
+                    this.i = this.tracker.motX;
                     this.j = this.tracker.motY;
                     this.k = this.tracker.motZ;
                     if (this.isMoving) {
@@ -313,7 +312,7 @@ public class EntityTrackerEntry {
                         entityplayer.netServerHandler.sendPacket(new Packet39AttachEntity(this.tracker, this.tracker.vehicle));
                     }
                     // Poseidon end
-                    
+
                     // CraftBukkit start
                     if (this.tracker.passenger != null) {
                         entityplayer.netServerHandler.sendPacket(new Packet39AttachEntity(this.tracker.passenger, this.tracker));
@@ -344,7 +343,7 @@ public class EntityTrackerEntry {
             }
         }
     }
-    
+
     private boolean d(EntityPlayer entityplayer) {
         return entityplayer.getWorldServer().getPlayerManager().a(entityplayer, this.tracker.bH, this.tracker.bJ);
     }
@@ -362,7 +361,7 @@ public class EntityTrackerEntry {
             return null;
             // CraftBukkit end
         }
-        
+
         if (this.tracker instanceof EntityItem) {
             EntityItem entityitem = (EntityItem) this.tracker;
             Packet21PickupSpawn packet21pickupspawn = new Packet21PickupSpawn(entityitem);

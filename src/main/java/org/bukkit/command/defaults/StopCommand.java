@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 public class StopCommand extends VanillaCommand {
     private final String msgKickShutdown;
-    
+
     public StopCommand() {
         super("stop");
         this.description = "Stops the server";

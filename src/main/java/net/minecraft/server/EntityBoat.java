@@ -55,7 +55,8 @@ public class EntityBoat extends Entity {
         return false;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public AxisAlignedBB a_(Entity entity) {
         return entity.boundingBox;
@@ -123,7 +124,7 @@ public class EntityBoat extends Entity {
 
                 // uberbukkit - drop boat on damage, not planks & sticks
                 if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boat.drop_boat_not_wood", false)) {
-                	int j;
+                    int j;
 
                     for (j = 0; j < 3; ++j) {
                         this.a(Block.WOOD.id, 1, 0.0F);
@@ -133,7 +134,7 @@ public class EntityBoat extends Entity {
                         this.a(Item.STICK.id, 1, 0.0F);
                     }
                 } else {
-                	this.a(Item.BOAT.id, 1, 0.0F);
+                    this.a(Item.BOAT.id, 1, 0.0F);
                 }
 
                 this.die();
@@ -289,13 +290,13 @@ public class EntityBoat extends Entity {
 
             if (this.positionChanged && d4 > 0.15D) {
                 if (!this.world.isStatic) {
-                	
+
                     if (PoseidonConfig.getInstance().getBoolean("version.mechanics.boat.break_boat_on_collision", true)) {
-                		this.die();
+                        this.die();
 
                         // uberbukkit - drop boat on damage, not planks & sticks
                         if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boat.drop_boat_not_wood", false)) {
-                        	int k;
+                            int k;
 
                             for (k = 0; k < 3; ++k) {
                                 this.a(Block.WOOD.id, 1, 0.0F);
@@ -305,11 +306,11 @@ public class EntityBoat extends Entity {
                                 this.a(Item.STICK.id, 1, 0.0F);
                             }
                         } else {
-                        	this.a(Item.BOAT.id, 1, 0.0F);
+                            this.a(Item.BOAT.id, 1, 0.0F);
                         }
                     }
-                    
-                    
+
+
                 }
             } else {
                 this.motX *= 0.9900000095367432D;
@@ -402,9 +403,11 @@ public class EntityBoat extends Entity {
         }
     }
 
-    protected void b(NBTTagCompound nbttagcompound) {}
+    protected void b(NBTTagCompound nbttagcompound) {
+    }
 
-    protected void a(NBTTagCompound nbttagcompound) {}
+    protected void a(NBTTagCompound nbttagcompound) {
+    }
 
     public boolean a(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {

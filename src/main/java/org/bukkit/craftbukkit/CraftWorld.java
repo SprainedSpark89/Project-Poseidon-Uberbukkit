@@ -104,8 +104,8 @@ import uk.betacraft.uberbukkit.Uberbukkit;
 public class CraftWorld implements World {
     private final WorldServer world;
     private Environment environment;
-    private final CraftServer server = (CraftServer)Bukkit.getServer();
-//    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
+    private final CraftServer server = (CraftServer) Bukkit.getServer();
+    //    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
     private final ChunkGenerator generator;
     private final List<BlockPopulator> populators = new ArrayList<BlockPopulator>();
 
@@ -353,15 +353,15 @@ public class CraftWorld implements World {
     }
 
     public org.bukkit.entity.Item dropItem(Location loc, ItemStack item) {
-    	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
-    		return null;
-    	}
+        // uberbukkit
+        if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+            return null;
+        }
 
         net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(
-            item.getTypeId(),
-            item.getAmount(),
-            item.getDurability()
+                item.getTypeId(),
+                item.getAmount(),
+                item.getDurability()
         );
         EntityItem entity = new EntityItem(world, loc.getX(), loc.getY(), loc.getZ(), stack);
         entity.pickupDelay = 10;
@@ -396,13 +396,13 @@ public class CraftWorld implements World {
             EntityLiving entityCreature = (EntityLiving) EntityTypes.a(creatureType.getName(), world);
             entityCreature.setPosition(loc.getX(), loc.getY(), loc.getZ());
             creature = (LivingEntity) CraftEntity.getEntity(server, entityCreature);
-            
+
             // uberbukkit
-			if (!Uberbukkit.getProtocolHandler().canSeeMob(creature.getClass())) {
-				entityCreature.die();
-				return null;
-			}
-            
+            if (!Uberbukkit.getProtocolHandler().canSeeMob(creature.getClass())) {
+                entityCreature.die();
+                return null;
+            }
+
             world.addEntity(entityCreature, SpawnReason.CUSTOM);
         } catch (Exception e) {
             // if we fail, for any reason, return null.
@@ -485,7 +485,7 @@ public class CraftWorld implements World {
         world.setTime(time);
 
         // Forces the client to update to the new time immediately
-        for (Player p: getPlayers()) {
+        for (Player p : getPlayers()) {
             CraftPlayer cp = (CraftPlayer) p;
             cp.getHandle().netServerHandler.sendPacket(new Packet4UpdateTime(cp.getHandle().getPlayerTime()));
         }
@@ -499,7 +499,7 @@ public class CraftWorld implements World {
         return createExplosion(x, y, z, power, setFire, EntityDamageEvent.DamageCause.PLUGIN_EXPLOSION);
     }
 
-    public boolean createExplosion(double x, double y, double z, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause){
+    public boolean createExplosion(double x, double y, double z, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause) {
         return world.createExplosion(null, x, y, z, power, setFire, customDamageCause).wasCanceled ? false : true;
     }
 
@@ -511,7 +511,7 @@ public class CraftWorld implements World {
         return createExplosion(loc.getX(), loc.getY(), loc.getZ(), power, setFire);
     }
 
-    public boolean createExplosion(Location loc, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause){
+    public boolean createExplosion(Location loc, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause) {
         return createExplosion(loc.getX(), loc.getY(), loc.getZ(), power, setFire, customDamageCause);
     }
 
@@ -593,7 +593,7 @@ public class CraftWorld implements World {
     }
 
     public double getTemperature(int x, int z) {
-        return getHandle().getWorldChunkManager().a((double[])null, x, z, 1, 1)[0];
+        return getHandle().getWorldChunkManager().a((double[]) null, x, z, 1, 1)[0];
     }
 
     public double getHumidity(int x, int z) {
@@ -603,7 +603,7 @@ public class CraftWorld implements World {
     public List<Entity> getEntities() {
         List<Entity> list = new ArrayList<Entity>();
 
-        for (Object o: world.entityList) {
+        for (Object o : world.entityList) {
             if (o instanceof net.minecraft.server.Entity) {
                 net.minecraft.server.Entity mcEnt = (net.minecraft.server.Entity) o;
                 Entity bukkitEntity = mcEnt.getBukkitEntity();
@@ -621,7 +621,7 @@ public class CraftWorld implements World {
     public List<LivingEntity> getLivingEntities() {
         List<LivingEntity> list = new ArrayList<LivingEntity>();
 
-        for (Object o: world.entityList) {
+        for (Object o : world.entityList) {
             if (o instanceof net.minecraft.server.Entity) {
                 net.minecraft.server.Entity mcEnt = (net.minecraft.server.Entity) o;
                 Entity bukkitEntity = mcEnt.getBukkitEntity();
@@ -769,7 +769,7 @@ public class CraftWorld implements World {
 
         // uberbukkit
         if (!Uberbukkit.getProtocolHandler().canSeeMob(clazz)) {
-        	return null;
+            return null;
         }
 
         net.minecraft.server.Entity entity = null;

@@ -92,7 +92,7 @@ public class InventoryQueue {
         }
 
         ArrayList<InventoryItem> matching = new ArrayList<>();
-        for (InventoryItem que: queue) {
+        for (InventoryItem que : queue) {
             if (que != null) {
                 if (que.getId() == item.id && (que.getDamage() == item.damage || item.damage == -1)) {
                     matching.add(que);

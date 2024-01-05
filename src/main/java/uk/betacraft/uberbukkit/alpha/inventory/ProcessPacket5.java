@@ -69,7 +69,8 @@ public class ProcessPacket5 {
                 // now we gotta find out what's different
                 if (client == null && serverside != null) {
                     unfinalized.addStackToQueue(serverside);
-                    if (debug) System.out.println("Removing id: " + serverside.id + ", dmg: " + serverside.damage + ", cnt: " + serverside.count);
+                    if (debug)
+                        System.out.println("Removing id: " + serverside.id + ", dmg: " + serverside.damage + ", cnt: " + serverside.count);
 //                    for (int j = 0; j < serverside.count; j++) {
 //                        unfinalized.addStackToQueue(serverside);
 //                    }
@@ -78,7 +79,7 @@ public class ProcessPacket5 {
                     if (packet.a == -3) {
                         Item item = Item.byId[client.id];
                         if (item != null && item instanceof ItemArmor) {
-                            int fit = ((ItemArmor)item).bk;
+                            int fit = ((ItemArmor) item).bk;
                             if ((i == 0 && fit != 3) || (i == 1 && fit != 2) || (i == 2 && fit != 1) || (i == 3 && fit != 0)) {
                                 if (debug) System.out.println("Armor slot " + i + " but item is at " + fit);
                                 return;
@@ -88,23 +89,28 @@ public class ProcessPacket5 {
 
                     // check if we can allow for addition
                     if (!unfinalized.hasInQueue(client)) {
-                        if (debug) System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                        if (debug)
+                            System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                         return;
                     }
-                    if (debug) System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                    if (debug)
+                        System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                 } else if (client.count != serverside.count && client.id == serverside.id && client.damage == serverside.damage) {
                     int change = client.count - serverside.count;
                     if (change > 0) {
                         if (!unfinalized.hasInQueue(client)) {
-                            if (debug) System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                            if (debug)
+                                System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                             return;
                         }
-                        if (debug) System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
+                        if (debug)
+                            System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                     } else {
                         ItemStack toadd = client.cloneItemStack();
                         toadd.count = -change;
                         unfinalized.addStackToQueue(toadd);
-                        if (debug) System.out.println("Removing id: " + toadd.id + ", dmg: " + toadd.damage + ", cnt: " + toadd.count);
+                        if (debug)
+                            System.out.println("Removing id: " + toadd.id + ", dmg: " + toadd.damage + ", cnt: " + toadd.count);
                     }
                 } else {
                     // itemstack swap request

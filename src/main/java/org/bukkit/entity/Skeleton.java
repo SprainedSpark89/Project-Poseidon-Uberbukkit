@@ -9,4 +9,5 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Skeleton extends Monster {}
+public interface Skeleton extends Monster {
+}

@@ -60,7 +60,7 @@ public class BlockTNT extends Block {
         if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.tnt_require_lighter", true)) {
             world.setRawData(i, j, k, 1);
         }
-        
+
         if ((entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id)) {
             world.setRawData(i, j, k, 1);
         }

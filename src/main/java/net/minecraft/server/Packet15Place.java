@@ -13,7 +13,8 @@ public class Packet15Place extends Packet {
     public ItemStack itemstack;
     public int data;
 
-    public Packet15Place() {}
+    public Packet15Place() {
+    }
 
     public void a(DataInputStream datainputstream) throws IOException {
         if (this.pvn <= 6) {

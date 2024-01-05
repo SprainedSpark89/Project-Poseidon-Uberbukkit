@@ -861,7 +861,7 @@ public final class CraftServer implements Server {
     public void addHiddenCommand(String cmd) {
         cmd = cmd.toLowerCase();
 
-        if(hiddenCommands.contains(cmd)) {
+        if (hiddenCommands.contains(cmd)) {
             Logger.getLogger(NetServerHandler.class.getName()).warning("List of Hidden commands already contains " + cmd);
             return;
         }
@@ -870,7 +870,7 @@ public final class CraftServer implements Server {
     }
 
     public void addHiddenCommands(List<String> commands) {
-        for(String cmd : commands) {
+        for (String cmd : commands) {
             addHiddenCommand(cmd);
         }
     }

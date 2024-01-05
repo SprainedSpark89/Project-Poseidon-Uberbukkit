@@ -24,7 +24,8 @@ public class Packet62Sound extends Packet {
         this.pitch = f1;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {}
+    public void a(DataInputStream datainputstream) throws IOException {
+    }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeUTF(this.sound);

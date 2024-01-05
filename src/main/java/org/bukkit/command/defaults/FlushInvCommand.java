@@ -24,7 +24,7 @@ public class FlushInvCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         Player player = null;
-        if (args.length != 1 && sender instanceof Player)  {
+        if (args.length != 1 && sender instanceof Player) {
             player = (Player) sender;
         } else if (!(sender instanceof Player) && args.length != 1) {
             sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
@@ -33,7 +33,7 @@ public class FlushInvCommand extends Command {
             player = Bukkit.getPlayer(args[0]);
         }
 
-        EntityPlayer entity = ((CraftPlayer)player).getHandle();
+        EntityPlayer entity = ((CraftPlayer) player).getHandle();
         if (entity.netServerHandler.networkManager.pvn <= 6) {
             ArrayList<ItemStack> queue = entity.packet5.queue.dropAllQueue();
             for (ItemStack item : queue) {

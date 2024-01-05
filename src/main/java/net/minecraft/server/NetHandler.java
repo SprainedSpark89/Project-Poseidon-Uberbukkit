@@ -5,15 +5,19 @@ import uk.betacraft.uberbukkit.packet.Packet63Digging;
 
 public abstract class NetHandler {
 
-    public NetHandler() {}
+    public NetHandler() {
+    }
 
     public abstract boolean c();
 
-    public void a(Packet51MapChunk packet51mapchunk) {}
+    public void a(Packet51MapChunk packet51mapchunk) {
+    }
 
-    public void a(Packet packet) {}
+    public void a(Packet packet) {
+    }
 
-    public void a(String s, Object[] aobject) {}
+    public void a(String s, Object[] aobject) {
+    }
 
     public void a(Packet0KeepAlive packet0KeepAlive) {
         this.a((Packet) packet0KeepAlive);
@@ -214,12 +218,12 @@ public abstract class NetHandler {
     public void a(Packet61 packet61) {
         this.a((Packet) packet61);
     }
-    
+
     public void handle62Sound(Packet62Sound packet62) {
-    	this.a((Packet) packet62);
+        this.a((Packet) packet62);
     }
-    
+
     public void handle63Digging(Packet63Digging packet62) {
-    	this.a((Packet) packet62);
+        this.a((Packet) packet62);
     }
 }

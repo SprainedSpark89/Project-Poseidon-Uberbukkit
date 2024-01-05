@@ -52,7 +52,7 @@ public class NetworkManager {
     private final boolean spamDetection;
 
     private final int threshold;
-    
+
     // uberbukkit
     public int pvn = 0;
     public Protocol protocol = null;

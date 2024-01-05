@@ -69,10 +69,10 @@ public class ChunkCache implements IBlockAccess {
 
         return l == 0 ? Material.AIR : Block.byId[l].material;
     }
-    
+
     public boolean p(int i, int j, int k) {
         Block block = Block.byId[this.getTypeId(i, j, k)];
-        
+
         return block == null ? false : block.a();
     }
 

@@ -43,7 +43,6 @@ import java.util.Map;
  *
  * <p>This class is currently incomplete. It is not yet possible to get a node.
  * </p>
- *
  */
 public class Configuration extends ConfigurationNode {
     private Yaml yaml;
@@ -81,7 +80,8 @@ public class Configuration extends ConfigurationNode {
                 if (stream != null) {
                     stream.close();
                 }
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
     }
 
@@ -149,12 +149,14 @@ public class Configuration extends ConfigurationNode {
             }
             yaml.dump(root, writer);
             return true;
-        } catch (IOException e) {} finally {
+        } catch (IOException e) {
+        } finally {
             try {
                 if (stream != null) {
                     stream.close();
                 }
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
 
         return false;
@@ -176,6 +178,7 @@ public class Configuration extends ConfigurationNode {
     /**
      * This method returns an empty ConfigurationNode for using as a
      * default in methods that select a node from a node list.
+     *
      * @return
      */
     public static ConfigurationNode getEmptyNode() {

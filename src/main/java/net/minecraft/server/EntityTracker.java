@@ -163,7 +163,7 @@ public class EntityTracker {
             entitytrackerentry.c(entityplayer);
         }
     }
-    
+
     // Poseidon
     // CraftBukkit - synchronized
     public synchronized void a(EntityPlayer entityplayer, Chunk chunk) {

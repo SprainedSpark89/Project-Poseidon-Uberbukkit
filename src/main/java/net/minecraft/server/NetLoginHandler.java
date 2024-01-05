@@ -35,14 +35,14 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
-    
+
     private final String msgKickShutdown;
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
         this.networkManager = new NetworkManager(socket, s, this);
         this.networkManager.f = 0;
-        
+
         this.msgKickShutdown = PoseidonConfig.getInstance().getConfigString("message.kick.shutdown");
     }
 
@@ -98,13 +98,13 @@ public class NetLoginHandler extends NetHandler {
         this.g = packet1login.name;
 
         this.networkManager.pvn = packet1login.pvn; // uberbukkit
-        
+
         // uberbukkit - account for b1.1_02's protocol version. assume b1.1_02
         if (Uberbukkit.getTargetPVN() == 7 && this.networkManager.pvn == 8)
             this.networkManager.pvn = 7;
-        
+
         this.networkManager.protocol = Protocol.getProtocolClass(this.networkManager.pvn);
-        
+
         if (!Uberbukkit.getAllowedPVNs().contains(this.networkManager.pvn)) {
             this.disconnect("Client version not allowed!");
         } else {
@@ -127,7 +127,7 @@ public class NetLoginHandler extends NetHandler {
                 this.disconnect((String) PoseidonConfig.getInstance().getConfigOption("settings.bungeecord.bungee-mode.kick-message"));
                 return;
             }
-            
+
             if (connectionType.equals(ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.RELEASE2BETA_ONLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_ONLINE_MODE_IP_FORWARDING)) {
                 //Proxy has IP Forwarding enabled
                 if ((Boolean) PoseidonConfig.getInstance().getConfigOption("settings.release2beta.enable-ip-pass-through")) {

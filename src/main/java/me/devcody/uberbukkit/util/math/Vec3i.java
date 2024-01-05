@@ -12,6 +12,7 @@ public class Vec3i {
     public int getX() {
         return x;
     }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -19,6 +20,7 @@ public class Vec3i {
     public int getY() {
         return y;
     }
+
     public void setY(int y) {
         this.y = y;
     }
@@ -26,6 +28,7 @@ public class Vec3i {
     public int getZ() {
         return z;
     }
+
     public void setZ(int z) {
         this.z = z;
     }
@@ -33,6 +36,7 @@ public class Vec3i {
     public Vec3i add(Vec3i vec) {
         return new Vec3i(x + vec.x, y + vec.y, z + vec.z);
     }
+
     public Vec3i subtract(Vec3i vec) {
         return new Vec3i(x - vec.x, y - vec.y, z - vec.z);
     }

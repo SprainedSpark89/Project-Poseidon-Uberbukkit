@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;

@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.io.IOException;
 
 class NetworkWriterThread extends Thread {
@@ -53,7 +54,7 @@ class NetworkWriterThread extends Thread {
 
                     //ioexception.printStackTrace(); //Project Poseidon Remove - Credit to Notcz in Modification Station
                 }
-                
+
                 if (this.fast) { // Poseidon
                     try {
                         sleep(2L);
