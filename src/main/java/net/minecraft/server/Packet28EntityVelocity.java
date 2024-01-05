@@ -20,6 +20,9 @@ public class Packet28EntityVelocity extends Packet {
     public Packet28EntityVelocity(int i, double d0, double d1, double d2) {
         this.a = i;
         double d3 = 3.9D;
+        // uberbukkit
+        if (this.pvn <= 5)
+            d3 = 0.9D;
 
         if (d0 < -d3) {
             d0 = -d3;
@@ -45,9 +48,15 @@ public class Packet28EntityVelocity extends Packet {
             d2 = d3;
         }
 
-        this.b = (int) (d0 * 8000.0D);
-        this.c = (int) (d1 * 8000.0D);
-        this.d = (int) (d2 * 8000.0D);
+        // uberbukkit start
+        double multiplier = 8000.0D;
+        if (this.pvn <= 5)
+            multiplier = 32000.0D;
+
+        this.b = (int) (d0 * multiplier);
+        this.c = (int) (d1 * multiplier);
+        this.d = (int) (d2 * multiplier);
+        // uberbukkit end
     }
 
     public void a(DataInputStream datainputstream) throws IOException {

@@ -5,8 +5,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet102WindowClick extends Packet {
 
     public int a;
@@ -28,7 +26,7 @@ public class Packet102WindowClick extends Packet {
         this.c = datainputstream.readByte();
         this.d = datainputstream.readShort();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (this.pvn >= 11) {
             this.f = datainputstream.readBoolean();
         } else {
             this.f = false;
@@ -40,7 +38,7 @@ public class Packet102WindowClick extends Packet {
             byte b0 = datainputstream.readByte();
             short short2 = 0;
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (this.pvn >= 8) {
                 short2 = datainputstream.readShort();
             } else {
                 short2 = datainputstream.readByte();
@@ -58,7 +56,7 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeShort(this.d);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (this.pvn >= 11) {
             dataoutputstream.writeBoolean(this.f);
         }
 
@@ -68,7 +66,7 @@ public class Packet102WindowClick extends Packet {
             dataoutputstream.writeShort(this.e.id);
             dataoutputstream.writeByte(this.e.count);
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (this.pvn >= 8) {
                 dataoutputstream.writeShort(this.e.getData());
             } else {
                 dataoutputstream.writeByte(this.e.getData());
@@ -78,6 +76,6 @@ public class Packet102WindowClick extends Packet {
 
     public int a() {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 11 : 10;
+        return this.pvn >= 8 ? 11 : 10;
     }
 }

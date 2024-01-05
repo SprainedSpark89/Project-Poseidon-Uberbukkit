@@ -118,7 +118,7 @@ class PlayerInstance {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
             if (entityplayer.playerChunkCoordIntPairs.contains(this.location)) {
-                entityplayer.netServerHandler.sendPacket(packet);
+                entityplayer.netServerHandler.sendPacket(packet.clone());
             }
         }
     }

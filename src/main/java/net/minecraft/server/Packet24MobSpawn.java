@@ -5,8 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet24MobSpawn extends Packet {
 
     public int a;
@@ -24,6 +22,10 @@ public class Packet24MobSpawn extends Packet {
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
         this.b = (byte) EntityTypes.a(entityliving);
+        // uberbukkit - a1.1.2_01 doesn't recognize cows and sheep
+        if (this.pvn <= 2 && (this.b == 92 || this.b == 93))
+            this.b = 91;
+
         this.c = MathHelper.floor(entityliving.locX * 32.0D);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
         this.e = MathHelper.floor(entityliving.locZ * 32.0D);
@@ -41,7 +43,7 @@ public class Packet24MobSpawn extends Packet {
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (this.pvn >= 8) {
             this.i = DataWatcher.a(datainputstream);
         } else {
             this.i = null;
@@ -57,7 +59,7 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (this.pvn >= 8) {
             this.h.a(dataoutputstream);
         }
     }
@@ -68,6 +70,6 @@ public class Packet24MobSpawn extends Packet {
 
     public int a() {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 20 : 19;
+        return this.pvn >= 8 ? 20 : 19;
     }
 }

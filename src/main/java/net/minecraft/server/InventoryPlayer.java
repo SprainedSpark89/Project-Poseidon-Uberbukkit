@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class InventoryPlayer implements IInventory {
 
     public ItemStack[] items = new ItemStack[36];

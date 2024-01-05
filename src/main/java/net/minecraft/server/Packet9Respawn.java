@@ -4,16 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet9Respawn extends Packet {
 
     public byte a;
+    public long seed; // uberbukkit
 
     public Packet9Respawn() {}
 
-    public Packet9Respawn(byte b0) {
+    public Packet9Respawn(byte b0, long seed) {
         this.a = b0;
+        this.seed = seed; // uberbukkit
     }
 
     public void a(NetHandler nethandler) {
@@ -22,22 +22,32 @@ public class Packet9Respawn extends Packet {
 
     public void a(DataInputStream datainputstream) throws IOException {
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 12) {
+        if (this.pvn >= 12) {
             this.a = datainputstream.readByte();
         } else {
             this.a = 0;
+        }
+        
+        if (this.pvn >= 2000) {
+        	this.seed = datainputstream.readLong();
+        } else {
+        	this.seed = -1L;
         }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 12) {
+        if (this.pvn >= 12) {
             dataoutputstream.writeByte(this.a);
+        }
+        
+        if (this.pvn >= 2000) {
+        	dataoutputstream.writeLong(this.seed);
         }
     }
 
     public int a() {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 12 ? 1 : 0;
+        return (this.pvn >= 12 ? 1 : 0) + (this.pvn >= 2000 ? 8 : 0);
     }
 }

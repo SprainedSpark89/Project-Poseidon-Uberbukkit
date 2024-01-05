@@ -3,7 +3,6 @@ package org.bukkit.craftbukkit.entity;
 import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.ConnectionType;
 import net.minecraft.server.*;
-import pl.moresteck.uberbukkit.Uberbukkit;
 
 import org.bukkit.Achievement;
 import org.bukkit.Material;
@@ -98,8 +97,14 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void sendRawMessage(String message) {
-    	// uberbukkit - fix worldedit cui
-    	if (Uberbukkit.getPVN() < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75")) return;
+    	// uberbukkit
+    	int pvn = getHandle().netServerHandler.networkManager.pvn;
+
+    	// The WorldEdit plugin greets the client with this character sequence
+        // to establish communication with WorldEditCUI (client-side mod).
+        // However, this char sequence crashes clients before b1.5, so this filter is needed
+    	if (pvn < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75"))
+    	    return;
 
         try {
             getHandle().netServerHandler.sendPacket(new Packet3Chat(message));
@@ -190,10 +195,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void playEffect(Location loc, Effect effect, int data) {
-    	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
-    		return;
-    	}
 
         int packetData = effect.getId();
         Packet61 packet = new Packet61(packetData, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), data);
@@ -347,10 +348,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     private void sendStatistic(int id, int amount) {
-    	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
-    		return;
-    	}
 
         while (amount > Byte.MAX_VALUE) {
             sendStatistic(id, Byte.MAX_VALUE);

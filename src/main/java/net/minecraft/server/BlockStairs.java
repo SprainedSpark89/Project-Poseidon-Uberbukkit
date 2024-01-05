@@ -3,7 +3,7 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class BlockStairs extends Block {
 
@@ -15,7 +15,7 @@ public class BlockStairs extends Block {
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
-        if (Uberbukkit.getPVN() >= 11) {
+        if (Uberbukkit.getTargetPVN() >= 11) {
             this.f(255);
         }
     }

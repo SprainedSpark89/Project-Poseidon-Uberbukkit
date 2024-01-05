@@ -3,6 +3,9 @@ package net.minecraft.server;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.packets.ArtificialPacket53BlockChange;
 
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.packet.Packet63Digging;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -22,6 +25,8 @@ public abstract class Packet {
     public boolean k = false;
     private static HashMap e;
     private static int f;
+    
+    protected int pvn; // uberbukkit
 
     public Packet() {}
 
@@ -84,7 +89,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static Packet a(DataInputStream datainputstream, boolean flag) throws IOException {
+    public static Packet a(DataInputStream datainputstream, boolean flag, int pvn) throws IOException {
         boolean flag1 = false;
         Packet packet = null;
 
@@ -107,6 +112,7 @@ public abstract class Packet {
                 throw new IOException("Bad packet id " + i);
             }
 
+            packet.pvn = pvn;
             packet.a(datainputstream);
         } catch (EOFException eofexception) {
             System.out.println("Reached end of stream");
@@ -184,6 +190,11 @@ public abstract class Packet {
 
     public abstract int a();
 
+    // uberbukkit - cloning assures that a packet queued for everyone is sent according to each player's PVN
+    public Packet clone() {
+        return this;
+    }
+
     static {
         a(0, true, true, Packet0KeepAlive.class);
         a(1, true, true, Packet1Login.class);
@@ -229,6 +240,8 @@ public abstract class Packet {
         a(54, true, false, Packet54PlayNoteBlock.class);
         a(60, true, false, Packet60Explosion.class);
         a(61, true, false, Packet61.class);
+        a(62, true, false, Packet62Sound.class); // uberbukkit - protocol extension
+        a(63, true, false, Packet63Digging.class); // uberbukkit - protocol extension
         a(70, true, false, Packet70Bed.class);
         a(71, true, false, Packet71Weather.class);
         a(100, true, false, Packet100OpenWindow.class);

@@ -3,13 +3,12 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.Iterator;
 
-import me.devcody.uberbukkit.util.math.Vec3i;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -21,9 +20,10 @@ import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
 import com.projectposeidon.api.PoseidonUUID;
 
-import pl.moresteck.uberbukkit.ProcessPacket5;
-import pl.moresteck.uberbukkit.Uberbukkit;
-import pl.moresteck.uberbukkit.protocol.Protocol;
+import me.devcody.uberbukkit.util.math.Vec3i;
+import uk.betacraft.uberbukkit.alpha.inventory.ProcessPacket5;
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.protocol.Protocol;
 
 // CraftBukkit start
 
@@ -109,7 +109,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void syncInventory() {
-        if (Uberbukkit.getPVN() <= 6) {
+        if (this.netServerHandler.networkManager.pvn <= 6) {
             this.netServerHandler.refreshInventory();
         }
         this.activeContainer.a((ICrafting) this);
@@ -344,10 +344,19 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             if (this.vehicle != null) {
                 this.mount(this.vehicle);
             } else {
+            	// uberbukkit - play portal sound
+            	if (this.F == 0.0F) {
+            	    ((WorldServer)this.world).server.serverConfigurationManager.sendPacketNearby(this, this.locX, this.locY, this.locZ, 64D, this.dimension, new Packet62Sound("portal.trigger", this.locX, this.locY, this.locZ, 1.0F, this.random.nextFloat() * 0.4F + 0.8F));
+            	}
+            	
                 this.F += 0.0125F;
                 if (this.F >= 1.0F) {
                     this.F = 1.0F;
                     this.D = 10;
+                    
+                    // uberbukkit
+                    ((WorldServer)this.world).server.serverConfigurationManager.sendPacketNearby(this, this.locX, this.locY, this.locZ, 64D, this.dimension, new Packet62Sound("portal.travel", this.locX, this.locY, this.locZ, 1.0F, this.random.nextFloat() * 0.4F + 0.8F));
+                    
                     this.b.serverConfigurationManager.f(this);
                 }
             }
@@ -424,18 +433,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (enumbederror == EnumBedError.OK) {
             EntityTracker entitytracker = this.b.getTracker(this.dimension);
             Packet17 packet17 = new Packet17(this, 0, i, j, k);
-            // uberbukkit start - beds (b1.3 - b1.6.4)
-            boolean send = Uberbukkit.getProtocolHandler().canReceivePacket(17);
 
-            if (send)
-                entitytracker.a(this, packet17);
+            entitytracker.a(this, packet17);
 
+            // uberbukkit - beds (b1.3 - b1.6.4)
             if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
                 this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
 
-            if (send)
-                this.netServerHandler.sendPacket(packet17);
-            // uberbukkit end
+            this.netServerHandler.sendPacket(packet17);
         }
 
         return enumbederror;
@@ -531,7 +536,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (!(container.b(i) instanceof SlotResult)) {
             if (!this.h) {
                 // uberbukkit
-                if (Uberbukkit.getPVN() <= 6) {
+                if (this.netServerHandler.networkManager.pvn <= 6) {
                     this.netServerHandler.refreshInventory();
                     //this.netServerHandler.sendPacket(new Packet5EntityEquipment(-1, this.inventory.items));
                     //this.netServerHandler.sendPacket(new Packet5EntityEquipment(-2, this.inventory.craft));
@@ -549,7 +554,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(Container container, List list) {
         // uberbukkit
-        if (Uberbukkit.getPVN() <= 6) {
+        if (this.netServerHandler.networkManager.pvn <= 6) {
             this.netServerHandler.refreshInventory();
         } else {
             this.netServerHandler.sendPacket(new Packet104WindowItems(container.windowId, list));
@@ -591,16 +596,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(Statistic statistic, int i) {
         if (statistic != null) {
-            // uberbukkit
-            if (Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
-                if (!statistic.g) {
-                    while (i > 100) {
-                        this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, 100));
-                        i -= 100;
-                    }
-
-                    this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, i));
+            if (!statistic.g) {
+                while (i > 100) {
+                    this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, 100));
+                    i -= 100;
                 }
+
+                this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, i));
             }
         }
     }
@@ -619,7 +621,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
 
         // uberbukkit - drop item queue on disconnect
-        if (Uberbukkit.getPVN() <= 6) {
+        if (this.netServerHandler.networkManager.pvn <= 6) {
             ArrayList<ItemStack> queue = this.packet5.queue.dropAllQueue();
             Player bukkitEntity = (Player) this.getBukkitEntity();
             for (ItemStack item : queue) {
@@ -639,7 +641,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(String s) {
         // uberbukkit - fix for multiple bed alerts (b1.3 - b1.6.4)
-        if (Uberbukkit.getPVN() <= 11 || PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
+        if (this.netServerHandler.networkManager.pvn <= 11 || PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
             return;
         
         StatisticStorage statisticstorage = StatisticStorage.a();

@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class RecipesTools {
 
@@ -23,7 +23,7 @@ public class RecipesTools {
         }
 
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 14) {
+        if (Uberbukkit.getTargetPVN() >= 14) {
             craftingmanager.registerShapedRecipe(new ItemStack(Item.SHEARS), new Object[] { " #", "# ", Character.valueOf('#'), Item.IRON_INGOT});
         }
     }

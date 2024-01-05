@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
-import pl.moresteck.uberbukkit.Uberbukkit;
 
 public class FlushInvCommand extends Command {
     public FlushInvCommand() {
@@ -35,7 +34,7 @@ public class FlushInvCommand extends Command {
         }
 
         EntityPlayer entity = ((CraftPlayer)player).getHandle();
-        if (Uberbukkit.getPVN() <= 6) {
+        if (entity.netServerHandler.networkManager.pvn <= 6) {
             ArrayList<ItemStack> queue = entity.packet5.queue.dropAllQueue();
             for (ItemStack item : queue) {
                 System.out.println("Drop queue id: " + item.id + ", dmg: " + item.damage + ", cnt: " + item.count);

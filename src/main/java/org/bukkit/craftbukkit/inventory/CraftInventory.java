@@ -1,7 +1,7 @@
 package org.bukkit.craftbukkit.inventory;
 
 import net.minecraft.server.IInventory;
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

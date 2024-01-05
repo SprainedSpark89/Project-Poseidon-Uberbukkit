@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.List;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class WorldData {
 
@@ -165,7 +165,7 @@ public class WorldData {
 
     public boolean isThundering() {
         // uberbukkit
-        if (Uberbukkit.getPVN() < 11)
+        if (Uberbukkit.getTargetPVN() < 11)
             return false;
 
         return this.n;
@@ -185,7 +185,7 @@ public class WorldData {
 
     public boolean hasStorm() {
         // uberbukkit
-        if (Uberbukkit.getPVN() < 11)
+        if (Uberbukkit.getTargetPVN() < 11)
             return false;
 
         return this.l;

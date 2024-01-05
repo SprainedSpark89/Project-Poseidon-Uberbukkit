@@ -1,7 +1,6 @@
-package pl.moresteck.uberbukkit;
+package uk.betacraft.uberbukkit.alpha.inventory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
@@ -10,7 +9,7 @@ public class InventoryQueue {
     public ArrayList<InventoryItem> queue = new ArrayList<InventoryItem>();
 
     public InventoryQueue() {
-        
+
     }
 
     public InventoryQueue(ArrayList<InventoryItem> queue) {

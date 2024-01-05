@@ -99,7 +99,7 @@ import net.minecraft.server.WorldGenTaiga2;
 import net.minecraft.server.WorldGenTrees;
 import net.minecraft.server.WorldProvider;
 import net.minecraft.server.WorldServer;
-import pl.moresteck.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class CraftWorld implements World {
     private final WorldServer world;
@@ -749,10 +749,6 @@ public class CraftWorld implements World {
     }
 
     public void playEffect(Location location, Effect effect, int data, int radius) {
-    	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
-    		return;
-    	}
 
         int packetData = effect.getId();
         Packet61 packet = new Packet61(packetData, location.getBlockX(), location.getBlockY(), location.getBlockZ(), data);

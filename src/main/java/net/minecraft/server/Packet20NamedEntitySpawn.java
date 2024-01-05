@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet20NamedEntitySpawn extends Packet {
 
     public int a;
@@ -35,7 +33,7 @@ public class Packet20NamedEntitySpawn extends Packet {
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (this.pvn >= 11) {
             this.b = a(datainputstream, 16);
         } else {
             this.b = datainputstream.readUTF();
@@ -52,7 +50,7 @@ public class Packet20NamedEntitySpawn extends Packet {
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (this.pvn >= 11) {
             a(this.b, dataoutputstream);
         } else {
             dataoutputstream.writeUTF(this.b);

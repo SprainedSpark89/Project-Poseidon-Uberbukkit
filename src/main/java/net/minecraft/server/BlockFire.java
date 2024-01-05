@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Random;
+
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
@@ -8,7 +10,7 @@ import org.bukkit.material.MaterialData;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import java.util.Random;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -321,6 +323,10 @@ public class BlockFire extends Block {
     }
 
     public void c(World world, int i, int j, int k) {
+        // uberbukkit - disable nether portals for target version a1.1.2_01
+        if (Uberbukkit.getTargetPVN() <= 2)
+            return;
+
         if (world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.a_(world, i, j, k)) {
             if (!world.e(i, j - 1, k) && !this.g(world, i, j, k)) {
                 world.setTypeId(i, j, k, 0);
