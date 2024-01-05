@@ -1,4 +1,4 @@
-package uk.betacraft.uberbukkit.alpha_inventory;
+package uk.betacraft.uberbukkit.alpha.inventory;
 
 public class InventoryItem {
     private int id;

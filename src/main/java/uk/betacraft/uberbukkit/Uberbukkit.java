@@ -48,7 +48,7 @@ public class Uberbukkit {
             try {
                 pvns.add(Integer.parseInt(pvnstr));
             } catch (Throwable t) {
-                MinecraftServer.log.warning("[Uberbukkit] PVN \"" + pvnstr + "\" is not a number! Can't proceed!");
+                MinecraftServer.log.severe("[Uberbukkit] PVN \"" + pvnstr + "\" is not a number! Can't proceed!");
                 Bukkit.getServer().shutdown();
             }
         }

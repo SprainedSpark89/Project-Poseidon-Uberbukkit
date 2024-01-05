@@ -1,4 +1,4 @@
-package uk.betacraft.uberbukkit.alpha_inventory;
+package uk.betacraft.uberbukkit.alpha.inventory;
 
 import java.util.ArrayList;
 

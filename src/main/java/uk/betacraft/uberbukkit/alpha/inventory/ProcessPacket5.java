@@ -1,4 +1,4 @@
-package uk.betacraft.uberbukkit.alpha_inventory;
+package uk.betacraft.uberbukkit.alpha.inventory;
 
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.Item;
