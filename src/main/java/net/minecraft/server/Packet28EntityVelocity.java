@@ -7,9 +7,9 @@ import java.io.IOException;
 public class Packet28EntityVelocity extends Packet {
 
     public int a;
-    public int b;
-    public int c;
-    public int d;
+    public double b;
+    public double c;
+    public double d;
 
     public Packet28EntityVelocity() {
     }
@@ -20,44 +20,11 @@ public class Packet28EntityVelocity extends Packet {
 
     public Packet28EntityVelocity(int i, double d0, double d1, double d2) {
         this.a = i;
-        double d3 = 3.9D;
-        // uberbukkit
-        if (this.pvn <= 5)
-            d3 = 0.9D;
-
-        if (d0 < -d3) {
-            d0 = -d3;
-        }
-
-        if (d1 < -d3) {
-            d1 = -d3;
-        }
-
-        if (d2 < -d3) {
-            d2 = -d3;
-        }
-
-        if (d0 > d3) {
-            d0 = d3;
-        }
-
-        if (d1 > d3) {
-            d1 = d3;
-        }
-
-        if (d2 > d3) {
-            d2 = d3;
-        }
-
-        // uberbukkit start
-        double multiplier = 8000.0D;
-        if (this.pvn <= 5)
-            multiplier = 32000.0D;
-
-        this.b = (int) (d0 * multiplier);
-        this.c = (int) (d1 * multiplier);
-        this.d = (int) (d2 * multiplier);
-        // uberbukkit end
+        // uberbukkit - values are calculated on sending to achieve compatibility
+        // TODO: test impact on performance?
+        this.b = d0;
+        this.c = d1;
+        this.d = d2;
     }
 
     public void a(DataInputStream datainputstream) throws IOException {
@@ -69,9 +36,44 @@ public class Packet28EntityVelocity extends Packet {
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeShort(this.c);
-        dataoutputstream.writeShort(this.d);
+
+        // uberbukkit start
+        double d3 = 3.9D;
+        if (this.pvn <= 5)
+            d3 = 0.9D;
+
+        if (this.b < -d3) {
+            this.b = -d3;
+        }
+
+        if (this.c < -d3) {
+            this.c = -d3;
+        }
+
+        if (this.d < -d3) {
+            this.d = -d3;
+        }
+
+        if (this.b > d3) {
+            this.b = d3;
+        }
+
+        if (this.c > d3) {
+            this.c = d3;
+        }
+
+        if (this.d > d3) {
+            this.d = d3;
+        }
+
+        double multiplier = 8000.0D;
+        if (this.pvn <= 5)
+            multiplier = 32000.0D;
+
+        dataoutputstream.writeShort((int) (this.b * multiplier));
+        dataoutputstream.writeShort((int) (this.c * multiplier));
+        dataoutputstream.writeShort((int) (this.d * multiplier));
+        // uberbukkit end
     }
 
     public void a(NetHandler nethandler) {

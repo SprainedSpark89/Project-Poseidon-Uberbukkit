@@ -23,10 +23,6 @@ public class Packet24MobSpawn extends Packet {
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
         this.b = (byte) EntityTypes.a(entityliving);
-        // uberbukkit - a1.1.2_01 doesn't recognize cows and sheep
-        if (this.pvn <= 2 && (this.b == 92 || this.b == 93))
-            this.b = 91;
-
         this.c = MathHelper.floor(entityliving.locX * 32.0D);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
         this.e = MathHelper.floor(entityliving.locZ * 32.0D);
@@ -53,7 +49,13 @@ public class Packet24MobSpawn extends Packet {
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
+
+        byte entityType = this.b;
+        // uberbukkit - a1.1.2_01 doesn't recognize cows and sheep
+        if (this.pvn <= 2 && (this.b == 92 || this.b == 93))
+            entityType = 91;
+
+        dataoutputstream.writeByte(entityType);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         dataoutputstream.writeInt(this.e);
