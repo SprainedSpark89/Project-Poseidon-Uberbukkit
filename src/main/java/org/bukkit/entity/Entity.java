@@ -173,6 +173,7 @@ public interface Entity {
 
     /**
      * Returns a unique and persistent id for this entity
+     *
      * @return unique id
      */
     public UUID getUniqueId();
