@@ -13,12 +13,12 @@ public class BlockFence extends Block {
     public boolean canPlace(World world, int i, int j, int k) {
         return world.getTypeId(i, j - 1, k) == this.id ?
                 // uberbukkit
-                PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_1_7_fence_placement", true) 
+                PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_1_7_fence_placement", true)
                 : (!world.getMaterial(i, j - 1, k).isBuildable() ? false : super.canPlace(world, i, j, k));
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        if(!modernFencingBounding) {
+        if (!modernFencingBounding) {
             return AxisAlignedBB.b((double) i, (double) j, (double) k, (double) (i + 1), (double) ((float) j + 1.5F), (double) (k + 1));
         }
 

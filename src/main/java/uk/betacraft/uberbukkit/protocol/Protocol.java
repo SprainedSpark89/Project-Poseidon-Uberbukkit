@@ -4,7 +4,9 @@ import uk.betacraft.uberbukkit.protocol.extension.*;
 
 public interface Protocol {
     public boolean canReceiveBlockItem(int id);
+
     public boolean canReceivePacket(int id);
+
     public boolean canSeeMob(Class<?> claz);
 
     static Protocol getProtocolClass(int pvn) {

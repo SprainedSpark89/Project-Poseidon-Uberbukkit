@@ -9,4 +9,5 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Ghast extends Flying {}
+public interface Ghast extends Flying {
+}

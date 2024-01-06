@@ -15,14 +15,14 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 public class CrackedAllowlist {
-    
+
     private static CrackedAllowlist singleton;
     private final Gson parser = new GsonBuilder().setPrettyPrinting().create();
     private JsonArray namesJsonArray;
     private File crackedListFile = new File("cracked-allowlist.json");
 
     public CrackedAllowlist() {
-        
+
         if (!crackedListFile.exists()) {
             namesJsonArray = new JsonArray();
             saveAllowlist();
@@ -31,7 +31,7 @@ public class CrackedAllowlist {
 
         try {
             System.out.println("[Poseidon] Reading cracked-allowlist.json for Project Poseidon");
-            
+
             JsonReader reader = new JsonReader(new FileReader(crackedListFile));
             namesJsonArray = parser.fromJson(reader, JsonArray.class);
 
@@ -49,7 +49,7 @@ public class CrackedAllowlist {
     public void saveAllowlist() {
         try {
             System.out.println("[Poseidon] Saving cracked names allowlist");
-            
+
             Files.write(crackedListFile.toPath(), parser.toJson(namesJsonArray).getBytes("UTF-8"));
         } catch (Throwable t) {
             t.printStackTrace();
@@ -58,7 +58,7 @@ public class CrackedAllowlist {
 
     /**
      * Adds username to cracked names allowlist.
-     * 
+     *
      * @param name username to allowlist
      * @return true if added, false if already on the list
      */
@@ -67,7 +67,7 @@ public class CrackedAllowlist {
         if (namesJsonArray.contains(jsonString)) {
             return false;
         }
-        
+
         namesJsonArray.add(jsonString);
         saveAllowlist();
         return true;
@@ -75,7 +75,7 @@ public class CrackedAllowlist {
 
     /**
      * Removes username from cracked names allowlist.
-     * 
+     *
      * @param name username to remove
      * @return true if removed, false if the name wasn't on the list
      */
@@ -84,7 +84,7 @@ public class CrackedAllowlist {
 
         boolean removed = namesJsonArray.remove(jsonString);
         saveAllowlist();
-        
+
         return removed;
     }
 
@@ -95,7 +95,8 @@ public class CrackedAllowlist {
     }
 
     public List<String> getAsList() {
-        Type listType = new TypeToken<List<String>>() {}.getType();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
         return parser.fromJson(namesJsonArray, listType);
     }
 

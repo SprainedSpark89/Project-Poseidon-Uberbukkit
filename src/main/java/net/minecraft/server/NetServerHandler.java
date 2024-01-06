@@ -67,7 +67,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private int rawConnectionType = 0; //Project Poseidon - Create Variable
     private boolean receivedKeepAlive = false;
     private boolean firePacketEvents;
-    
+
     private final String msgPlayerLeave;
 
     public boolean isReceivedKeepAlive() {
@@ -148,9 +148,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public Integer lastDigY = null;
     public Integer lastDigZ = null;
     public Integer lastDigFace = null;
-    
-    
-    
+
+
     public void a() {
         this.i = false;
         this.networkManager.b();
@@ -182,7 +181,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             Block block = Block.byId[id];
 
             float vol1 = (block.stepSound.getVolume1() + 1.0F) / 8.0F;
-            this.minecraftServer.serverConfigurationManager.sendPacketNearbyToScale(this.player, (double)lastDigX + 0.5D, (double)lastDigY + 0.5D, (double)lastDigZ + 0.5D, vol1, ((WorldServer)this.player.world).dimension, new Packet62Sound(block.stepSound.getName(), (double)lastDigX + 0.5D, (double)lastDigY + 0.5D, (double)lastDigZ + 0.5D, vol1, block.stepSound.getVolume2() * 0.5F));
+            this.minecraftServer.serverConfigurationManager.sendPacketNearbyToScale(this.player, (double) lastDigX + 0.5D, (double) lastDigY + 0.5D, (double) lastDigZ + 0.5D, vol1, ((WorldServer) this.player.world).dimension, new Packet62Sound(block.stepSound.getName(), (double) lastDigX + 0.5D, (double) lastDigY + 0.5D, (double) lastDigZ + 0.5D, vol1, block.stepSound.getVolume2() * 0.5F));
 
             if (lastDigFace != null) {
                 float progress = block.getDamage(this.player) * (float) (this.player.itemInWorldManager.getCurrentMagic() + 1);
@@ -481,10 +480,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             // uberbukkit
             boolean bool = false;
             if (isStaffExemptFromFlyKick) {
-                Player bukkitPlayer = (Player)this.player.getBukkitEntity();
+                Player bukkitPlayer = (Player) this.player.getBukkitEntity();
                 bool = bukkitPlayer.isOp() || bukkitPlayer.hasPermission("uberbukkit.fly");
             }
-            
+
             if (!this.minecraftServer.allowFlight && !worldserver.b(axisalignedbb) && !bool) {
                 if (d6 >= -0.03125D) {
                     ++this.h;
@@ -593,6 +592,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public long mineExpire = 0;
     public long lastMine = 0;
     public int delaySound = 0;
+
     public void a(Packet14BlockDig packet14blockdig) {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet14blockdig);
@@ -693,7 +693,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                                 // a redstone torch that is on, then we should notify plugins that this block has
                                 // returned to a current value of 0 (since it will once the redstone is destroyed)
                                 if ((blockId == Block.REDSTONE_WIRE.id && block.getData() > 0) || blockId == Block.REDSTONE_TORCH_ON.id) {
-                                    server.getPluginManager().callEvent( new BlockRedstoneEvent(block, (blockId == Block.REDSTONE_WIRE.id ? block.getData() : 15), 0));
+                                    server.getPluginManager().callEvent(new BlockRedstoneEvent(block, (blockId == Block.REDSTONE_WIRE.id ? block.getData() : 15), 0));
                                 }
                                 breakEvent = new BlockDamageEvent(player, block, player.getItemInHand(), true);
                             } else {
@@ -702,7 +702,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                             server.getPluginManager().callEvent(breakEvent);
                             if (!breakEvent.isCancelled()) {
                                 this.player.itemInWorldManager.oldClick(i, j, k, packet14blockdig.face);
-                                
+
                                 this.lastDigFace = packet14blockdig.face; // uberbukkit - handle digging
                             }
                         }
@@ -724,12 +724,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                         BlockDamageEvent breakEvent;
                         // If the amount of damage going to the block plus the current amount
                         // of damage is greater than 1, the block is going to break.
-                        if (this.player.itemInWorldManager.damageDealt + damage  >= 1.0F) {
+                        if (this.player.itemInWorldManager.damageDealt + damage >= 1.0F) {
                             // if we are destroying either a redstone wire with a current greater than 0 or
                             // a redstone torch that is on, then we should notify plugins that this block has
                             // returned to a current value of 0 (since it will once the redstone is destroyed)
                             if ((blockId == Block.REDSTONE_WIRE.id && block.getData() > 0) || blockId == Block.REDSTONE_TORCH_ON.id) {
-                                server.getPluginManager().callEvent( new BlockRedstoneEvent(block, (blockId == Block.REDSTONE_WIRE.id ? block.getData() : 15), 0));
+                                server.getPluginManager().callEvent(new BlockRedstoneEvent(block, (blockId == Block.REDSTONE_WIRE.id ? block.getData() : 15), 0));
                             }
                             breakEvent = new BlockDamageEvent(player, block, player.getItemInHand(), damage >= 1.0F);
                         } else {
@@ -738,7 +738,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                         server.getPluginManager().callEvent(breakEvent);
                         if (!breakEvent.isCancelled()) {
                             this.player.itemInWorldManager.oldDig(i, j, k, packet14blockdig.face);
-                            
+
                             this.lastDigFace = packet14blockdig.face; // uberbukkit - handle digging
                         } else {
                             this.player.itemInWorldManager.damageDealt = 0; // Reset the amount of damage if stopping break.
@@ -762,20 +762,20 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                         this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                     } else {
                         // CraftBukkit - add face argument
-                    	this.player.itemInWorldManager.dig(i, j, k, packet14blockdig.face);
-                    	
-                    	// uberbukkit - handle digging
+                        this.player.itemInWorldManager.dig(i, j, k, packet14blockdig.face);
+
+                        // uberbukkit - handle digging
                         this.mineExpire = this.player.itemInWorldManager.getExpectedDigEnd();
                         this.lastDigFace = packet14blockdig.face;
                     }
                 } else if (packet14blockdig.e == 2) {
                     // uberbukkit - swapped i,j,k for lastDigX,lastDigY,lastDigZ
                     this.player.itemInWorldManager.a(lastDigX, lastDigY, lastDigZ);
-                    
+
                     // uberbukkit - handle digging
                     this.mineExpire = 0;
                     this.lastMine = 0;
-                    
+
                     if (worldserver.getTypeId(lastDigX, lastDigY, lastDigZ) != 0) {
                         this.player.netServerHandler.sendPacket(new Packet53BlockChange(lastDigX, lastDigY, lastDigZ, worldserver));
                     }
@@ -980,7 +980,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         //Poseidon Start - Send Packet Event
         if (packet == null) // Why do anything if there's no packet? (fixes Internal server error)
             return;
-        
+
         if (firePacketEvents) {
             PlayerSendPacketEvent event = new PlayerSendPacketEvent(this.player.name, packet);
             Bukkit.getPluginManager().callEvent(event);
@@ -1027,8 +1027,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 packet = null;
             }
         } else if (packet instanceof Packet18ArmAnimation) {
-            Packet18ArmAnimation packet18 = (Packet18ArmAnimation)packet;
-            
+            Packet18ArmAnimation packet18 = (Packet18ArmAnimation) packet;
+
             // skip riding/burning/sneaking packets for a1.1.2_01
             if (this.networkManager.pvn <= 2 && packet18.b >= 100) {
                 this.g = this.f;
@@ -1279,7 +1279,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             // CraftBukkit end
 
             this.player.w();
-            
+
             // uberbukkit - handle digging
             if (this.mineExpire >= System.currentTimeMillis() && this.networkManager.pvn >= 9) {
                 lastMine = System.currentTimeMillis();

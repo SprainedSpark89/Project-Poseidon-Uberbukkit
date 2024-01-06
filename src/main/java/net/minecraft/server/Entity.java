@@ -26,6 +26,7 @@ public abstract class Entity {
     // Poseidon start - Backport of 0070-Use-a-Shared-Random-for-Entities.patch from PaperSpigot
     public static Random SHARED_RANDOM = new Random() {
         private boolean locked = false;
+
         @Override
         public synchronized void setSeed(long seed) {
             if (locked) {
@@ -39,7 +40,7 @@ public abstract class Entity {
     // Poseidon end
     // uberbukkit
     private static boolean trampleFarmlandAboveFence = PoseidonConfig.getInstance().getBoolean("version.mechanics.trample_farmland_above_fence", false);
-    
+
     private static int entityCount = 0;
     public int id;
     public double aH;
@@ -838,7 +839,8 @@ public abstract class Entity {
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public void b(EntityHuman entityhuman) {}
+    public void b(EntityHuman entityhuman) {
+    }
 
     public void collide(Entity entity) {
         if (entity.passenger != this && entity.vehicle != this) {
@@ -892,7 +894,8 @@ public abstract class Entity {
         return false;
     }
 
-    public void c(Entity entity, int i) {}
+    public void c(Entity entity, int i) {
+    }
 
     public boolean c(NBTTagCompound nbttagcompound) {
         String s = this.ag();
@@ -907,8 +910,8 @@ public abstract class Entity {
     }
 
     public void d(NBTTagCompound nbttagcompound) {
-        nbttagcompound.a("Pos", (NBTBase) this.a(new double[] { this.locX, this.locY + (double) this.br, this.locZ}));
-        nbttagcompound.a("Motion", (NBTBase) this.a(new double[] { this.motX, this.motY, this.motZ}));
+        nbttagcompound.a("Pos", (NBTBase) this.a(new double[]{this.locX, this.locY + (double) this.br, this.locZ}));
+        nbttagcompound.a("Motion", (NBTBase) this.a(new double[]{this.motX, this.motY, this.motZ}));
 
         // CraftBukkit start - checking for NaN pitch/yaw and resetting to zero
         // TODO: make sure this is the best way to address this.
@@ -921,7 +924,7 @@ public abstract class Entity {
         }
         // CraftBukkit end
 
-        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[] { this.yaw, this.pitch}));
+        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[]{this.yaw, this.pitch}));
         nbttagcompound.a("FallDistance", this.fallDistance);
         nbttagcompound.a("Fire", (short) this.fireTicks);
         nbttagcompound.a("Air", (short) this.airTicks);
@@ -1233,7 +1236,8 @@ public abstract class Entity {
         return null;
     }
 
-    public void P() {}
+    public void P() {
+    }
 
     public ItemStack[] getEquipment() {
         return null;
@@ -1279,7 +1283,8 @@ public abstract class Entity {
         }
     }
 
-    public void a(EntityLiving entityliving) {}
+    public void a(EntityLiving entityliving) {
+    }
 
     protected boolean g(double d0, double d1, double d2) {
         int i = MathHelper.floor(d0);

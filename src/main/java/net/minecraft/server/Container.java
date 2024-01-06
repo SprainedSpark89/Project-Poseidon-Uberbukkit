@@ -18,7 +18,8 @@ public abstract class Container {
     private Set b = new HashSet();
     private Vec3i position = null;
 
-    public Container() {}
+    public Container() {
+    }
 
     protected void a(Slot slot) {
         slot.a = this.e.size();

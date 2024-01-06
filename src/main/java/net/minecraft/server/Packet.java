@@ -25,21 +25,22 @@ public abstract class Packet {
     public boolean k = false;
     private static HashMap e;
     private static int f;
-    
+
     protected int pvn; // uberbukkit
 
-    public Packet() {}
+    public Packet() {
+    }
 
     /**
      * Register a packet
-     * @author moderator_Man
+     *
      * @param id
      * @param clientSide
      * @param serverSide
      * @param oclass
+     * @author moderator_Man
      */
-    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass)
-    {
+    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass) {
         if (packetIdToClassMap.containsKey(Integer.valueOf(id)))
             throw new IllegalArgumentException("Duplicate packet id:" + id);
         else if (packetClassToIdMap.containsKey(oclass))
@@ -154,7 +155,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static void a(String s, DataOutputStream dataoutputstream)  throws IOException {
+    public static void a(String s, DataOutputStream dataoutputstream) throws IOException {
         if (s.length() > 32767) {
             throw new IOException("String too big");
         } else {
@@ -164,7 +165,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static String a(DataInputStream datainputstream, int i)  throws IOException {
+    public static String a(DataInputStream datainputstream, int i) throws IOException {
         short short1 = datainputstream.readShort();
 
         if (short1 > i) {

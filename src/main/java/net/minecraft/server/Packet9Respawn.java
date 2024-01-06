@@ -9,7 +9,8 @@ public class Packet9Respawn extends Packet {
     public byte a;
     public long seed; // uberbukkit
 
-    public Packet9Respawn() {}
+    public Packet9Respawn() {
+    }
 
     public Packet9Respawn(byte b0, long seed) {
         this.a = b0;
@@ -27,11 +28,11 @@ public class Packet9Respawn extends Packet {
         } else {
             this.a = 0;
         }
-        
+
         if (this.pvn >= 2000) {
-        	this.seed = datainputstream.readLong();
+            this.seed = datainputstream.readLong();
         } else {
-        	this.seed = -1L;
+            this.seed = -1L;
         }
     }
 
@@ -40,9 +41,9 @@ public class Packet9Respawn extends Packet {
         if (this.pvn >= 12) {
             dataoutputstream.writeByte(this.a);
         }
-        
+
         if (this.pvn >= 2000) {
-        	dataoutputstream.writeLong(this.seed);
+            dataoutputstream.writeLong(this.seed);
         }
     }
 

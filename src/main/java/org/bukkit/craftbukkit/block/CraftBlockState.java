@@ -1,4 +1,3 @@
-
 package org.bukkit.craftbukkit.block;
 
 import org.bukkit.Chunk;

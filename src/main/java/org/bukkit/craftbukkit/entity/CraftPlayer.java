@@ -97,14 +97,14 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void sendRawMessage(String message) {
-    	// uberbukkit
-    	int pvn = getHandle().netServerHandler.networkManager.pvn;
+        // uberbukkit
+        int pvn = getHandle().netServerHandler.networkManager.pvn;
 
-    	// The WorldEdit plugin greets the client with this character sequence
+        // The WorldEdit plugin greets the client with this character sequence
         // to establish communication with WorldEditCUI (client-side mod).
         // However, this char sequence crashes clients before b1.5, so this filter is needed
-    	if (pvn < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75"))
-    	    return;
+        if (pvn < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75"))
+            return;
 
         try {
             getHandle().netServerHandler.sendPacket(new Packet3Chat(message));
@@ -445,7 +445,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void sendPacket(final Player player, final Packet packet) {
-        if(player.isOnline()) {
+        if (player.isOnline()) {
             NetServerHandler nsh = getHandle().netServerHandler;
             nsh.sendPacket(packet);
         }
@@ -458,11 +458,11 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public boolean hasBed() {
-        return ((EntityHuman)getHandle()).b != null;
+        return ((EntityHuman) getHandle()).b != null;
     }
 
     public Location getBedLocation() {
-        ChunkCoordinates coords = ((EntityHuman)getHandle()).b;
+        ChunkCoordinates coords = ((EntityHuman) getHandle()).b;
         String worldname = getHandle().spawnWorld;
 
         org.bukkit.World world = getServer().getWorld(worldname);
@@ -473,7 +473,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     public void setBedLocation(Location location) {
         ChunkCoordinates coords = new ChunkCoordinates(location.getBlockX(), location.getBlockY(), location.getBlockZ());
 
-        ((EntityHuman)getHandle()).b = coords;
+        ((EntityHuman) getHandle()).b = coords;
 
         String worldname = "";
         if (location.getWorld() != null)

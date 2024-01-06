@@ -29,7 +29,7 @@ public class PoseidonConfig extends Configuration {
 
     public void resetConfig() {
         // Delete all the config options
-        for(String key : this.getKeys()) {
+        for (String key : this.getKeys()) {
             this.removeProperty(key);
         }
         // Reload the config
@@ -60,7 +60,7 @@ public class PoseidonConfig extends Configuration {
 
         generateConfigOption("settings.fix-drowning-push-down.enabled", true);
         generateConfigOption("settings.fix-drowning-push-down.info", "This setting fixes taking drowning damage pushing you down.");
-        
+
         generateConfigOption("settings.player-knockback-fix.enabled", true);
         generateConfigOption("settings.player-knockback-fix.info", "This setting fixes reduced knockback for certain players on the server.");
 
@@ -142,7 +142,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.generate_tallgrass", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
-        
+
         generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
         generateConfigOption("version.mechanics.glowstone_pre1_6_6", false);
@@ -179,10 +179,10 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.pre_b1_5_block_placement_rules", false);
         generateConfigOption("version.mechanics.trample_farmland_above_fence", false);
         generateConfigOption("version.mechanics.seeds_replace_blocks", false);
-        
+
         generateConfigOption("version.mechanics.boats.drop_boat_not_wood", false);
         generateConfigOption("version.mechanics.boats.break_boat_on_collision", true);
-        
+
         generateConfigOption("version.experimental.force_fix_chunk_coords_corruption", false);
         generateConfigOption("version.allow_join.protocol", "14");
         generateConfigOption("version.allow_join.info", "Specify client versions to accept (separated by commas - first PVN is treated as target PVN of the server)");

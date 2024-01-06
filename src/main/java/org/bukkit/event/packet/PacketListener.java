@@ -6,6 +6,9 @@ import org.bukkit.event.Listener;
  * @author moderator_man
  */
 public class PacketListener implements Listener {
-    public void onPacketReceived(PacketReceivedEvent event) {}
-    public void onPacketSent(PacketSentEvent event) {}
+    public void onPacketReceived(PacketReceivedEvent event) {
+    }
+
+    public void onPacketSent(PacketSentEvent event) {
+    }
 }

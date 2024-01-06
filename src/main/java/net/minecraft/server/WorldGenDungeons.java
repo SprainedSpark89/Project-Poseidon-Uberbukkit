@@ -6,7 +6,8 @@ import com.legacyminecraft.poseidon.PoseidonConfig;
 
 public class WorldGenDungeons extends WorldGenerator {
 
-    public WorldGenDungeons() {}
+    public WorldGenDungeons() {
+    }
 
     public boolean a(World world, Random random, int i, int j, int k) {
         byte b0 = 3;
@@ -64,7 +65,8 @@ public class WorldGenDungeons extends WorldGenerator {
 
                 while (true) {
                     if (l1 < 3) {
-                        label204: {
+                        label204:
+                        {
                             i2 = i + random.nextInt(l * 2 + 1) - l;
                             int j2 = k + random.nextInt(i1 * 2 + 1) - i1;
 
@@ -126,43 +128,43 @@ public class WorldGenDungeons extends WorldGenerator {
         int i = random.nextInt(11);
 
         switch (i) {
-        case 0:
-            return new ItemStack(Item.SADDLE);
-        case 1:
-            return new ItemStack(Item.IRON_INGOT, random.nextInt(4) + 1);
-        case 2:
-            new ItemStack(Item.BREAD);
-        case 3:
-            new ItemStack(Item.WHEAT, random.nextInt(4) + 1);
-        case 4:
-            new ItemStack(Item.SULPHUR, random.nextInt(4) + 1);
-        case 5:
-            new ItemStack(Item.STRING, random.nextInt(4) + 1);
-        case 6:
-            new ItemStack(Item.BUCKET);
-        case 7: {
-            if (random.nextInt(100) == 0) {
-                return new ItemStack(Item.GOLDEN_APPLE);
+            case 0:
+                return new ItemStack(Item.SADDLE);
+            case 1:
+                return new ItemStack(Item.IRON_INGOT, random.nextInt(4) + 1);
+            case 2:
+                new ItemStack(Item.BREAD);
+            case 3:
+                new ItemStack(Item.WHEAT, random.nextInt(4) + 1);
+            case 4:
+                new ItemStack(Item.SULPHUR, random.nextInt(4) + 1);
+            case 5:
+                new ItemStack(Item.STRING, random.nextInt(4) + 1);
+            case 6:
+                new ItemStack(Item.BUCKET);
+            case 7: {
+                if (random.nextInt(100) == 0) {
+                    return new ItemStack(Item.GOLDEN_APPLE);
+                }
             }
-        }
-        case 8: {
-            if (random.nextInt(2) == 0) {
-                return new ItemStack(Item.REDSTONE, random.nextInt(4) + 1);
+            case 8: {
+                if (random.nextInt(2) == 0) {
+                    return new ItemStack(Item.REDSTONE, random.nextInt(4) + 1);
+                }
             }
-        }
-        case 9: {
-            if (random.nextInt(10) == 0) {
-                return new ItemStack(Item.byId[Item.GOLD_RECORD.id + random.nextInt(2)]);
+            case 9: {
+                if (random.nextInt(10) == 0) {
+                    return new ItemStack(Item.byId[Item.GOLD_RECORD.id + random.nextInt(2)]);
+                }
             }
-        }
-        case 10: {
-            // uberbukkit
-            if (PoseidonConfig.getInstance().getBoolean("version.worldgen.cocoabeans_loot", true)) {
-                return new ItemStack(Item.INK_SACK, 1, 3);
+            case 10: {
+                // uberbukkit
+                if (PoseidonConfig.getInstance().getBoolean("version.worldgen.cocoabeans_loot", true)) {
+                    return new ItemStack(Item.INK_SACK, 1, 3);
+                }
             }
-        }
-        default:
-            return null;
+            default:
+                return null;
         }
     }
 

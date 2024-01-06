@@ -507,7 +507,7 @@ public class World implements IBlockAccess {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (flag) {
                 int l = this.getTypeId(i, j, k);
-                
+
                 boolean check = false;
                 if (Uberbukkit.getTargetPVN() >= 12) {
                     check = l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id;
@@ -868,7 +868,7 @@ public class World implements IBlockAccess {
 
 
     public boolean addEntity(Entity entity, SpawnReason spawnReason) { // Changed signature, added SpawnReason
-    // CraftBukkit end
+        // CraftBukkit end
         int i = MathHelper.floor(entity.locX / 16.0D);
         int j = MathHelper.floor(entity.locZ / 16.0D);
         boolean flag = false;
@@ -1573,8 +1573,7 @@ public class World implements IBlockAccess {
         }
 
         if (this.getTypeId(i, j, k) == Block.FIRE.id) {
-            if (entityhuman != null)
-            {
+            if (entityhuman != null) {
                 BlockBreakEvent event = CraftEventFactory.callBlockBreakEvent(entityhuman, i, j, k);
                 if (event.isCancelled()) return;
             }
@@ -2351,7 +2350,8 @@ public class World implements IBlockAccess {
         return true;
     }
 
-    public void a(Entity entity, byte b0) {}
+    public void a(Entity entity, byte b0) {
+    }
 
     public IChunkProvider o() {
         return this.chunkProvider;
@@ -2459,7 +2459,7 @@ public class World implements IBlockAccess {
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true))
             return (double) this.d(1.0F) > 0.2D;
 
-    	return false;
+        return false;
     }
 
     public boolean s(int i, int j, int k) {

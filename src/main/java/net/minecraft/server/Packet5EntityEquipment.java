@@ -12,7 +12,8 @@ public class Packet5EntityEquipment extends Packet {
     public int d;
     public ItemStack[] items; // uberbukkit - vanilla alpha support
 
-    public Packet5EntityEquipment() {}
+    public Packet5EntityEquipment() {
+    }
 
     // pvn >= 7
     public Packet5EntityEquipment(int i, int j, ItemStack itemstack) {

@@ -22,7 +22,8 @@ public class Packet63Digging extends Packet {
         this.progress = progress;
     }
 
-    public void a(DataInputStream var1) throws IOException {}
+    public void a(DataInputStream var1) throws IOException {
+    }
 
     public void a(DataOutputStream var1) throws IOException {
         var1.writeInt(this.x);

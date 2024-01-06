@@ -10,7 +10,8 @@ public class Packet16BlockItemSwitch extends Packet {
     public int itemId;
     public int itemDamage;
 
-    public Packet16BlockItemSwitch() {}
+    public Packet16BlockItemSwitch() {
+    }
 
     // pvn <= 6
     public Packet16BlockItemSwitch(int i, int j) {

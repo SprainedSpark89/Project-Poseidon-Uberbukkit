@@ -1,0 +1,23 @@
+name: IntelliJ Format
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - if: github.event_name != 'pull_request'
+        uses: actions/checkout@v3
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/checkout@v3
+      - uses: notdevcody/intellij-format-action@v1
+        with:
+          include-glob: '*.java'
+          path: src/main/java/
