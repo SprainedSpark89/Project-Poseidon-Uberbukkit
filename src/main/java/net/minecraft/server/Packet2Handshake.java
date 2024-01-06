@@ -31,7 +31,7 @@ public class Packet2Handshake extends Packet {
         byte[] buf = new byte[available];
         datainputstream.readFully(buf, 0, available);
 
-        this.a = new String(buf, "UTF-8").replace(Character.toString((char)0), "");
+        this.a = new String(buf, "UTF-8").replace(Character.toString((char) 0), "");
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
