@@ -48,13 +48,13 @@ public class EntityTracker {
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {
-            this.a(entity, 80, 3, true);
+            this.a(entity, 80, 3, true); // uberbukkit - backported frequency from 1.0.0
         } else if (entity instanceof EntityBoat) {
-            this.a(entity, 80, 3, true);
+            this.a(entity, 80, 3, true); // uberbukkit - backported frequency from 1.0.0
         } else if (entity instanceof EntitySquid) {
-            this.a(entity, 64, 3, true);
+            this.a(entity, 64, 3, true); // uberbukkit - backported frequency from 1.0.0
         } else if (entity instanceof IAnimal) {
-            this.a(entity, 160, 3);
+            this.a(entity, 80, 3, true); // uberbukkit - backported from 1.0.0
         } else if (entity instanceof EntityTNTPrimed) {
             this.a(entity, 160, 10, true);
         } else if (entity instanceof EntityFallingSand) {

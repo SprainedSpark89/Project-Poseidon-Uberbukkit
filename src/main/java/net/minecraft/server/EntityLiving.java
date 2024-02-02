@@ -85,6 +85,7 @@ public abstract class EntityLiving extends Entity {
     protected void b() {
     }
 
+    // hasLineOfSight
     public boolean e(Entity entity) {
         return this.world.a(Vec3D.create(this.locX, this.locY + (double) this.t(), this.locZ), Vec3D.create(entity.locX, entity.locY + (double) entity.t(), entity.locZ)) == null;
     }

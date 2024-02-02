@@ -1375,14 +1375,18 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         if (entity != null) {
 
+            // uberbukkit start
+            // backported from release 1.2, fixes mobs being unpunchable from certain positions
             boolean flag = this.player.e(entity);
-            double d0 = 36.0D;
+            double maxRange = 36.0D;
 
             if (!flag)
-                d0 = 9.0D;
+                maxRange = 9.0D;
 
-            if (this.player.g(entity) >= d0)
+            if (this.player.g(entity) >= maxRange)
                 return;
+
+            // uberbukkit end
 
             if (packet7useentity.c == 0) {
                 Player player = (Player) this.getPlayer();
