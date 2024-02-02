@@ -123,7 +123,7 @@ public class EntityBoat extends Entity {
                 }
 
                 // uberbukkit - drop boat on damage, not planks & sticks
-                if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boat.drop_boat_not_wood", false)) {
+                if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boats.drop_boat_not_wood", false)) {
                     int j;
 
                     for (j = 0; j < 3; ++j) {
@@ -295,7 +295,7 @@ public class EntityBoat extends Entity {
                         this.die();
 
                         // uberbukkit - drop boat on damage, not planks & sticks
-                        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boat.drop_boat_not_wood", false)) {
+                        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boats.drop_boat_not_wood", false)) {
                             int k;
 
                             for (k = 0; k < 3; ++k) {
