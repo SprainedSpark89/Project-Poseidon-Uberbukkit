@@ -1374,16 +1374,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         ItemStack itemInHand = this.player.inventory.getItemInHand();
 
         if (entity != null) {
-            
+
             boolean flag = this.player.e(entity);
             double d0 = 36.0D;
 
             if (!flag)
                 d0 = 9.0D;
-            
+
             if (this.player.g(entity) >= d0)
                 return;
-            
+
             if (packet7useentity.c == 0) {
                 Player player = (Player) this.getPlayer();
                 org.bukkit.entity.Entity bukkitEntity = entity.getBukkitEntity();
