@@ -1,4 +1,4 @@
-package org.bukkit.command.defaults;
+package uk.betacraft.uberbukkit.command;
 
 import java.util.ArrayList;
 import java.util.HashMap;

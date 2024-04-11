@@ -1,16 +1,16 @@
 package uk.betacraft.uberbukkit;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+import net.minecraft.server.MinecraftServer;
+import org.bukkit.Bukkit;
+import uk.betacraft.uberbukkit.protocol.Protocol;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
-
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
-import net.minecraft.server.MinecraftServer;
-import uk.betacraft.uberbukkit.protocol.Protocol;
-
 public class Uberbukkit {
+    // TODO: Change this automatically migration to Gradle
+    private static final String version = "2.0.0";
     private static Integer pvn = null;
     private static List<Integer> pvns = null;
 
@@ -58,5 +58,9 @@ public class Uberbukkit {
 
     public static Protocol getProtocolHandler() {
         return Protocol.getProtocolClass(getTargetPVN());
+    }
+
+    public static String getVersion() {
+        return version;
     }
 }

@@ -1,4 +1,4 @@
-package org.bukkit.command.defaults;
+package uk.betacraft.uberbukkit.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

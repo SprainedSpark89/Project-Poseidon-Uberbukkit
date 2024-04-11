@@ -2,16 +2,17 @@ package org.bukkit.command;
 
 import org.bukkit.Server;
 import org.bukkit.command.defaults.*;
+import uk.betacraft.uberbukkit.command.*;
 
 import java.util.*;
 
 import static org.bukkit.util.Java15Compat.Arrays_copyOfRange;
 
 public class SimpleCommandMap implements CommandMap {
-    protected final Map<String, Command> knownCommands = new HashMap<String, Command>();
-    protected final Set<String> aliases = new HashSet<String>();
+    protected final Map<String, Command> knownCommands = new HashMap<>();
+    protected final Set<String> aliases = new HashSet<>();
     private final Server server;
-    protected static final Set<VanillaCommand> fallbackCommands = new HashSet<VanillaCommand>();
+    protected static final Set<VanillaCommand> fallbackCommands = new HashSet<>();
 
     static {
         fallbackCommands.add(new ListCommand());
@@ -43,9 +44,10 @@ public class SimpleCommandMap implements CommandMap {
     }
 
     private void setDefaultCommands(final Server server) {
-        register("poseidon", new PoseidonCommand("poseidon"));
-        register("uberbukkit", new CrackedAllowlistCommand());
+        register("uberbukkit", new UberBukkitCommand());
         register("uberbukkit", new FlushInvCommand());
+        register("uberbukkit", new UuidLookupCommand());
+        register("uberbukkit", new CrackedAllowlistCommand());
         register("bukkit", new VersionCommand("version"));
         register("bukkit", new ReloadCommand("reload"));
         register("bukkit", new PluginsCommand("plugins"));
