@@ -163,8 +163,7 @@ public class LoginProcessHandler {
         for (Player p : server.getOnlinePlayers()) {
             if (p.getName().equalsIgnoreCase(username) || p.getUniqueId().equals(uuid)) {
                 cancelLoginProcess(this.msgKickAlreadyOnline);
-                System.out.println("[Poseidon] User " + username + " has been blocked from connecting as they share a username or UUID with a user who is already online called " + p.getName() +
-                        "\nMost likely the user has changed their UUID or the server is running in offline mode and someone has attempted to connect with their name");
+                System.out.println("[Poseidon] User " + username + " has been blocked from connecting as they share a username or UUID with a user who is already online called " + p.getName() + "\nMost likely the user has changed their UUID or the server is running in offline mode and someone has attempted to connect with their name");
             }
         }
 
@@ -230,8 +229,7 @@ public class LoginProcessHandler {
     public void removeConnectionInterrupt(ConnectionPause connectionPause) {
         //Check if the connection pause is registered and active
         if (!connectionPauses.contains(connectionPause)) {
-            System.out.println("[Poseidon] A plugin has tried to remove a connection pause from the player " + packet1Login.name + " called " + connectionPause.getConnectionPauseName() +
-                    " from the plugin " + connectionPause.getPluginName() + ". Please contact the plugin author and get them to check their logic as this is a duplicate remove, or a pause for another player.");
+            System.out.println("[Poseidon] A plugin has tried to remove a connection pause from the player " + packet1Login.name + " called " + connectionPause.getConnectionPauseName() + " from the plugin " + connectionPause.getPluginName() + ". Please contact the plugin author and get them to check their logic as this is a duplicate remove, or a pause for another player.");
             return;
         }
         //Handle the completion of the pause

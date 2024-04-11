@@ -12,7 +12,7 @@ import java.util.Set;
 public final class SpawnerCreature {
 
     private static Set b = new HashSet();
-    protected static final Class[] a = new Class[]{EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
+    protected static final Class[] a = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class };
 
     public SpawnerCreature() {
     }
@@ -60,7 +60,7 @@ public final class SpawnerCreature {
                 if ((!enumcreaturetype.d() || flag1) && (enumcreaturetype.d() || flag) && world.a(enumcreaturetype.a()) <= enumcreaturetype.b() * b.size() / 256) {
                     Iterator iterator = b.iterator();
 
-                    label113:
+                        label113:
                     while (iterator.hasNext()) {
                         ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
                         BiomeBase biomebase = world.getWorldChunkManager().a(chunkcoordintpair);
@@ -123,7 +123,7 @@ public final class SpawnerCreature {
                                                     EntityLiving entityliving;
 
                                                     try {
-                                                        entityliving = (EntityLiving) biomemeta.a.getConstructor(new Class[]{World.class}).newInstance(new Object[]{world});
+                                                        entityliving = (EntityLiving) biomemeta.a.getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
                                                     } catch (Exception exception) {
                                                         exception.printStackTrace();
                                                         return i;
@@ -216,7 +216,7 @@ public final class SpawnerCreature {
                         EntityLiving entityliving;
 
                         try {
-                            entityliving = (EntityLiving) aclass[i1].getConstructor(new Class[]{World.class}).newInstance(new Object[]{world});
+                            entityliving = (EntityLiving) aclass[i1].getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
                         } catch (Exception exception) {
                             exception.printStackTrace();
                             return flag;

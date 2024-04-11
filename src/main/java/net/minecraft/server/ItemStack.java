@@ -129,10 +129,8 @@ public final class ItemStack {
             if (entity instanceof EntityPlayer) {
                 PlayerItemDamageEvent event = new PlayerItemDamageEvent((Player) entity.getBukkitEntity(), new CraftItemStack(this), i);
                 event.getPlayer().getServer().getPluginManager().callEvent(event);
-                if (i != event.getDamage() || event.isCancelled())
-                    event.getPlayer().updateInventory();
-                if (event.isCancelled())
-                    return;
+                if (i != event.getDamage() || event.isCancelled()) event.getPlayer().updateInventory();
+                if (event.isCancelled()) return;
                 i = event.getDamage();
             }
             this.damage += i;

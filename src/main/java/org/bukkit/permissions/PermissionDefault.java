@@ -7,10 +7,7 @@ import java.util.Map;
  * Represents the possible default values for permissions
  */
 public enum PermissionDefault {
-    TRUE("true"),
-    FALSE("false"),
-    OP("op", "isop", "operator", "isoperator", "admin", "isadmin"),
-    NOT_OP("!op", "notop", "!operator", "notoperator", "!admin", "notadmin");
+    TRUE("true"), FALSE("false"), OP("op", "isop", "operator", "isoperator", "admin", "isadmin"), NOT_OP("!op", "notop", "!operator", "notoperator", "!admin", "notadmin");
 
     private final String[] names;
     private final static Map<String, PermissionDefault> lookup = new HashMap<String, PermissionDefault>();

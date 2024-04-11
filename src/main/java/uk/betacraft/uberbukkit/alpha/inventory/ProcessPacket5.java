@@ -17,8 +17,7 @@ public class ProcessPacket5 {
     }
 
     public void process(Packet5EntityEquipment packet) {
-        if (debug)
-            System.out.println("PACKET 5 received");
+        if (debug) System.out.println("PACKET 5 received");
 
         // we have to find out what's being changed: if any item(stack) is being removed, or if any is being added
         // only allow additions of items if there's enough of them in the queue

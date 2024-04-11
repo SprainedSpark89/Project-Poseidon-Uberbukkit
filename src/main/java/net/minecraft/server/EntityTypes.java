@@ -27,7 +27,7 @@ public class EntityTypes {
             Class oclass = (Class) a.get(s);
 
             if (oclass != null) {
-                entity = (Entity) oclass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{world});
+                entity = (Entity) oclass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -43,7 +43,7 @@ public class EntityTypes {
             Class oclass = (Class) a.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
-                entity = (Entity) oclass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{world});
+                entity = (Entity) oclass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
             }
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -52,8 +52,7 @@ public class Packet24MobSpawn extends Packet {
 
         byte entityType = this.b;
         // uberbukkit - a1.1.2_01 doesn't recognize cows and sheep
-        if (this.pvn <= 2 && (this.b == 92 || this.b == 93))
-            entityType = 91;
+        if (this.pvn <= 2 && (this.b == 92 || this.b == 93)) entityType = 91;
 
         dataoutputstream.writeByte(entityType);
         dataoutputstream.writeInt(this.c);

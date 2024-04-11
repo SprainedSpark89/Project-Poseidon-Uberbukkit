@@ -358,11 +358,7 @@ public class CraftWorld implements World {
             return null;
         }
 
-        net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(
-                item.getTypeId(),
-                item.getAmount(),
-                item.getDurability()
-        );
+        net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
         EntityItem entity = new EntityItem(world, loc.getX(), loc.getY(), loc.getZ(), stack);
         entity.pickupDelay = 10;
         world.addEntity(entity);

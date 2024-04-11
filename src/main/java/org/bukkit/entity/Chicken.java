@@ -9,5 +9,4 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Chicken extends Animals {
-}
+public interface Chicken extends Animals {}

@@ -38,8 +38,7 @@ public class EntityPainting extends Entity {
             EnumArt enumart = aenumart[j1];
 
             // uberbukkit - make paintings show just the motives that exist in the target version
-            if (enumart == EnumArt.BURNINGSKULL && Uberbukkit.getTargetPVN() < 8)
-                continue;
+            if (enumart == EnumArt.BURNINGSKULL && Uberbukkit.getTargetPVN() < 8) continue;
 
             this.e = enumart;
             this.b(l);
@@ -245,8 +244,7 @@ public class EntityPainting extends Entity {
             if (enumart.A.equals(s)) {
 
                 // uberbukkit - make paintings show just the motives that exist in the target version
-                if (enumart == EnumArt.BURNINGSKULL && Uberbukkit.getTargetPVN() < 8)
-                    break;
+                if (enumart == EnumArt.BURNINGSKULL && Uberbukkit.getTargetPVN() < 8) break;
 
                 this.e = enumart;
             }

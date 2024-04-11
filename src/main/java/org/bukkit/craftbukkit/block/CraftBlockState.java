@@ -95,8 +95,7 @@ public class CraftBlockState implements BlockState {
             if ((data.getClass() == mat.getData()) || (data.getClass() == MaterialData.class)) {
                 this.data = data;
             } else {
-                throw new IllegalArgumentException("Provided data is not of type "
-                        + mat.getData().getName() + ", found " + data.getClass().getName());
+                throw new IllegalArgumentException("Provided data is not of type " + mat.getData().getName() + ", found " + data.getClass().getName());
             }
         }
     }

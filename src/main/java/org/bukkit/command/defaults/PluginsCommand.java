@@ -46,8 +46,7 @@ public class PluginsCommand extends Command {
             }
 
             pluginList.append(plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);
-            if (plugin.isEnabled())
-                enabled++;
+            if (plugin.isEnabled()) enabled++;
             pluginList.append(plugin.getDescription().getName());
         }
 

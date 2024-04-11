@@ -9,5 +9,4 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Flying extends LivingEntity {
-}
+public interface Flying extends LivingEntity {}

@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum PistonMoveReaction {
-    MOVE(0),
-    BREAK(1),
-    BLOCK(2);
+    MOVE(0), BREAK(1), BLOCK(2);
 
     private int id;
     private static Map<Integer, PistonMoveReaction> byId = new HashMap<Integer, PistonMoveReaction>();

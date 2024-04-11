@@ -100,8 +100,7 @@ public class NetLoginHandler extends NetHandler {
         this.networkManager.pvn = packet1login.pvn; // uberbukkit
 
         // uberbukkit - account for b1.1_02's protocol version. assume b1.1_02
-        if (Uberbukkit.getTargetPVN() == 7 && this.networkManager.pvn == 8)
-            this.networkManager.pvn = 7;
+        if (Uberbukkit.getTargetPVN() == 7 && this.networkManager.pvn == 8) this.networkManager.pvn = 7;
 
         this.networkManager.protocol = Protocol.getProtocolClass(this.networkManager.pvn);
 

@@ -95,8 +95,7 @@ public class CrackedAllowlist {
     }
 
     public List<String> getAsList() {
-        Type listType = new TypeToken<List<String>>() {
-        }.getType();
+        Type listType = new TypeToken<List<String>>() {}.getType();
         return parser.fromJson(namesJsonArray, listType);
     }
 

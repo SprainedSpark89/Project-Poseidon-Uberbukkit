@@ -103,8 +103,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         // The WorldEdit plugin greets the client with this character sequence
         // to establish communication with WorldEditCUI (client-side mod).
         // However, this char sequence crashes clients before b1.5, so this filter is needed
-        if (pvn < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75"))
-            return;
+        if (pvn < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75")) return;
 
         try {
             getHandle().netServerHandler.sendPacket(new Packet3Chat(message));
@@ -476,8 +475,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         ((EntityHuman) getHandle()).b = coords;
 
         String worldname = "";
-        if (location.getWorld() != null)
-            worldname = location.getWorld().getName();
+        if (location.getWorld() != null) worldname = location.getWorld().getName();
 
         getHandle().spawnWorld = worldname;
     }

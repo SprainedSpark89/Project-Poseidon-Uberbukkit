@@ -12,13 +12,7 @@ public class Note {
      * An enum holding tones.
      */
     public enum Tone {
-        F((byte) -0x1, true),
-        G((byte) 0x1, true),
-        A((byte) 0x3, true),
-        B((byte) 0x5, false),
-        C((byte) 0x6, true),
-        D((byte) 0x8, true),
-        E((byte) 0xA, false);
+        F((byte) -0x1, true), G((byte) 0x1, true), A((byte) 0x3, true), B((byte) 0x5, false), C((byte) 0x6, true), D((byte) 0x8, true), E((byte) 0xA, false);
 
         private final boolean sharpable;
         private final byte id;

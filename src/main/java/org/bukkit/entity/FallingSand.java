@@ -9,5 +9,4 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface FallingSand extends Entity {
-}
+public interface FallingSand extends Entity {}

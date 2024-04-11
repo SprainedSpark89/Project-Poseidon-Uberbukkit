@@ -30,8 +30,6 @@ public class UUIDResult {
 
 
     public enum ReturnType {
-        ONLINE,
-        OFFLINE,
-        API_OFFLINE
+        ONLINE, OFFLINE, API_OFFLINE
     }
 }

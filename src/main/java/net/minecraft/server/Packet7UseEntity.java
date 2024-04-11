@@ -17,18 +17,15 @@ public class Packet7UseEntity extends Packet {
         this.a = datainputstream.readInt();
         this.target = datainputstream.readInt();
         // uberbukkit
-        if (this.pvn >= 5)
-            this.c = datainputstream.readByte();
-        else
-            this.c = 0;
+        if (this.pvn >= 5) this.c = datainputstream.readByte();
+        else this.c = 0;
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeInt(this.target);
         // uberbukkit
-        if (this.pvn >= 5)
-            dataoutputstream.writeByte(this.c);
+        if (this.pvn >= 5) dataoutputstream.writeByte(this.c);
     }
 
     public void a(NetHandler nethandler) {

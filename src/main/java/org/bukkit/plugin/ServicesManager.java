@@ -24,8 +24,7 @@ public interface ServicesManager {
      * @param plugin   plugin with the provider
      * @param priority priority of the provider
      */
-    public <T> void register(Class<T> service, T provider, Plugin plugin,
-                             ServicePriority priority);
+    public <T> void register(Class<T> service, T provider, Plugin plugin, ServicePriority priority);
 
     /**
      * Unregister all the providers registered by a particular plugin.
@@ -85,8 +84,7 @@ public interface ServicesManager {
      * @param service
      * @return list of registrations
      */
-    public <T> Collection<RegisteredServiceProvider<T>> getRegistrations(
-            Class<T> service);
+    public <T> Collection<RegisteredServiceProvider<T>> getRegistrations(Class<T> service);
 
     /**
      * Get a list of known services. A service is known if it has registered

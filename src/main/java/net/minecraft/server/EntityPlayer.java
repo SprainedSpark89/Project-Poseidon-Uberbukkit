@@ -39,7 +39,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public final List removeQueue = new LinkedList(); // poseidon
     private int bL = -99999999;
     private int bM = 60;
-    private ItemStack[] bN = new ItemStack[]{null, null, null, null, null};
+    private ItemStack[] bN = new ItemStack[] { null, null, null, null, null };
     private int bO = 0;
     public boolean h;
     // uberbukkit

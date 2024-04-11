@@ -54,13 +54,10 @@ public abstract class ChunkGenerator {
             case NETHER:
                 return true;
             case SKYLANDS:
-                return highest.getType() != Material.AIR
-                        && highest.getType() != Material.WATER
-                        && highest.getType() != Material.LAVA;
+                return highest.getType() != Material.AIR && highest.getType() != Material.WATER && highest.getType() != Material.LAVA;
             case NORMAL:
             default:
-                return highest.getType() == Material.SAND
-                        || highest.getType() == Material.GRAVEL;
+                return highest.getType() == Material.SAND || highest.getType() == Material.GRAVEL;
         }
     }
 

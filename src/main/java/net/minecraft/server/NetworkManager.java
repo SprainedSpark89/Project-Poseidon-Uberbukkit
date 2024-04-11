@@ -127,12 +127,10 @@ public class NetworkManager {
             Object object = this.g;
 
             // uberbukkit
-            if (this.protocol != null && !this.protocol.canReceivePacket(packet.b()))
-                return;
+            if (this.protocol != null && !this.protocol.canReceivePacket(packet.b())) return;
 
             // uberbukkit
-            if (this.pvn != 0)
-                packet.pvn = this.pvn;
+            if (this.pvn != 0) packet.pvn = this.pvn;
 
             synchronized (this.g) {
                 this.x += packet.a() + 1;
@@ -228,7 +226,7 @@ public class NetworkManager {
 
     private void a(Exception exception) {
         exception.printStackTrace();
-        this.a("disconnect.genericReason", new Object[]{"Internal exception: " + exception.toString()});
+        this.a("disconnect.genericReason", new Object[] { "Internal exception: " + exception.toString() });
     }
 
     public void a(String s, Object... aobject) {

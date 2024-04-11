@@ -370,12 +370,7 @@ public final class SimplePluginManager implements PluginManager {
                         if (plugin.getDescription().getAuthors().size() > 0) {
                             author = plugin.getDescription().getAuthors().get(0);
                         }
-                        server.getLogger().log(Level.SEVERE, String.format(
-                                "Nag author: '%s' of '%s' about the following: %s",
-                                author,
-                                plugin.getDescription().getName(),
-                                ex.getMessage()
-                        ));
+                        server.getLogger().log(Level.SEVERE, String.format("Nag author: '%s' of '%s' about the following: %s", author, plugin.getDescription().getName(), ex.getMessage()));
                     }
                 } catch (Throwable ex) {
                     server.getLogger().log(Level.SEVERE, "Could not pass event " + event.getType() + " to " + registration.getPlugin().getDescription().getName(), ex);

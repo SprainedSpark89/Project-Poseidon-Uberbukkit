@@ -6,9 +6,5 @@ package org.bukkit;
  * @author sk89q
  */
 public enum TreeType {
-    TREE,
-    BIG_TREE,
-    REDWOOD,
-    TALL_REDWOOD,
-    BIRCH
+    TREE, BIG_TREE, REDWOOD, TALL_REDWOOD, BIRCH
 }

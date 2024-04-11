@@ -165,8 +165,7 @@ public class WorldData {
 
     public boolean isThundering() {
         // uberbukkit
-        if (Uberbukkit.getTargetPVN() < 11)
-            return false;
+        if (Uberbukkit.getTargetPVN() < 11) return false;
 
         return this.n;
     }
@@ -185,8 +184,7 @@ public class WorldData {
 
     public boolean hasStorm() {
         // uberbukkit
-        if (Uberbukkit.getTargetPVN() < 11)
-            return false;
+        if (Uberbukkit.getTargetPVN() < 11) return false;
 
         return this.l;
     }

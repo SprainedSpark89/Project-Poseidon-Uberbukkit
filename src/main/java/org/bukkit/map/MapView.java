@@ -13,11 +13,7 @@ public interface MapView {
      * An enum representing all possible scales a map can be set to.
      */
     public static enum Scale {
-        CLOSEST(0),
-        CLOSE(1),
-        NORMAL(2),
-        FAR(3),
-        FARTHEST(4);
+        CLOSEST(0), CLOSE(1), NORMAL(2), FAR(3), FARTHEST(4);
 
         private byte value;
 

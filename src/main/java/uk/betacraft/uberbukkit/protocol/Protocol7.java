@@ -37,8 +37,7 @@ public class Protocol7 extends Protocol8 {
 
     @Override
     public boolean canSeeMob(Class<?> claz) {
-        if (Squid.class.isAssignableFrom(claz))
-            return false;
+        if (Squid.class.isAssignableFrom(claz)) return false;
 
         return super.canSeeMob(claz);
     }

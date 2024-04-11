@@ -13,8 +13,7 @@ public class RegisteredServiceProvider<T> implements Comparable<RegisteredServic
     private T provider;
     private ServicePriority priority;
 
-    public RegisteredServiceProvider(Class<T> service, T provider,
-                                     ServicePriority priority, Plugin plugin) {
+    public RegisteredServiceProvider(Class<T> service, T provider, ServicePriority priority, Plugin plugin) {
 
         this.service = service;
         this.plugin = plugin;

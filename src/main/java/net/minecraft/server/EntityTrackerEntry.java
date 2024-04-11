@@ -84,8 +84,7 @@ public class EntityTrackerEntry {
             // https://discordapp.com/channels/397834523028488203/397839387465089054/684637208199823377
             int movementUpdateTreshold = 1;
             int rotationUpdateTreshold = 1;
-            boolean needsPositionUpdate = Math.abs(encodedDiffX) >= movementUpdateTreshold || Math.abs(encodedDiffY) >= movementUpdateTreshold || Math.abs(encodedDiffZ) >= movementUpdateTreshold
-                    || tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
+            boolean needsPositionUpdate = Math.abs(encodedDiffX) >= movementUpdateTreshold || Math.abs(encodedDiffY) >= movementUpdateTreshold || Math.abs(encodedDiffZ) >= movementUpdateTreshold || tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
 
             boolean needsRotationUpdate = Math.abs(newEncodedRotationYaw - this.g) >= rotationUpdateTreshold || Math.abs(newEncodedRotationPitch - this.h) >= rotationUpdateTreshold;
 

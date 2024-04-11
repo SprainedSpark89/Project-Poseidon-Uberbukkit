@@ -27,8 +27,7 @@ public class Protocol9 extends Protocol10 {
 
     @Override
     public boolean canSeeMob(Class<?> claz) {
-        if (Wolf.class.isAssignableFrom(claz))
-            return false;
+        if (Wolf.class.isAssignableFrom(claz)) return false;
 
         return super.canSeeMob(claz);
     }

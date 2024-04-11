@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
  */
 public class JavaPluginLoader implements PluginLoader {
     private final Server server;
-    protected final Pattern[] fileFilters = new Pattern[]{Pattern.compile("\\.jar$"),};
+    protected final Pattern[] fileFilters = new Pattern[] { Pattern.compile("\\.jar$"), };
     protected final Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
     protected final Map<String, PluginClassLoader> loaders = new HashMap<String, PluginClassLoader>();
 
@@ -178,8 +178,7 @@ public class JavaPluginLoader implements PluginLoader {
 
     // Project Poseidon Start
     private void notNull(Object object, String message) {
-        if (object == null)
-            throw new IllegalArgumentException(message);
+        if (object == null) throw new IllegalArgumentException(message);
     }
 
     @Override
@@ -208,10 +207,8 @@ public class JavaPluginLoader implements PluginLoader {
 
         for (final Method method : methods) {
             final EventHandler eh = method.getAnnotation(EventHandler.class);
-            if (eh == null)
-                continue;
-            if (method.isBridge() || method.isSynthetic())
-                continue;
+            if (eh == null) continue;
+            if (method.isBridge() || method.isSynthetic()) continue;
             final Class<?> checkClass;
             if (method.getParameterTypes().length != 1 || !Event.class.isAssignableFrom(checkClass = method.getParameterTypes()[0])) {
                 plugin.getServer().getLogger().severe(plugin.getDescription().getFullName() + " attempted to register an invalid EventHandler method signature \"" + method.toGenericString() + "\" in " + listener.getClass());
@@ -223,17 +220,7 @@ public class JavaPluginLoader implements PluginLoader {
 
             for (Class<?> clazz = eventClass; Event.class.isAssignableFrom(clazz); clazz = clazz.getSuperclass()) {
                 if (clazz.getAnnotation(Deprecated.class) != null) {
-                    plugin.getServer().getLogger().log(
-                            Level.WARNING,
-                            String.format(
-                                    "\"%s\" has registered a listener for %s on method \"%s\", but the event is Deprecated." +
-                                            " \"%s\"; please notify the authors %s.",
-                                    plugin.getDescription().getFullName(),
-                                    clazz.getName(),
-                                    method.toGenericString(),
-                                    "Server performance will be affected",
-                                    Arrays.toString(plugin.getDescription().getAuthors().toArray())),
-                            new AuthorNagException(null));
+                    plugin.getServer().getLogger().log(Level.WARNING, String.format("\"%s\" has registered a listener for %s on method \"%s\", but the event is Deprecated." + " \"%s\"; please notify the authors %s.", plugin.getDescription().getFullName(), clazz.getName(), method.toGenericString(), "Server performance will be affected", Arrays.toString(plugin.getDescription().getAuthors().toArray())), new AuthorNagException(null));
                     break;
                 }
             }

@@ -48,10 +48,8 @@ public abstract class Packet {
         else {
             packetIdToClassMap.put(Integer.valueOf(id), oclass);
             packetClassToIdMap.put(oclass, Integer.valueOf(id));
-            if (clientSide)
-                clientPacketIdList.add(Integer.valueOf(id));
-            if (serverSide)
-                serverPacketIdList.add(Integer.valueOf(id));
+            if (clientSide) clientPacketIdList.add(Integer.valueOf(id));
+            if (serverSide) serverPacketIdList.add(Integer.valueOf(id));
         }
     }
 

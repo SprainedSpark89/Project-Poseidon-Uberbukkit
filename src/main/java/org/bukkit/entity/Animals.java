@@ -5,5 +5,4 @@ package org.bukkit.entity;
  *
  * @author Cogito
  */
-public interface Animals extends Creature {
-}
+public interface Animals extends Creature {}

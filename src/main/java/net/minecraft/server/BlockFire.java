@@ -324,8 +324,7 @@ public class BlockFire extends Block {
 
     public void c(World world, int i, int j, int k) {
         // uberbukkit - disable nether portals for target version a1.1.2_01
-        if (Uberbukkit.getTargetPVN() <= 2)
-            return;
+        if (Uberbukkit.getTargetPVN() <= 2) return;
 
         if (world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.a_(world, i, j, k)) {
             if (!world.e(i, j - 1, k) && !this.g(world, i, j, k)) {

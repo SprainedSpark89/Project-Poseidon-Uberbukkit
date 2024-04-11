@@ -647,10 +647,8 @@ public abstract class Event implements Serializable {
          *
          * @see org.bukkit.event.entity.EntityDamageEvent
          */
-        ENTITY_DAMAGE(Category.LIVING_ENTITY),
-        // Project Poseidon Start
-        ENTITY_DAMAGE_BY_ENTITY(Category.LIVING_ENTITY),
-        ENTITY_DAMAGE_BY_BLOCK(Category.LIVING_ENTITY),
+        ENTITY_DAMAGE(Category.LIVING_ENTITY), // Project Poseidon Start
+        ENTITY_DAMAGE_BY_ENTITY(Category.LIVING_ENTITY), ENTITY_DAMAGE_BY_BLOCK(Category.LIVING_ENTITY),
         // Project Poseidon End
         /**
          * Called when a LivingEntity dies
@@ -829,10 +827,8 @@ public abstract class Event implements Serializable {
             for (Type type : Type.values()) {
                 String typeName = type.name();
                 String typeName_ = typeName.replace("_", "");
-                if (name.equalsIgnoreCase(typeName))
-                    return type;
-                if (name.equalsIgnoreCase(typeName_))
-                    return type;
+                if (name.equalsIgnoreCase(typeName)) return type;
+                if (name.equalsIgnoreCase(typeName_)) return type;
             }
             return null;
         }

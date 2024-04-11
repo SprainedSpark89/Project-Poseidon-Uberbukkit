@@ -26,8 +26,7 @@ public class Protocol2 extends Protocol3 {
 
     @Override
     public boolean canSeeMob(Class<?> claz) {
-        if (Ghast.class.isAssignableFrom(claz) || PigZombie.class.isAssignableFrom(claz))
-            return false;
+        if (Ghast.class.isAssignableFrom(claz) || PigZombie.class.isAssignableFrom(claz)) return false;
 
         return super.canSeeMob(claz);
     }

@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class TileEntitySign extends TileEntity {
 
-    public String[] lines = new String[]{"", "", "", ""};
+    public String[] lines = new String[] { "", "", "", "" };
     public int b = -1;
     private boolean isEditable = true;
 

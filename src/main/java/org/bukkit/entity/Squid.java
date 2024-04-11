@@ -9,5 +9,4 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Squid extends WaterMob {
-}
+public interface Squid extends WaterMob {}

@@ -144,9 +144,7 @@ public abstract class JavaPlugin implements Plugin {
      * @param file        File containing this plugin
      * @param classLoader ClassLoader which holds this plugin
      */
-    protected final void initialize(PluginLoader loader, Server server,
-                                    PluginDescriptionFile description, File dataFolder, File file,
-                                    ClassLoader classLoader) {
+    protected final void initialize(PluginLoader loader, Server server, PluginDescriptionFile description, File dataFolder, File file, ClassLoader classLoader) {
         if (!initialized) {
             this.initialized = true;
             this.loader = loader;

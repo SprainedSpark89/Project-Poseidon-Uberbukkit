@@ -245,8 +245,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
             // Poseidon
             InventoryTransactionEvent event = new InventoryTransactionEvent(InventoryTransactionType.ITEM_ADDED, this, item);
             Bukkit.getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled())
-                continue;
+            if (event.isCancelled()) continue;
 
             while (true) {
                 // Do we already have a stack of it?
@@ -306,8 +305,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
             // Poseidon
             InventoryTransactionEvent event = new InventoryTransactionEvent(InventoryTransactionType.ITEM_REMOVED, this, item);
             Bukkit.getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled())
-                continue;
+            if (event.isCancelled()) continue;
 
             int toDelete = item.getAmount();
 

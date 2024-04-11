@@ -910,8 +910,8 @@ public abstract class Entity {
     }
 
     public void d(NBTTagCompound nbttagcompound) {
-        nbttagcompound.a("Pos", (NBTBase) this.a(new double[]{this.locX, this.locY + (double) this.br, this.locZ}));
-        nbttagcompound.a("Motion", (NBTBase) this.a(new double[]{this.motX, this.motY, this.motZ}));
+        nbttagcompound.a("Pos", (NBTBase) this.a(new double[] { this.locX, this.locY + (double) this.br, this.locZ }));
+        nbttagcompound.a("Motion", (NBTBase) this.a(new double[] { this.motX, this.motY, this.motZ }));
 
         // CraftBukkit start - checking for NaN pitch/yaw and resetting to zero
         // TODO: make sure this is the best way to address this.
@@ -924,7 +924,7 @@ public abstract class Entity {
         }
         // CraftBukkit end
 
-        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[]{this.yaw, this.pitch}));
+        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[] { this.yaw, this.pitch }));
         nbttagcompound.a("FallDistance", this.fallDistance);
         nbttagcompound.a("Fire", (short) this.fireTicks);
         nbttagcompound.a("Air", (short) this.airTicks);

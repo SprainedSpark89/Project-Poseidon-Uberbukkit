@@ -9,5 +9,4 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Giant extends Monster {
-}
+public interface Giant extends Monster {}

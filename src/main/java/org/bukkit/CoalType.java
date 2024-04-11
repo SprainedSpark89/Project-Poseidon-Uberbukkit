@@ -9,8 +9,7 @@ import java.util.Map;
  * @author sunkid
  */
 public enum CoalType {
-    COAL((byte) 0x0),
-    CHARCOAL((byte) 0x1);
+    COAL((byte) 0x0), CHARCOAL((byte) 0x1);
 
     private final byte data;
     private final static Map<Byte, CoalType> types = new HashMap<Byte, CoalType>();

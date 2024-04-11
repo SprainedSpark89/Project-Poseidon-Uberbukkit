@@ -28,9 +28,7 @@ public class IllegalContainerInteractionFix {
 
     public static void violate(EntityPlayer player) {
         if (LOG_VIOLATION) {
-            Logger.getLogger("UberBukkit").warning(
-                    String.format("%1$s tried to interact with a container too far away from them!", player.name)
-            );
+            Logger.getLogger("UberBukkit").warning(String.format("%1$s tried to interact with a container too far away from them!", player.name));
         }
         player.y();
     }

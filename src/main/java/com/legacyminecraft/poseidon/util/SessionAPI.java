@@ -20,8 +20,7 @@ public class SessionAPI {
 
     public static boolean hasJoined(String username, String serverId) {
         HTTPResponse response = httpGetRequest(SESSION_BASE + String.format("checkserver.jsp?user=%s&serverId=%s", username, serverId));
-        if (response.getResponse() != "YES")
-            return false;
+        if (response.getResponse() != "YES") return false;
         return true;
     }
 
@@ -32,8 +31,7 @@ public class SessionAPI {
             sb.append("https://sessionserver.mojang.com/session/minecraft/hasJoined");
             sb.append("?username=" + username);
             sb.append("&serverId=" + serverId);
-            if (checkIP)
-                sb.append("&ip=" + ip);
+            if (checkIP) sb.append("&ip=" + ip);
             String requestUrl = sb.toString();
 
             HTTPResponse response = httpGetRequest(requestUrl);
@@ -57,8 +55,7 @@ public class SessionAPI {
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null)
-                response.append(inputLine);
+            while ((inputLine = in.readLine()) != null) { response.append(inputLine); }
             in.close();
             return new HTTPResponse(response.toString(), con.getResponseCode());
         } catch (Exception ex) {

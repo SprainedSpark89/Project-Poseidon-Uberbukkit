@@ -187,19 +187,9 @@ public class ServerConfigurationManager {
         s1 = s1.substring(s1.indexOf("/") + 1);
         s1 = s1.substring(0, s1.indexOf(":"));
 
-        PlayerLoginEvent.Result result =
-                this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED :
-                        this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
-                                !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST :
-                                        this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL :
-                                                PlayerLoginEvent.Result.ALLOWED;
+        PlayerLoginEvent.Result result = this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED : this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP : !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST : this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL : PlayerLoginEvent.Result.ALLOWED;
 
-        String kickMessage =
-                result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned :
-                        result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned :
-                                result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist :
-                                        result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull :
-                                                s1;
+        String kickMessage = result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned : result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned : result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist : result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull : s1;
 
         event.disallow(result, kickMessage);
 

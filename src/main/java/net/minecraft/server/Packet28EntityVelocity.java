@@ -39,8 +39,7 @@ public class Packet28EntityVelocity extends Packet {
 
         // uberbukkit start
         double d3 = 3.9D;
-        if (this.pvn <= 5)
-            d3 = 0.9D;
+        if (this.pvn <= 5) d3 = 0.9D;
 
         if (this.b < -d3) {
             this.b = -d3;
@@ -67,8 +66,7 @@ public class Packet28EntityVelocity extends Packet {
         }
 
         double multiplier = 8000.0D;
-        if (this.pvn <= 5)
-            multiplier = 32000.0D;
+        if (this.pvn <= 5) multiplier = 32000.0D;
 
         dataoutputstream.writeShort((int) (this.b * multiplier));
         dataoutputstream.writeShort((int) (this.c * multiplier));
