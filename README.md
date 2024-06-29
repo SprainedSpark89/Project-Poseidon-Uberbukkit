@@ -8,8 +8,8 @@ Discord (Project Poseidon): https://discord.gg/FwKg676
 ## Features (UberBukkit)
 - **Multi version support:** UberBukkit supports b1.0 - b1.7.3 versions.<br> 
 ***Experimental*** alpha support is also available.
-
 - **Cracked + Online mode:** You can whitelist cracked players when your server has `online-mode` on.
+- **Exclusive exploit & dupe fixes**
 
 ## Features (Poseidon)
 - **UUID Support:** Settings to enable UUID-based inventories alongside methods for plugins to transition to UUID-based systems similar to modern Minecraft server implementations.
