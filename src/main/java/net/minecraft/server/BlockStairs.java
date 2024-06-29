@@ -123,7 +123,7 @@ public class BlockStairs extends Block {
         this.a.remove(world, i, j, k);
     }
 
-    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data){
+    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data) {
         return this.a.getDrops(world, x, y, z, data);
     }
 

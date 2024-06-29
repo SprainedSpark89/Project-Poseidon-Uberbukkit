@@ -342,8 +342,8 @@ public class CraftBlock implements Block {
         net.minecraft.server.Block block = net.minecraft.server.Block.byId[getTypeId()];
         if (block == null) {
             return new ArrayList<ItemStack>();
-        } else if(block.material.i()) {
-            return Arrays.asList(block.getDrops(((CraftWorld) this.getWorld()).getHandle(), x, y, z, (int)getData()).map((list) -> list.stream().map(itemStack -> new CraftItemStack(itemStack)).toArray(ItemStack[]::new)).orElse(new ItemStack[0]));
+        } else if (block.material.i()) {
+            return Arrays.asList(block.getDrops(((CraftWorld) this.getWorld()).getHandle(), x, y, z, (int) getData()).map((list) -> list.stream().map(itemStack -> new CraftItemStack(itemStack)).toArray(ItemStack[]::new)).orElse(new ItemStack[0]));
         } else {
             return new ArrayList<ItemStack>();
         }
@@ -355,7 +355,7 @@ public class CraftBlock implements Block {
         if (block == null) {
             return new ArrayList<ItemStack>();
         } else if (block.material.i() || ((CraftItemStack) tool).getHandle().b(block)) {
-            return Arrays.asList(block.getDrops(((CraftWorld) this.getWorld()).getHandle(), x, y, z, (int)getData()).map((list) -> list.stream().map(itemStack -> new CraftItemStack(itemStack)).toArray(ItemStack[]::new)).orElse(new ItemStack[0]));
+            return Arrays.asList(block.getDrops(((CraftWorld) this.getWorld()).getHandle(), x, y, z, (int) getData()).map((list) -> list.stream().map(itemStack -> new CraftItemStack(itemStack)).toArray(ItemStack[]::new)).orElse(new ItemStack[0]));
         } else {
             return new ArrayList<ItemStack>();
         }

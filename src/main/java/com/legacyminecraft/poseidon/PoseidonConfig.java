@@ -144,8 +144,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("world.settings.mob-spawner-area-limit.enable", true);
         generateConfigOption("world.settings.mob-spawner-area-limit.limit", 150);
         generateConfigOption("world.settings.mob-spawner-area-limit.chunk-radius", 8);
-        generateConfigOption("world.settings.mob-spawner-area-limit.info",
-                "This setting controls the maximum number of entities of a mob spawner type that can exist within the defined chunk radius around a mob spawner. If the number of entities exceeds this limit, the spawner will stop spawning additional entities of that type. This is useful to stop the extreme lag that can be caused by mob spawners.");
+        generateConfigOption("world.settings.mob-spawner-area-limit.info", "This setting controls the maximum number of entities of a mob spawner type that can exist within the defined chunk radius around a mob spawner. If the number of entities exceeds this limit, the spawner will stop spawning additional entities of that type. This is useful to stop the extreme lag that can be caused by mob spawners.");
 
 
         //generateConfigOption("world-settings.eject-from-vehicle-on-teleport.enabled", true);

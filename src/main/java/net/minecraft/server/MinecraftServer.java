@@ -522,7 +522,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         if (currentTime - lastTick >= 1000) {
             double tps = tickCount / ((currentTime - lastTick) / 1000.0);
             tpsRecords.addFirst(tps);
-            if(tpsRecords.size() > 900) { //Don't keep more than 15 minutes of data
+            if (tpsRecords.size() > 900) { //Don't keep more than 15 minutes of data
                 tpsRecords.removeLast();
             }
 
@@ -531,7 +531,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
         }
 
         //Project Poseidon End - Tick Update
-
 
 
         for (j = 0; j < this.worlds.size(); ++j) { // CraftBukkit

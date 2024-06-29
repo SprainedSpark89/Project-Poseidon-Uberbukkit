@@ -58,11 +58,11 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
 
-    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data){
+    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data) {
         TileEntityPiston tileentitypiston = this.b(world, x, y, z);
-        if(tileentitypiston != null){
+        if (tileentitypiston != null) {
             return Block.byId[tileentitypiston.a()].getDrops(world, x, y, z, tileentitypiston.e());
-        }else{
+        } else {
             return Optional.empty();
         }
     }

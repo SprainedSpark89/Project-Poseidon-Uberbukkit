@@ -27,11 +27,12 @@ public class ServerLogRotator {
 
     /**
      * Checks if the date in the log line is today's date
+     *
      * @param date The date in the log line. Format: "yyyy-MM-dd"
      * @return True if the date in the log line is today's date, false otherwise
      */
     private boolean isToday(String date) {
-    String[] dateParts = date.split("-");
+        String[] dateParts = date.split("-");
         LocalDateTime logLineDateTime = LocalDateTime.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]), 0, 0, 0);
         LocalDateTime now = LocalDateTime.now();
         return logLineDateTime.getYear() == now.getYear() && logLineDateTime.getMonthValue() == now.getMonthValue() && logLineDateTime.getDayOfMonth() == now.getDayOfMonth();
@@ -39,6 +40,7 @@ public class ServerLogRotator {
 
     /**
      * Archives a log line to a log file with the same date as the date in the log line
+     *
      * @param parts The log line to archive to a log file haven been split already e.g. ["2024-03-20", "13:02:27", "[INFO]", "This is a log message..."]
      */
     private void archiveLine(String[] parts) {
@@ -60,7 +62,7 @@ public class ServerLogRotator {
             writer.println(date + " " + time + " " + logLevel + " " + message);
             writer.close();
 
-        // catch any exceptions that occur during the process, and log them. IOExceptions are possible when calling createNewFile()
+            // catch any exceptions that occur during the process, and log them. IOExceptions are possible when calling createNewFile()
         } catch (IOException e) {
             logger.log(Level.SEVERE, "[Poseidon]  Failed to create new log file!");
             logger.log(Level.SEVERE, e.toString());
@@ -120,7 +122,7 @@ public class ServerLogRotator {
 
             logger.log(Level.INFO, "[Poseidon] Logs built from latest.log!");
 
-        // catch any exceptions that occur during the process, and log them
+            // catch any exceptions that occur during the process, and log them
         } catch (Exception e) {
             logger.log(Level.SEVERE, "[Poseidon] Failed to build logs from latest.log!");
             logger.log(Level.SEVERE, e.toString());
@@ -131,8 +133,7 @@ public class ServerLogRotator {
         // Calculate the initial delay and period for the log rotation task
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime nextRun = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
-        if(now.compareTo(nextRun) > 0)
-            nextRun = nextRun.plusDays(1);
+        if (now.compareTo(nextRun) > 0) nextRun = nextRun.plusDays(1);
         Duration duration = Duration.between(now, nextRun);
         long initialDelay = duration.getSeconds();
         long period = TimeUnit.DAYS.toSeconds(1);
@@ -142,8 +143,7 @@ public class ServerLogRotator {
 
         // Schedule the log rotation task to run every day at midnight offset by one second to avoid missing logs
         logger.log(Level.INFO, "[Poseidon] Log rotation task scheduled for run in " + initialDelay + " seconds, and then every " + period + " seconds.");
-        logger.log(Level.INFO, "[Poseidon] If latest.log contains logs from earlier, not previously archived dates, they will be archived to the appropriate log files " +
-                               "upon first run of the log rotation task. If log files already exist for these dates, the logs will be appended to the existing log files!");
+        logger.log(Level.INFO, "[Poseidon] If latest.log contains logs from earlier, not previously archived dates, they will be archived to the appropriate log files " + "upon first run of the log rotation task. If log files already exist for these dates, the logs will be appended to the existing log files!");
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(new PoseidonPlugin(), this::buildHistoricalLogsFromLatestLogFile, (initialDelay + 1) * 20, period * 20);
     }
 }

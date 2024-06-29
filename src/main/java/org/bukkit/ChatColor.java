@@ -127,7 +127,7 @@ public enum ChatColor {
     /**
      * Translates alternate color codes in the given text to Minecraft color codes.
      *
-     * @param altColorChar The character used to denote color codes '&'.
+     * @param altColorChar    The character used to denote color codes '&'.
      * @param textToTranslate The text containing the alternate color codes.
      * @return The text with the alternate color codes replaced by Minecraft color codes.
      */

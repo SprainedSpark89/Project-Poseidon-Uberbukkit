@@ -78,7 +78,7 @@ public class TileEntityMobSpawner extends TileEntity {
                     }
 
                     //Poseidon Start - Ensure the mob cound of the specific type of mob is under the defined limit within the area
-                    if(poseidonAreaLimit) {
+                    if (poseidonAreaLimit) {
                         double chunkSize = 16.0D;
                         AxisAlignedBB searchArea = AxisAlignedBB.b(this.x - poseidonChunkRadius * chunkSize, 0.0D, this.z - poseidonChunkRadius * chunkSize, this.x + poseidonChunkRadius * chunkSize, 128, this.z + poseidonChunkRadius * chunkSize);
                         List<Entity> existingEntities = this.world.a(entityliving.getClass(), searchArea);

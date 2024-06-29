@@ -313,8 +313,8 @@ public class Block {
                 if (world.random.nextFloat() < f) {
                     //Project Poseidon Start - New way to handle block drops to allow for plugins to know what items a block will drop
                     Optional<List<ItemStack>> items = getDrops(world, i, j, k, l);
-                    if(items.isPresent()) {
-                        for(ItemStack item : items.get()) {
+                    if (items.isPresent()) {
+                        for (ItemStack item : items.get()) {
                             this.a(world, i, j, k, item);
                         }
                     }
@@ -325,11 +325,11 @@ public class Block {
     }
 
     //Project Poseidon - API to get the drops of a block
-    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data){
+    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data) {
         int id = this.a(data, world.random);
-        if(id <= 0){
+        if (id <= 0) {
             return Optional.empty();
-        }else{
+        } else {
             return Optional.of(Arrays.asList(new ItemStack(id, 1, this.a_(data))));
         }
     }

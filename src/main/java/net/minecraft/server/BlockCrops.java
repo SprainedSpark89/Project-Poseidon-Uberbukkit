@@ -89,11 +89,11 @@ public class BlockCrops extends BlockFlower {
         return this.textureId + j;
     }
 
-    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data){
+    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data) {
         Optional<List<ItemStack>> ret = super.getDrops(world, x, y, z, data);
         List<ItemStack> stacks = ret.orElse(new ArrayList<>(3));
-        for(int i = 0; i < 3; i++){
-            if(world.random.nextInt(15) <= 1){
+        for (int i = 0; i < 3; i++) {
+            if (world.random.nextInt(15) <= 1) {
                 stacks.add(new ItemStack(Item.SEEDS));
             }
         }

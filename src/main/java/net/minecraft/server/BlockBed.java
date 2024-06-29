@@ -195,8 +195,8 @@ public class BlockBed extends Block {
         return null;
     }
 
-    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data){
-        if(!d(data)){
+    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data) {
+        if (!d(data)) {
             return super.getDrops(world, x, y, z, data);
         }
         return Optional.empty();
