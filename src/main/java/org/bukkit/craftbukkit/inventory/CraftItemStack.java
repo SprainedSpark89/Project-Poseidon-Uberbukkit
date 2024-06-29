@@ -126,4 +126,8 @@ public class CraftItemStack extends ItemStack {
     public int getMaxStackSize() {
         return item.getItem().getMaxStackSize();
     }
+
+    public net.minecraft.server.ItemStack getHandle() {
+        return item;
+    }
 }

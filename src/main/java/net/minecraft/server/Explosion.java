@@ -169,9 +169,13 @@ public class Explosion {
 
         this.size = f;
 
+<<<<<<< HEAD
         ArrayList<ChunkPosition> arraylist = new ArrayList<>();
         arraylist.addAll(this.blocks);
 
+=======
+        ArrayList<ChunkPosition> arraylist = new ArrayList<>(this.blocks);
+>>>>>>> 3dcd51c5d10e12e825a949b1894fbfac23c7b526
         if (this.setFire) {
             for (int l2 = arraylist.size() - 1; l2 >= 0; --l2) {
                 ChunkPosition chunkposition = arraylist.get(l2);
@@ -214,7 +218,11 @@ public class Explosion {
         List<org.bukkit.block.Block> blockList = new ArrayList<>();
         for (int j = blocksCopy.size() - 1; j >= 0; j--) {
             ChunkPosition cpos = blocksCopy.get(j);
+<<<<<<< HEAD
             // No need to handle blocks that aren't in the world's boundaries
+=======
+            // UberBukkit - No need to handle blocks that aren't in the world's boundaries
+>>>>>>> 3dcd51c5d10e12e825a949b1894fbfac23c7b526
             if (cpos.y > 127 || cpos.y < 0) {
                 blocksCopy.remove(j);
                 continue;

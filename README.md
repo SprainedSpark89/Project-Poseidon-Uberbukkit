@@ -5,11 +5,42 @@
 A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.<br>
 Discord (Project Poseidon): https://discord.gg/FwKg676
 
+## Features (UberBukkit)
+
+## Features (Poseidon)
+- **UUID Support:** Settings to enable UUID-based inventories alongside methods for plugins to transition to UUID-based systems similar to modern Minecraft server implementations.
+- **Poseidon Watchdog Implementation:** An automatic utility for detecting server hangs, ending the server process, and providing diagnostics to fix the underlying issues.
+- **Packet Events:** Adds packet send and receive events for advanced plugin development without needing Spout or to use Reflections that are incompatible with modern Java versions.
+- **Inventory Block Duplication Fixes:** Includes fixes for chest, furnace, inventory block duplication, and Minecart duplication issues.
+- **Cross-World Duplication Fix:** Fixes a cross-world duplication glitch.
+- **Duplication Glitch Fix:** Fix a bug with the Bukkit chunk cache which allowed users to duplicate and get unobtainable items.
+- **Server Crash Fix:** Addresses multiple server crash issues.
+- **Connection Pauses:** A powerful feature allowing developers to retrieve information asynchronously before a player connects.
+- **Event Handlers:** Modern event handlers backported to facilitating easier coding, plugin backporting, and early release plugin support.
+- **Vanish API Backport:** Backports the modern vanish API for easy vanish plugin creation and fixes issues with hacking players seeing vanished players.
+- **Logging Enhancements:** Adds an option for daily log file creation and logs player commands to the console, with exceptions for Authme, XAuth, and similar plugins.
+- **TPS API and Command:** Adds a TPS command and API for plugins to access historical TPS data.
+- **Server Shutdown Improvements:** Enhances server shutdown procedures to ensure world/player data and plugin data are properly saved.
+- **Release2Beta Support:** Added support for Release2Beta, including IP Forwarding.
+- **Tree Growth Blockage Settings:** Allows server owners to block tree growth from replacing certain blocks to prevent griefing.
+- **TCP NoDelay Option:** Improves netcode performance for compatible clients.
+- **Ragequit/Ragejoin Fixes:** Prevents ragequit and ragejoin connection/chat spam.
+- **Plugin Hiding:** Allows plugins to be hidden from the server list via an attribute in `plugin.yml`.
+- **Improve Console Debug:** Make multiple common errors less verbose in the console.
+- **Event Handling Improvements:** Ensures primed TNT fires the correct event and backports the explosion event from modern Bukkit.
+- **Spawn Location Options:** Provides options to disable spawn location randomization and teleportation to the highest safe block on join.
+- **Configurable Mob Spawner Area Limit:** Allows server owners to set a mob-cap for mob spawners to prevent mob farms from causing extreme lag.
+
 ## Want to use UberBukkit on your server?
 Please read the following article before changing over to UberBukkit (From Project-Poseidon): https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
 
 # Download
-You can download the latest build [here](https://betacraft.uk/utilities).
+## Releases
+You can download the latest GitHub release [here](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/releases/latest)
+
+## Snapshots
+You can download the latest build through [GitHub actions](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/actions/workflows/build-and-test.yaml) (You need to be logged into GitHub)
+or get it from [betacraft.uk](https://betacraft.uk/utilities) along with pre-made configuration files.
 
 ## Licensing
 CraftBukkit and Bukkit are licensed under GNU General Public License v3.0<br>
@@ -47,5 +78,5 @@ We include files from the mc-dev GitHub repository. This code is automatically g
 
 If Mojang Studios or someone on their behalf wants to have this repository removed due to including copyrighted Minecraft sources like bukkit/mc-dev, please contact me or make an issue.
 
-## How to setup ModLoaderMP support (NOT WORKING)
+## How to setup ModLoaderMP support (NOT WORKING) 
 Please read the following: https://github.com/RhysB/Project-Poseidon/wiki/Adding-ModLoaderMP

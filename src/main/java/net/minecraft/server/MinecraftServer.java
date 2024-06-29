@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.util.CrackedAllowlist;
+import com.legacyminecraft.poseidon.util.ServerLogRotator;
 import com.projectposeidon.johnymuffin.UUIDManager;
 import com.legacyminecraft.poseidon.watchdog.WatchDogThread;
 import jline.ConsoleReader;
@@ -197,6 +198,13 @@ public class MinecraftServer implements Runnable, ICommandListener {
         long elapsed = System.nanoTime() - j;
         String time = String.format("%.3fs", elapsed / 10000000000.0D);
         log.info("Done (" + time + ")! For help, type \"help\" or \"?\"");
+
+        // log rotator process start.
+        if ((boolean) PoseidonConfig.getInstance().getConfigOption("settings.per-day-log-file.enabled") && (boolean) PoseidonConfig.getInstance().getConfigOption("settings.per-day-log-file.latest-log.enabled")) {
+            String latestLogFileName = "latest";
+            ServerLogRotator serverLogRotator = new ServerLogRotator(latestLogFileName);
+            serverLogRotator.start();
+        }
 
         if (this.propertyManager.properties.containsKey("spawn-protection")) {
             log.info("'spawn-protection' in server.properties has been moved to 'settings.spawn-radius' in bukkit.yml. I will move your config for you.");
@@ -469,6 +477,16 @@ public class MinecraftServer implements Runnable, ICommandListener {
         }
     }
 
+    //Project Poseidon Start - Tick Update
+    private final LinkedList<Double> tpsRecords = new LinkedList<>();
+    private long lastTick = System.currentTimeMillis();
+    private int tickCount = 0;
+
+    public LinkedList<Double> getTpsRecords() {
+        return tpsRecords;
+    }
+    //Project Poseidon End - Tick Update
+
     private void h() {
         ArrayList arraylist = new ArrayList();
         Iterator iterator = trackerList.keySet().iterator();
@@ -495,6 +513,26 @@ public class MinecraftServer implements Runnable, ICommandListener {
         ++this.ticks;
 
         ((CraftScheduler) this.server.getScheduler()).mainThreadHeartbeat(this.ticks); // CraftBukkit
+
+        //Project Poseidon Start - Tick Update
+        long currentTime = System.currentTimeMillis();
+        tickCount++;
+
+        //Check if a second has passed
+        if (currentTime - lastTick >= 1000) {
+            double tps = tickCount / ((currentTime - lastTick) / 1000.0);
+            tpsRecords.addFirst(tps);
+            if(tpsRecords.size() > 900) { //Don't keep more than 15 minutes of data
+                tpsRecords.removeLast();
+            }
+
+            tickCount = 0;
+            lastTick = currentTime;
+        }
+
+        //Project Poseidon End - Tick Update
+
+
 
         for (j = 0; j < this.worlds.size(); ++j) { // CraftBukkit
             // if (j == 0 || this.propertyManager.getBoolean("allow-nether", true)) { // CraftBukkit

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class PoseidonConfig extends Configuration {
     private static PoseidonConfig singleton;
-    private final int configVersion = 3;
+    private final int configVersion = 5;
     private Integer[] treeBlacklistIDs;
 
     public Integer[] getTreeBlacklistIDs() {
@@ -24,6 +24,7 @@ public class PoseidonConfig extends Configuration {
     public void reload() {
         this.load();
         this.write();
+        this.validation();
         this.save();
     }
 
@@ -36,28 +37,58 @@ public class PoseidonConfig extends Configuration {
         this.write();
     }
 
+    private void validation() {
+        //Confirm settings.uuid-fetcher.method.value is either POST or GET
+        if (!this.getConfigString("settings.uuid-fetcher.method.value").equalsIgnoreCase("POST") && !this.getConfigString("settings.uuid-fetcher.method.value").equalsIgnoreCase("GET")) {
+            System.out.println("[Poseidon] Config: settings.uuid-fetcher.method.value is not POST or GET. Changing to POST.");
+            this.setProperty("settings.uuid-fetcher.method.value", "POST");
+        }
+    }
+
     private void write() {
         if (this.getString("config-version") == null || Integer.valueOf(this.getString("config-version")) < configVersion) {
-            System.out.println("Converting to Config Version: " + configVersion);
+            System.out.println("[Poseidon] Converting from config version " + (this.getString("config-version") == null ? "0" : this.getString("config-version")) + " to " + configVersion);
             convertToNewConfig();
+            this.setProperty("config-version", configVersion);
         }
         //Main
-        generateConfigOption("config-version", 3);
+        generateConfigOption("config-version", configVersion);
         //Setting
-        generateConfigOption("settings.allow-graceful-uuids", true);
-        generateConfigOption("settings.uuids-source-port", -1);
+//        generateConfigOption("settings.allow-graceful-uuids", true);
         generateConfigOption("settings.delete-duplicate-uuids", false);
         generateConfigOption("settings.save-playerdata-by-uuid", true);
-        generateConfigOption("settings.per-day-logfile", false);
-        generateConfigOption("settings.fetch-uuids-from", "https://api.mojang.com/profiles/minecraft");
+        // Log management and rotation
+        generateConfigOption("settings.per-day-log-file.info", "This setting causes the server to create a new log file each day. This is useful for log rotation and log file management.");
+        generateConfigOption("settings.per-day-log-file.enabled", false);
+        generateConfigOption("settings.per-day-log-file.latest-log.info", "This setting causes the server to create a latest.log similar to modern Minecraft servers. This can be useful for certain control panels and log file management.");
+        generateConfigOption("settings.per-day-log-file.latest-log.enabled", true);
+
+        //generateConfigOption("settings.fetch-uuids-from", "https://api.mojang.com/profiles/minecraft");
+
+        // UUID Fetcher Settings
+        generateConfigOption("settings.uuid-fetcher.post.info", "This setting allows you to change the URL that the server fetches UUIDs from. This is useful if you have a custom UUID server or a proxy server that fetches UUIDs.");
+        generateConfigOption("settings.uuid-fetcher.post.value", "https://api.minecraftservices.com/minecraft/profile/lookup/bulk/byname");
+
+        generateConfigOption("settings.uuid-fetcher.get.info", "This setting allows you to change the URL that the server fetches UUIDs from. This is useful if you have a custom UUID server or a proxy server that fetches UUIDs.");
+        generateConfigOption("settings.uuid-fetcher.get.value", "https://api.minecraftservices.com/minecraft/profile/lookup/name/{username}");
+        generateConfigOption("settings.uuid-fetcher.get.enforce-case-sensitivity.enabled", true);
+        generateConfigOption("settings.uuid-fetcher.get.enforce-case-sensitivity.info", "The Mojang API is case-insensitive by default meaning usernames with different casing will return the same UUID. This setting checks the case of the username to prevent this issue. If the name is invalid, the player will be kicked.");
+
+
+        generateConfigOption("settings.uuid-fetcher.method.value", "POST");
+        generateConfigOption("settings.uuid-fetcher.method.info", "This setting allows for POST or GET method for fetching UUIDs. This is useful if you have a custom UUID server, Mojang API is down, or a proxy server that fetches UUIDs.");
+
+        generateConfigOption("settings.uuid-fetcher.allow-graceful-uuids.value", true);
+        generateConfigOption("settings.uuid-fetcher.allow-graceful-uuids.info", "This setting means offline UUIDs are generated for players who don't have a Mojang UUID. This is useful for cracked or semi-cracked servers.");
+
         generateConfigOption("settings.remove-join-leave-debug", true);
         generateConfigOption("settings.enable-tpc-nodelay", false);
 
-        generateConfigOption("settings.use-get-for-uuids.enabled", true);
-        generateConfigOption("settings.use-get-for-uuids.info", "This setting causes the server to use the GET method for Username to UUID conversion. This is useful incase the POST method goes offline.");
+        //generateConfigOption("settings.use-get-for-uuids.enabled", true);
+        //generateConfigOption("settings.use-get-for-uuids.info", "This setting causes the server to use the GET method for Username to UUID conversion. This is useful incase the POST method goes offline.");
 
-        generateConfigOption("settings.use-get-for-uuids.case-sensitive.enabled", true);
-        generateConfigOption("settings.use-get-for-uuids.case-sensitive.info", "This setting will verify sensitivity of the username as the GET method is case-insensitive.");
+        //generateConfigOption("settings.use-get-for-uuids.case-sensitive.enabled", true);
+        //generateConfigOption("settings.use-get-for-uuids.case-sensitive.info", "This setting will verify sensitivity of the username as the GET method is case-insensitive.");
 
         generateConfigOption("settings.faster-packets.enabled", true);
         generateConfigOption("settings.faster-packets.info", "This setting increases the speed of packets, a fix from newer Minecraft versions.");
@@ -109,6 +140,14 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("world.settings.speed-hack-check.teleport", true);
         generateConfigOption("world.settings.speed-hack-check.distance", 100.0D);
         generateConfigOption("world.settings.speed-hack-check.info", "This setting allows you to configure the automatic speedhack detection.");
+        //Mob Spawner Area Limit (8 chunks)
+        generateConfigOption("world.settings.mob-spawner-area-limit.enable", true);
+        generateConfigOption("world.settings.mob-spawner-area-limit.limit", 150);
+        generateConfigOption("world.settings.mob-spawner-area-limit.chunk-radius", 8);
+        generateConfigOption("world.settings.mob-spawner-area-limit.info",
+                "This setting controls the maximum number of entities of a mob spawner type that can exist within the defined chunk radius around a mob spawner. If the number of entities exceeds this limit, the spawner will stop spawning additional entities of that type. This is useful to stop the extreme lag that can be caused by mob spawners.");
+
+
         //generateConfigOption("world-settings.eject-from-vehicle-on-teleport.enabled", true);
         //generateConfigOption("world-settings.eject-from-vehicle-on-teleport.info", "Eject the player from a boat or minecart before teleporting them preventing cross world coordinate exploits.");
 
@@ -210,6 +249,11 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("message.player.join", "\u00A7e%player% joined the game.");
         generateConfigOption("message.player.leave", "\u00A7e%player% left the game.");
 
+        //Optional Poseidon Commands
+        generateConfigOption("command.info", "This section allows you to enable or disable optional Poseidon commands. This is useful if you have a plugin that conflicts with a Poseidon command.");
+        generateConfigOption("command.tps.info", "Enables the /tps command to show the server's TPS for various intervals.");
+        generateConfigOption("command.tps.enabled", true);
+
         //Tree Leave Destroy Blacklist
         if (Boolean.valueOf(String.valueOf(getConfigOption("world.settings.block-tree-growth.enabled", true)))) {
             if (String.valueOf(this.getConfigOption("world.settings.block-tree-growth.list", "")).trim().isEmpty()) {
@@ -284,15 +328,66 @@ public class PoseidonConfig extends Configuration {
         return Boolean.valueOf(getConfigString(key));
     }
 
+    public Boolean getConfigBoolean(String key, Boolean defaultValue) {
+        Boolean value = getConfigBoolean(key);
+        if (value == null) {
+            System.out.println("[Poseidon] Config: " + key + " does not exist. Using default value: " + defaultValue);
+            System.out.println("[Poseidon] Config: This is likely the result of an error. Please report this to the developer.");
+            value = defaultValue;
+        }
+        return value;
+    }
+
     //Getters End
 
     private void convertToNewConfig() {
-        //Graceful UUIDS
+        // 1- 2/3 Conversion
         convertToNewAddress("settings.statistics.enabled", "settings.enable-statistics");
         convertToNewAddress("settings.allow-graceful-uuids", "allowGracefulUUID");
         convertToNewAddress("settings.save-playerdata-by-uuid", "savePlayerdataByUUID");
+        convertToNewAddress("settings.watchdog.enable", "settings.enable-watchdog");
+        // 3-4 Conversion
 
-        convertToNewAddress("settings.enable-watchdog", "settings.watchdog.enable");
+        // Don't automatically enable the latest log file for servers that have the per-day-logfile setting enabled as this is a change in behavior
+        if (this.getString("settings.per-day-logfile") != null && this.getConfigBoolean("settings.per-day-logfile")) {
+            this.setProperty("settings.per-day-log-file.latest-log.enabled", false);
+        }
+        convertToNewAddress("settings.per-day-log-file.enabled", "settings.per-day-logfile");
+
+        // 4-5 Conversion
+        convertToNewAddress("settings.uuid-fetcher.post.value", "settings.fetch-uuids-from");
+        if (this.getString("settings.uuid-fetcher.post.value", "https://api.minecraftservices.com/minecraft/profile/lookup/bulk/byname").equals("https://api.mojang.com/profiles/minecraft")) {
+            System.out.println("[Poseidon] Config: settings.fetch-uuids-from is set to the default value (" + this.getString("settings.uuid-fetcher.post.value") + "). Changing to the new default value (https://api.minecraftservices.com/minecraft/profile/lookup/bulk/byname)");
+            this.setProperty("settings.uuid-fetcher.post.value", "https://api.minecraftservices.com/minecraft/profile/lookup/bulk/byname");
+        }
+
+        boolean usePost = !this.getConfigBoolean("settings.use-get-for-uuids.enabled", false); // Is the server currently using POST?
+        if (usePost) {
+            this.setProperty("settings.uuid-fetcher.method.value", "POST");
+        } else {
+            this.setProperty("settings.uuid-fetcher.method.value", "GET");
+        }
+
+        removeDeprecatedConfig("settings.use-get-for-uuids.enabled", "settings.use-get-for-uuids.info");
+
+        convertToNewAddress("settings.uuid-fetcher.allow-graceful-uuids.value", "settings.allow-graceful-uuids");
+        convertToNewAddress("settings.uuid-fetcher.get.enforce-case-sensitivity.enabled", "settings.use-get-for-uuids.case-sensitive.enabled");
+        removeDeprecatedConfig("settings.use-get-for-uuids.case-sensitive.info");
+
+
+    }
+
+    //Allow any number of string arguments to be passed to this method
+    private boolean removeDeprecatedConfig(String... keys) {
+        boolean removed = false;
+        for (String key : keys) {
+            if (this.getString(key) != null) {
+                System.out.println("[Poseidon] Config: " + key + " is deprecated. Removing.");
+                this.removeProperty(key);
+                removed = true;
+            }
+        }
+        return removed;
     }
 
     private boolean convertToNewAddress(String newKey, String oldKey) {
@@ -300,9 +395,10 @@ public class PoseidonConfig extends Configuration {
             return false;
         }
         if (this.getString(oldKey) == null) {
+            System.out.println("[Poseidon] Config: " + oldKey + " does not exist. Skipping conversion.");
             return false;
         }
-        System.out.println("Converting Config: " + oldKey + " to " + newKey);
+        System.out.println("[Poseidon] Converting Config: " + oldKey + " to " + newKey);
         Object value = this.getProperty(oldKey);
         this.setProperty(newKey, value);
         this.removeProperty(oldKey);
