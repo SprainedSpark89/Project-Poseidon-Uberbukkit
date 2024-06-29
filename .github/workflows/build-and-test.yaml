@@ -16,27 +16,24 @@ jobs:
     strategy:
       matrix:
         java-version: [ '8', '17' ]
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Java ${{ matrix.java-version }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java-version }}
           distribution: temurin
           java-package: jdk
           cache: maven
-
       - name: Build with Maven
         shell: bash
         run: |
           mvn clean install
-
       - run: mkdir staging && cp target/*.jar staging
-      - run: echo "NOW=$(date +'%d-%m-%Y_%H-%M-%S')" >> $GITHUB_ENV
+      - run: echo "NOW=$(date +'%d-%m-%Y_%H-%M')" >> $GITHUB_ENV
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: uberbukkit-${{ env.NOW }}-java${{ matrix.java-version }}
           path: staging
