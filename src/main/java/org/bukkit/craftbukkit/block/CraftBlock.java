@@ -335,7 +335,6 @@ public class CraftBlock implements Block {
 
     public PistonMoveReaction getPistonMoveReaction() {
         return PistonMoveReaction.getById(net.minecraft.server.Block.byId[this.getTypeId()].material.j());
-
     }
 
     @Override
@@ -343,9 +342,9 @@ public class CraftBlock implements Block {
         net.minecraft.server.Block block = net.minecraft.server.Block.byId[getTypeId()];
         if (block == null) {
             return new ArrayList<ItemStack>();
-        }else if(block.material.i()) {
+        } else if(block.material.i()) {
             return Arrays.asList(block.getDrops(((CraftWorld) this.getWorld()).getHandle(), x, y, z, (int)getData()).map((list) -> list.stream().map(itemStack -> new CraftItemStack(itemStack)).toArray(ItemStack[]::new)).orElse(new ItemStack[0]));
-        }else {
+        } else {
             return new ArrayList<ItemStack>();
         }
     }
@@ -355,9 +354,9 @@ public class CraftBlock implements Block {
         net.minecraft.server.Block block = net.minecraft.server.Block.byId[getTypeId()];
         if (block == null) {
             return new ArrayList<ItemStack>();
-        }else if(block.material.i() || ((CraftItemStack)tool).getHandle().b(block)) {
+        } else if (block.material.i() || ((CraftItemStack) tool).getHandle().b(block)) {
             return Arrays.asList(block.getDrops(((CraftWorld) this.getWorld()).getHandle(), x, y, z, (int)getData()).map((list) -> list.stream().map(itemStack -> new CraftItemStack(itemStack)).toArray(ItemStack[]::new)).orElse(new ItemStack[0]));
-        }else {
+        } else {
             return new ArrayList<ItemStack>();
         }
     }
@@ -372,7 +371,7 @@ public class CraftBlock implements Block {
         net.minecraft.server.Block block = net.minecraft.server.Block.byId[getTypeId()];
         if (block == null) {
             return false;
-        }else{
+        } else {
             Collection<ItemStack> drops = getDrops(tool);
             boolean flag = setTypeId(0);
             if (flag) {

@@ -6,6 +6,10 @@ A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.<
 Discord (Project Poseidon): https://discord.gg/FwKg676
 
 ## Features (UberBukkit)
+- **Multi version support:** UberBukkit supports b1.0 - b1.7.3 versions.<br> 
+***Experimental*** alpha support is also available.
+
+- **Cracked + Online mode:** You can whitelist cracked players when your server has `online-mode` on.
 
 ## Features (Poseidon)
 - **UUID Support:** Settings to enable UUID-based inventories alongside methods for plugins to transition to UUID-based systems similar to modern Minecraft server implementations.
@@ -34,13 +38,13 @@ Discord (Project Poseidon): https://discord.gg/FwKg676
 ## Want to use UberBukkit on your server?
 Please read the following article before changing over to UberBukkit (From Project-Poseidon): https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
 
-# Download
-## Releases
-You can download the latest GitHub release [here](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/releases/latest)
+## Download
+### Releases
+You can download the latest GitHub release [here](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/releases/latest).
 
-## Snapshots
-You can download the latest build through [GitHub actions](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/actions/workflows/build-and-test.yaml) (You need to be logged into GitHub)
-or get it from [betacraft.uk](https://betacraft.uk/utilities) along with pre-made configuration files.
+### Snapshots
+You can download the latest build through [GitHub actions](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/actions/workflows/build-and-test.yaml) (You need to be logged in on GitHub) <br>
+or get it from [betacraft.uk](https://betacraft.uk/utilities) along with **pre-made configuration files**.
 
 ## Licensing
 CraftBukkit and Bukkit are licensed under GNU General Public License v3.0<br>
