@@ -233,7 +233,6 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("fix.illegal-container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
         generateConfigOption("fix.illegal-container-interaction.max-distance", 4);
         generateConfigOption("fix.illegal-container-interaction.log-violation", false);
-        generateConfigOption("fix.optimize-sponges", true);
 
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
@@ -252,6 +251,10 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("command.info", "This section allows you to enable or disable optional Poseidon commands. This is useful if you have a plugin that conflicts with a Poseidon command.");
         generateConfigOption("command.tps.info", "Enables the /tps command to show the server's TPS for various intervals.");
         generateConfigOption("command.tps.enabled", true);
+
+        //UberBukkit
+        generateConfigOption("fix.optimize-sponges.enabled", true);
+        generateConfigOption("fix.optimize-sponges.info", "Optimizes sponges by removing unnecessary block updates. This can also prevent some block duplication methods.");
 
         //Tree Leave Destroy Blacklist
         if (Boolean.valueOf(String.valueOf(getConfigOption("world.settings.block-tree-growth.enabled", true)))) {
