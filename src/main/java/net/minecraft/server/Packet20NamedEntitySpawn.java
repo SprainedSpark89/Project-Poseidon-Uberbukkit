@@ -15,7 +15,8 @@ public class Packet20NamedEntitySpawn extends Packet {
     public byte g;
     public int h;
 
-    public Packet20NamedEntitySpawn() {}
+    public Packet20NamedEntitySpawn() {
+    }
 
     public Packet20NamedEntitySpawn(EntityHuman entityhuman) {
         this.a = entityhuman.id;
@@ -32,7 +33,13 @@ public class Packet20NamedEntitySpawn extends Packet {
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();
-        this.b = a(datainputstream, 16);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            this.b = a(datainputstream, 16);
+        } else {
+            this.b = datainputstream.readUTF();
+        }
+
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
         this.e = datainputstream.readInt();
@@ -43,7 +50,13 @@ public class Packet20NamedEntitySpawn extends Packet {
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
-        a(this.b, dataoutputstream);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            a(this.b, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.b);
+        }
+
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         dataoutputstream.writeInt(this.e);

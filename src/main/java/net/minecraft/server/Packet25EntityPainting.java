@@ -13,7 +13,8 @@ public class Packet25EntityPainting extends Packet {
     public int e;
     public String f;
 
-    public Packet25EntityPainting() {}
+    public Packet25EntityPainting() {
+    }
 
     public Packet25EntityPainting(EntityPainting entitypainting) {
         this.a = entitypainting.id;
@@ -26,7 +27,13 @@ public class Packet25EntityPainting extends Packet {
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();
-        this.f = a(datainputstream, EnumArt.z);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            this.f = a(datainputstream, EnumArt.z);
+        } else {
+            this.f = datainputstream.readUTF();
+        }
+
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
@@ -35,7 +42,13 @@ public class Packet25EntityPainting extends Packet {
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
-        a(this.f, dataoutputstream);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            a(this.f, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.f);
+        }
+
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);

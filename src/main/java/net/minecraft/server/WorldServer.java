@@ -6,6 +6,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,10 +120,12 @@ public class WorldServer extends World implements BlockChangeDelegate {
         LightningStrikeEvent lightning = new LightningStrikeEvent(this.getWorld(), (org.bukkit.entity.LightningStrike) entity.getBukkitEntity());
         this.getServer().getPluginManager().callEvent(lightning);
 
-        if (lightning.isCancelled()) {
+        // uberbukkit
+        if (lightning.isCancelled() || !PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true)) {
             return false;
         }
 
+        // uberbukkit
         if (super.strikeLightning(entity)) {
             this.server.serverConfigurationManager.sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.dimension, new Packet71Weather(entity));
             // CraftBukkit end
@@ -163,7 +167,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         explosion.a = flag;
         explosion.a();
         explosion.a(false);
-        */
+         */
         this.server.serverConfigurationManager.sendPacketNearby(d0, d1, d2, 64.0D, this.dimension, new Packet60Explosion(d0, d1, d2, f, explosion.blocks));
         // CraftBukkit end
         return explosion;
@@ -186,14 +190,15 @@ public class WorldServer extends World implements BlockChangeDelegate {
         if (flag != this.v()) {
             // CraftBukkit start - only sending weather packets to those affected
             for (int i = 0; i < this.players.size(); ++i) {
-                if (((EntityPlayer) this.players.get(i)).world == this) {
-                    ((EntityPlayer) this.players.get(i)).netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
+                EntityPlayer player = ((EntityPlayer) this.players.get(i));
+                if (player.world == this) {
+                    player.netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
                 }
             }
             // CraftBukkit end
         }
     }
-    
+
     // Poseidon
     public PlayerManager getPlayerManager() {
         return this.manager;

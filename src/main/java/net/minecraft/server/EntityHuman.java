@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bukkit.craftbukkit.TrigMath;
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.entity.Player;
@@ -13,11 +15,10 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-import java.util.Iterator;
-import java.util.List;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
-// CraftBukkit start
-// CraftBukkit end
+import me.devcody.uberbukkit.util.math.Vec3i;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public abstract class EntityHuman extends EntityLiving {
 
@@ -47,7 +48,7 @@ public abstract class EntityHuman extends EntityLiving {
     public int sleepTicks; // CraftBukkit - private -> public
     public float B;
     public float C;
-    private ChunkCoordinates b;
+    public ChunkCoordinates b;
     private ChunkCoordinates c;
     public int D = 20;
     protected boolean E = false;
@@ -367,11 +368,17 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void a(IInventory iinventory) {}
+    public void a(IInventory iinventory) {
+    }
 
-    public void b(int i, int j, int k) {}
+    public void a(IInventory iinventory, Vec3i position) {
+    }
 
-    public void receive(Entity entity, int i) {}
+    public void b(int i, int j, int k) {
+    }
+
+    public void receive(Entity entity, int i) {
+    }
 
     public float t() {
         return 0.12F;
@@ -499,11 +506,14 @@ public abstract class EntityHuman extends EntityLiving {
         super.c(i);
     }
 
-    public void a(TileEntityFurnace tileentityfurnace) {}
+    public void a(TileEntityFurnace tileentityfurnace) {
+    }
 
-    public void a(TileEntityDispenser tileentitydispenser) {}
+    public void a(TileEntityDispenser tileentitydispenser) {
+    }
 
-    public void a(TileEntitySign tileentitysign) {}
+    public void a(TileEntitySign tileentitysign) {
+    }
 
     public void c(Entity entity) {
         if (!entity.a(this)) {
@@ -541,10 +551,11 @@ public abstract class EntityHuman extends EntityLiving {
         int i = this.inventory.a(entity);
 
         if (i > 0) {
-            if (this.motY < 0.0D) {
-                ++i;
+            if (Uberbukkit.getTargetPVN() >= 11) {
+                if (this.motY < 0.0D) {
+                    ++i;
+                }
             }
-
             // CraftBukkit start - Don't call the event when the entity is human since it will be called with damageEntity
             if (entity instanceof EntityLiving && !(entity instanceof EntityHuman)) {
                 org.bukkit.entity.Entity damager = this.getBukkitEntity();
@@ -565,11 +576,11 @@ public abstract class EntityHuman extends EntityLiving {
             double d0 = entity.motX;
             double d1 = entity.motY;
             double d2 = entity.motZ;
-            
+
             if (!entity.damageEntity(this, i)) {
                 return;
             }
-            
+
             if (entity instanceof EntityPlayer && entity.velocityChanged && PoseidonConfig.getInstance().getBoolean("settings.player-knockback-fix.enabled", true)) {
                 boolean cancelled = false;
                 org.bukkit.entity.Player player = (org.bukkit.entity.Player) entity.getBukkitEntity();
@@ -578,21 +589,21 @@ public abstract class EntityHuman extends EntityLiving {
                 org.bukkit.event.player.PlayerVelocityEvent event = new org.bukkit.event.player.PlayerVelocityEvent(player, velocity.clone());
                 this.world.getServer().getPluginManager().callEvent(event);
 
-                if(event.isCancelled()) {
+                if (event.isCancelled()) {
                     cancelled = true;
-                } else if(!velocity.equals(event.getVelocity())) {
+                } else if (!velocity.equals(event.getVelocity())) {
                     player.setVelocity(velocity);
                 }
-                
+
                 if (!cancelled) {
-                    ((EntityPlayer)entity).netServerHandler.sendPacket(new Packet28EntityVelocity(entity));
+                    ((EntityPlayer) entity).netServerHandler.sendPacket(new Packet28EntityVelocity(entity));
                     entity.velocityChanged = false;
                     entity.motX = d0;
                     entity.motY = d1;
                     entity.motZ = d2;
                 }
             }
-            
+
             // CraftBukkit end
 
             ItemStack itemstack = this.G();
@@ -616,7 +627,8 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void a(ItemStack itemstack) {}
+    public void a(ItemStack itemstack) {
+    }
 
     public void die() {
         super.die();
@@ -672,20 +684,20 @@ public abstract class EntityHuman extends EntityLiving {
             float f1 = 0.5F;
 
             switch (i1) {
-            case 0:
-                f1 = 0.9F;
-                break;
+                case 0:
+                    f1 = 0.9F;
+                    break;
 
-            case 1:
-                f = 0.1F;
-                break;
+                case 1:
+                    f = 0.1F;
+                    break;
 
-            case 2:
-                f1 = 0.1F;
-                break;
+                case 2:
+                    f1 = 0.1F;
+                    break;
 
-            case 3:
-                f = 0.9F;
+                case 3:
+                    f = 0.9F;
             }
 
             this.e(i1);
@@ -709,20 +721,20 @@ public abstract class EntityHuman extends EntityLiving {
         this.B = 0.0F;
         this.C = 0.0F;
         switch (i) {
-        case 0:
-            this.C = -1.8F;
-            break;
+            case 0:
+                this.C = -1.8F;
+                break;
 
-        case 1:
-            this.B = 1.8F;
-            break;
+            case 1:
+                this.B = 1.8F;
+                break;
 
-        case 2:
-            this.C = 1.8F;
-            break;
+            case 2:
+                this.C = 1.8F;
+                break;
 
-        case 3:
-            this.B = -1.8F;
+            case 3:
+                this.B = -1.8F;
         }
     }
 
@@ -802,7 +814,8 @@ public abstract class EntityHuman extends EntityLiving {
         return this.sleeping && this.sleepTicks >= 100;
     }
 
-    public void a(String s) {}
+    public void a(String s) {
+    }
 
     public ChunkCoordinates getBed() {
         return this.b;
@@ -821,7 +834,8 @@ public abstract class EntityHuman extends EntityLiving {
         this.a(statistic, 1);
     }
 
-    public void a(Statistic statistic, int i) {}
+    public void a(Statistic statistic, int i) {
+    }
 
     protected void O() {
         super.O();

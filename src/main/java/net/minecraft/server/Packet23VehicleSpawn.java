@@ -16,7 +16,8 @@ public class Packet23VehicleSpawn extends Packet {
     public int h;
     public int i;
 
-    public Packet23VehicleSpawn() {}
+    public Packet23VehicleSpawn() {
+    }
 
     public Packet23VehicleSpawn(Entity entity, int i) {
         this(entity, i, 0);
@@ -71,11 +72,16 @@ public class Packet23VehicleSpawn extends Packet {
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
-        this.i = datainputstream.readInt();
-        if (this.i > 0) {
-            this.e = datainputstream.readShort();
-            this.f = datainputstream.readShort();
-            this.g = datainputstream.readShort();
+        // uberbukkit
+        if (this.pvn >= 13) {
+            this.i = datainputstream.readInt();
+            if (this.i > 0) {
+                this.e = datainputstream.readShort();
+                this.f = datainputstream.readShort();
+                this.g = datainputstream.readShort();
+            }
+        } else {
+            this.i = 0;
         }
     }
 
@@ -85,11 +91,14 @@ public class Packet23VehicleSpawn extends Packet {
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeInt(this.i);
-        if (this.i > 0) {
-            dataoutputstream.writeShort(this.e);
-            dataoutputstream.writeShort(this.f);
-            dataoutputstream.writeShort(this.g);
+        // uberbukkit
+        if (this.pvn >= 13) {
+            dataoutputstream.writeInt(this.i);
+            if (this.i > 0) {
+                dataoutputstream.writeShort(this.e);
+                dataoutputstream.writeShort(this.f);
+                dataoutputstream.writeShort(this.g);
+            }
         }
     }
 
@@ -98,6 +107,7 @@ public class Packet23VehicleSpawn extends Packet {
     }
 
     public int a() {
-        return 21 + this.i > 0 ? 6 : 0;
+        // uberbukkit
+        return this.pvn >= 13 ? (21 + this.i > 0 ? 6 : 0) : 17;
     }
 }

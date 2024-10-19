@@ -5,21 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum CreatureType {
-    CHICKEN("Chicken"),
-    COW("Cow"),
-    CREEPER("Creeper"),
-    GHAST("Ghast"),
-    GIANT("Giant"),
-    MONSTER("Monster"),
-    PIG("Pig"),
-    PIG_ZOMBIE("PigZombie"),
-    SHEEP("Sheep"),
-    SKELETON("Skeleton"),
-    SLIME("Slime"),
-    SPIDER("Spider"),
-    SQUID("Squid"),
-    ZOMBIE("Zombie"),
-    WOLF("Wolf");
+    CHICKEN("Chicken"), COW("Cow"), CREEPER("Creeper"), GHAST("Ghast"), GIANT("Giant"), MONSTER("Monster"), PIG("Pig"), PIG_ZOMBIE("PigZombie"), SHEEP("Sheep"), SKELETON("Skeleton"), SLIME("Slime"), SPIDER("Spider"), SQUID("Squid"), ZOMBIE("Zombie"), WOLF("Wolf");
 
     private String name;
 

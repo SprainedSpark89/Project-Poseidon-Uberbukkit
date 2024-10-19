@@ -350,4 +350,13 @@ public interface Player extends HumanEntity, CommandSender, OfflinePlayer {
 
     public void sendPacket(final Player player, final Packet packet);
 
+    // uberbukkit start
+    public boolean isCracked();
+
+    public boolean hasBed();
+
+    public Location getBedLocation();
+
+    public void setBedLocation(Location location);
+    // uberbukkit end
 }

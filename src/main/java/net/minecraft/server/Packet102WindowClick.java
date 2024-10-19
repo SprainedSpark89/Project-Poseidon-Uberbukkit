@@ -13,7 +13,8 @@ public class Packet102WindowClick extends Packet {
     public ItemStack e;
     public boolean f;
 
-    public Packet102WindowClick() {}
+    public Packet102WindowClick() {
+    }
 
     public void a(NetHandler nethandler) {
         nethandler.a(this);
@@ -24,12 +25,24 @@ public class Packet102WindowClick extends Packet {
         this.b = datainputstream.readShort();
         this.c = datainputstream.readByte();
         this.d = datainputstream.readShort();
-        this.f = datainputstream.readBoolean();
+        // uberbukkit
+        if (this.pvn >= 11) {
+            this.f = datainputstream.readBoolean();
+        } else {
+            this.f = false;
+        }
+
         short short1 = datainputstream.readShort();
 
         if (short1 >= 0) {
             byte b0 = datainputstream.readByte();
-            short short2 = datainputstream.readShort();
+            short short2 = 0;
+            // uberbukkit
+            if (this.pvn >= 8) {
+                short2 = datainputstream.readShort();
+            } else {
+                short2 = datainputstream.readByte();
+            }
 
             this.e = new ItemStack(short1, b0, short2);
         } else {
@@ -42,17 +55,27 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeShort(this.d);
-        dataoutputstream.writeBoolean(this.f);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            dataoutputstream.writeBoolean(this.f);
+        }
+
         if (this.e == null) {
             dataoutputstream.writeShort(-1);
         } else {
             dataoutputstream.writeShort(this.e.id);
             dataoutputstream.writeByte(this.e.count);
-            dataoutputstream.writeShort(this.e.getData());
+            // uberbukkit
+            if (this.pvn >= 8) {
+                dataoutputstream.writeShort(this.e.getData());
+            } else {
+                dataoutputstream.writeByte(this.e.getData());
+            }
         }
     }
 
     public int a() {
-        return 11;
+        // uberbukkit
+        return this.pvn >= 8 ? 11 : 10;
     }
 }

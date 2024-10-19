@@ -46,7 +46,7 @@ public class ThreadUUIDFetcher extends Thread {
             loginProcessHandler.userUUIDReceived(uuidResult.getUuid(), true);
             return;
         } else if (uuidResult.getReturnType().equals(UUIDResult.ReturnType.ONLINE)) {
-            if(PoseidonConfig.getInstance().getConfigBoolean("settings.uuid-fetcher.get.enforce-case-sensitivity.enabled")) {
+            if (PoseidonConfig.getInstance().getConfigBoolean("settings.uuid-fetcher.get.enforce-case-sensitivity.enabled")) {
                 System.out.println("[Poseidon] Fetched UUID from Mojang for " + loginPacket.name + " using GET - " + uuidResult.getUuid().toString() + " however, the username returned was " + uuidAndUsernameResult.getReturnedUsername() + ". The user has been kicked as the server is configured to use case sensitive usernames");
                 loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, that username has invalid casing");
                 return;

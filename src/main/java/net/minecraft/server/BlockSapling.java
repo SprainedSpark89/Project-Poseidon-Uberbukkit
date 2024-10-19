@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import org.bukkit.BlockChangeDelegate;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.Random;
 
 public class BlockSapling extends BlockFlower {
@@ -42,9 +44,10 @@ public class BlockSapling extends BlockFlower {
         boolean grownTree;
         BlockChangeWithNotify delegate = new BlockChangeWithNotify(world);
 
-        if (l == 1) {
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true) && l == 1) {
             grownTree = new WorldGenTaiga2().generate(delegate, random, i, j, k);
-        } else if (l == 2) {
+        } else if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_birches", true) && l == 2) {
             grownTree = new WorldGenForest().generate(delegate, random, i, j, k);
         } else {
             if (random.nextInt(10) == 0) {
@@ -61,14 +64,21 @@ public class BlockSapling extends BlockFlower {
     }
 
     protected int a_(int i) {
-        return i & 3;
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
+            return 0;
+        } else {
+            return i & 3;
+        }
     }
 
     // CraftBukkit start
     private class BlockChangeWithNotify implements BlockChangeDelegate {
         World world;
 
-        BlockChangeWithNotify(World world) { this.world = world; }
+        BlockChangeWithNotify(World world) {
+            this.world = world;
+        }
 
         public boolean setRawTypeId(int x, int y, int z, int type) {
             return this.world.setTypeId(x, y, z, type);

@@ -36,23 +36,25 @@ public class EntityTracker {
         } else if (entity instanceof EntityFish) {
             this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityArrow) {
-            this.a(entity, 64, 20, false);
-        } else if (entity instanceof EntityFireball) {
-            this.a(entity, 64, 10, false);
+            // uberbukkit start - default to early beta values for compatibility. doesn't really affect b1.7.3
+            this.a(entity, 64, 5, true);
         } else if (entity instanceof EntitySnowball) {
-            this.a(entity, 64, 10, true);
+            this.a(entity, 64, 5, true);
+        } else if (entity instanceof EntityFireball) {
+            this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityEgg) {
             this.a(entity, 64, 10, true);
+            // uberbukkit end
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {
-            this.a(entity, 160, 5, true);
+            this.a(entity, 80, 3, true); // uberbukkit - backported frequency from 1.0.0
         } else if (entity instanceof EntityBoat) {
-            this.a(entity, 160, 5, true);
+            this.a(entity, 80, 3, true); // uberbukkit - backported frequency from 1.0.0
         } else if (entity instanceof EntitySquid) {
-            this.a(entity, 160, 3, true);
+            this.a(entity, 64, 3, true); // uberbukkit - backported frequency from 1.0.0
         } else if (entity instanceof IAnimal) {
-            this.a(entity, 160, 3);
+            this.a(entity, 80, 3, true); // uberbukkit - backported from 1.0.0
         } else if (entity instanceof EntityTNTPrimed) {
             this.a(entity, 160, 10, true);
         } else if (entity instanceof EntityFallingSand) {
@@ -161,7 +163,7 @@ public class EntityTracker {
             entitytrackerentry.c(entityplayer);
         }
     }
-    
+
     // Poseidon
     // CraftBukkit - synchronized
     public synchronized void a(EntityPlayer entityplayer, Chunk chunk) {

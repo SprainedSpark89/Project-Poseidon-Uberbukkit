@@ -10,7 +10,8 @@ public class Packet103SetSlot extends Packet {
     public int b;
     public ItemStack c;
 
-    public Packet103SetSlot() {}
+    public Packet103SetSlot() {
+    }
 
     public Packet103SetSlot(int i, int j, ItemStack itemstack) {
         this.a = i;
@@ -29,7 +30,13 @@ public class Packet103SetSlot extends Packet {
 
         if (short1 >= 0) {
             byte b0 = datainputstream.readByte();
-            short short2 = datainputstream.readShort();
+            short short2 = 0;
+            // uberbukkit
+            if (this.pvn >= 8) {
+                short2 = datainputstream.readShort();
+            } else {
+                short2 = datainputstream.readByte();
+            }
 
             this.c = new ItemStack(short1, b0, short2);
         } else {
@@ -45,11 +52,17 @@ public class Packet103SetSlot extends Packet {
         } else {
             dataoutputstream.writeShort(this.c.id);
             dataoutputstream.writeByte(this.c.count);
-            dataoutputstream.writeShort(this.c.getData());
+            // uberbukkit
+            if (this.pvn >= 8) {
+                dataoutputstream.writeShort(this.c.getData());
+            } else {
+                dataoutputstream.writeByte(this.c.getData());
+            }
         }
     }
 
     public int a() {
-        return 8;
+        // uberbukkit
+        return this.pvn >= 8 ? 8 : 7;
     }
 }

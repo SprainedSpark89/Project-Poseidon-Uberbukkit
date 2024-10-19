@@ -8,7 +8,8 @@ public class Packet3Chat extends Packet {
 
     public String message;
 
-    public Packet3Chat() {}
+    public Packet3Chat() {
+    }
 
     public Packet3Chat(String s) {
         /* CraftBukkit start - handle this later
@@ -21,11 +22,21 @@ public class Packet3Chat extends Packet {
     }
 
     public void a(DataInputStream datainputstream) throws IOException { // CraftBukkit
-        this.message = a(datainputstream, 119);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            this.message = a(datainputstream, 119);
+        } else {
+            this.message = datainputstream.readUTF();
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException { // CraftBukkit
-        a(this.message, dataoutputstream);
+        // uberbukkit
+        if (this.pvn >= 11) {
+            a(this.message, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.message);
+        }
     }
 
     public void a(NetHandler nethandler) {

@@ -17,7 +17,8 @@ public class Packet21PickupSpawn extends Packet {
     public int i;
     public int l;
 
-    public Packet21PickupSpawn() {}
+    public Packet21PickupSpawn() {
+    }
 
     public Packet21PickupSpawn(EntityItem entityitem) {
         this.a = entityitem.id;
@@ -36,7 +37,13 @@ public class Packet21PickupSpawn extends Packet {
         this.a = datainputstream.readInt();
         this.h = datainputstream.readShort();
         this.i = datainputstream.readByte();
-        this.l = datainputstream.readShort();
+        // uberbukkit
+        if (this.pvn >= 8) {
+            this.l = datainputstream.readShort();
+        } else {
+            this.l = 0;
+        }
+
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
@@ -49,7 +56,11 @@ public class Packet21PickupSpawn extends Packet {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.h);
         dataoutputstream.writeByte(this.i);
-        dataoutputstream.writeShort(this.l);
+        // uberbukkit
+        if (this.pvn >= 8) {
+            dataoutputstream.writeShort(this.l);
+        }
+
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
@@ -63,6 +74,7 @@ public class Packet21PickupSpawn extends Packet {
     }
 
     public int a() {
-        return 24;
+        // uberbukkit
+        return this.pvn >= 8 ? 24 : 22;
     }
 }

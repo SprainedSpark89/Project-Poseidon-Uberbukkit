@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import java.util.Random;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class BlockOre extends Block {
 
     public BlockOre(int i, int j) {
@@ -13,7 +15,14 @@ public class BlockOre extends Block {
     }
 
     public int a(Random random) {
-        return this.id == Block.LAPIS_ORE.id ? 4 + random.nextInt(5) : 1;
+        if (this.id == Block.LAPIS_ORE.id) {
+            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_lapis_as_b1_2", false)) {
+                return 1;
+            }
+            return 4 + random.nextInt(5);
+        } else {
+            return 1;
+        }
     }
 
     protected int a_(int i) {

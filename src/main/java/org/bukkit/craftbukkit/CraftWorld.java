@@ -1,15 +1,56 @@
 package org.bukkit.craftbukkit;
 
-import com.google.common.collect.MapMaker;
-import net.minecraft.server.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
+import org.bukkit.BlockChangeDelegate;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.ChunkSnapshot;
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.TreeType;
 import org.bukkit.World;
-import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.entity.*;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftItem;
+import org.bukkit.craftbukkit.entity.CraftLightningStrike;
+import org.bukkit.craftbukkit.entity.CraftMinecart;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Boat;
+import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.CreatureType;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.*;
+import org.bukkit.entity.FallingSand;
+import org.bukkit.entity.Fireball;
+import org.bukkit.entity.Fish;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.LightningStrike;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Painting;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.PigZombie;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.PoweredMinecart;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Snowball;
+import org.bukkit.entity.Spider;
+import org.bukkit.entity.Squid;
+import org.bukkit.entity.StorageMinecart;
+import org.bukkit.entity.TNTPrimed;
+import org.bukkit.entity.Weather;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
@@ -20,17 +61,51 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
+import net.minecraft.server.BiomeBase;
+import net.minecraft.server.ChunkCoordinates;
+import net.minecraft.server.EntityArrow;
+import net.minecraft.server.EntityBoat;
+import net.minecraft.server.EntityChicken;
+import net.minecraft.server.EntityCow;
+import net.minecraft.server.EntityCreeper;
+import net.minecraft.server.EntityEgg;
+import net.minecraft.server.EntityFallingSand;
+import net.minecraft.server.EntityFireball;
+import net.minecraft.server.EntityFish;
+import net.minecraft.server.EntityGhast;
+import net.minecraft.server.EntityItem;
+import net.minecraft.server.EntityLiving;
+import net.minecraft.server.EntityMinecart;
+import net.minecraft.server.EntityPig;
+import net.minecraft.server.EntityPigZombie;
+import net.minecraft.server.EntitySheep;
+import net.minecraft.server.EntitySkeleton;
+import net.minecraft.server.EntitySlime;
+import net.minecraft.server.EntitySnowball;
+import net.minecraft.server.EntitySpider;
+import net.minecraft.server.EntitySquid;
+import net.minecraft.server.EntityTNTPrimed;
+import net.minecraft.server.EntityTypes;
+import net.minecraft.server.EntityWeatherStorm;
+import net.minecraft.server.EntityWolf;
+import net.minecraft.server.EntityZombie;
+import net.minecraft.server.Packet4UpdateTime;
+import net.minecraft.server.Packet61;
+import net.minecraft.server.TileEntity;
+import net.minecraft.server.WorldGenBigTree;
+import net.minecraft.server.WorldGenForest;
+import net.minecraft.server.WorldGenTaiga1;
+import net.minecraft.server.WorldGenTaiga2;
+import net.minecraft.server.WorldGenTrees;
+import net.minecraft.server.WorldProvider;
+import net.minecraft.server.WorldServer;
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class CraftWorld implements World {
     private final WorldServer world;
     private Environment environment;
-    private final CraftServer server = (CraftServer)Bukkit.getServer();
-//    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
+    private final CraftServer server = (CraftServer) Bukkit.getServer();
+    //    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
     private final ChunkGenerator generator;
     private final List<BlockPopulator> populators = new ArrayList<BlockPopulator>();
 
@@ -278,11 +353,12 @@ public class CraftWorld implements World {
     }
 
     public org.bukkit.entity.Item dropItem(Location loc, ItemStack item) {
-        net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(
-            item.getTypeId(),
-            item.getAmount(),
-            item.getDurability()
-        );
+        // uberbukkit
+        if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+            return null;
+        }
+
+        net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
         EntityItem entity = new EntityItem(world, loc.getX(), loc.getY(), loc.getZ(), stack);
         entity.pickupDelay = 10;
         world.addEntity(entity);
@@ -316,6 +392,13 @@ public class CraftWorld implements World {
             EntityLiving entityCreature = (EntityLiving) EntityTypes.a(creatureType.getName(), world);
             entityCreature.setPosition(loc.getX(), loc.getY(), loc.getZ());
             creature = (LivingEntity) CraftEntity.getEntity(server, entityCreature);
+
+            // uberbukkit
+            if (!Uberbukkit.getProtocolHandler().canSeeMob(creature.getClass())) {
+                entityCreature.die();
+                return null;
+            }
+
             world.addEntity(entityCreature, SpawnReason.CUSTOM);
         } catch (Exception e) {
             // if we fail, for any reason, return null.
@@ -398,7 +481,7 @@ public class CraftWorld implements World {
         world.setTime(time);
 
         // Forces the client to update to the new time immediately
-        for (Player p: getPlayers()) {
+        for (Player p : getPlayers()) {
             CraftPlayer cp = (CraftPlayer) p;
             cp.getHandle().netServerHandler.sendPacket(new Packet4UpdateTime(cp.getHandle().getPlayerTime()));
         }
@@ -412,7 +495,7 @@ public class CraftWorld implements World {
         return createExplosion(x, y, z, power, setFire, EntityDamageEvent.DamageCause.PLUGIN_EXPLOSION);
     }
 
-    public boolean createExplosion(double x, double y, double z, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause){
+    public boolean createExplosion(double x, double y, double z, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause) {
         return world.createExplosion(null, x, y, z, power, setFire, customDamageCause).wasCanceled ? false : true;
     }
 
@@ -424,7 +507,7 @@ public class CraftWorld implements World {
         return createExplosion(loc.getX(), loc.getY(), loc.getZ(), power, setFire);
     }
 
-    public boolean createExplosion(Location loc, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause){
+    public boolean createExplosion(Location loc, float power, boolean setFire, EntityDamageEvent.DamageCause customDamageCause) {
         return createExplosion(loc.getX(), loc.getY(), loc.getZ(), power, setFire, customDamageCause);
     }
 
@@ -506,7 +589,7 @@ public class CraftWorld implements World {
     }
 
     public double getTemperature(int x, int z) {
-        return getHandle().getWorldChunkManager().a((double[])null, x, z, 1, 1)[0];
+        return getHandle().getWorldChunkManager().a((double[]) null, x, z, 1, 1)[0];
     }
 
     public double getHumidity(int x, int z) {
@@ -516,7 +599,7 @@ public class CraftWorld implements World {
     public List<Entity> getEntities() {
         List<Entity> list = new ArrayList<Entity>();
 
-        for (Object o: world.entityList) {
+        for (Object o : world.entityList) {
             if (o instanceof net.minecraft.server.Entity) {
                 net.minecraft.server.Entity mcEnt = (net.minecraft.server.Entity) o;
                 Entity bukkitEntity = mcEnt.getBukkitEntity();
@@ -534,7 +617,7 @@ public class CraftWorld implements World {
     public List<LivingEntity> getLivingEntities() {
         List<LivingEntity> list = new ArrayList<LivingEntity>();
 
-        for (Object o: world.entityList) {
+        for (Object o : world.entityList) {
             if (o instanceof net.minecraft.server.Entity) {
                 net.minecraft.server.Entity mcEnt = (net.minecraft.server.Entity) o;
                 Entity bukkitEntity = mcEnt.getBukkitEntity();
@@ -662,6 +745,7 @@ public class CraftWorld implements World {
     }
 
     public void playEffect(Location location, Effect effect, int data, int radius) {
+
         int packetData = effect.getId();
         Packet61 packet = new Packet61(packetData, location.getBlockX(), location.getBlockY(), location.getBlockZ(), data);
         int distance;
@@ -677,6 +761,11 @@ public class CraftWorld implements World {
     public <T extends Entity> T spawn(Location location, Class<T> clazz) throws IllegalArgumentException {
         if (location == null || clazz == null) {
             throw new IllegalArgumentException("Location or entity class cannot be null");
+        }
+
+        // uberbukkit
+        if (!Uberbukkit.getProtocolHandler().canSeeMob(clazz)) {
+            return null;
         }
 
         net.minecraft.server.Entity entity = null;

@@ -1,6 +1,12 @@
 package net.minecraft.server;
 
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
+
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
 public class EntitySquid extends EntityWaterAnimal {
 
@@ -76,7 +82,33 @@ public class EntitySquid extends EntityWaterAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return false;
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_milking_squids", false)) {
+            ItemStack itemstack = entityhuman.inventory.getItemInHand();
+
+            if (itemstack != null && itemstack.id == Item.BUCKET.id) {
+                // CraftBukkit start - got milk?
+                Location loc = this.getBukkitEntity().getLocation();
+                PlayerBucketFillEvent event = CraftEventFactory.callPlayerBucketFillEvent(entityhuman, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), -1, itemstack, Item.MILK_BUCKET);
+
+                if (event.isCancelled()) {
+                    return false;
+                }
+
+                CraftItemStack itemInHand = (CraftItemStack) event.getItemStack();
+                byte data = itemInHand.getData() == null ? (byte) 0 : itemInHand.getData().getData();
+                itemstack = new ItemStack(itemInHand.getTypeId(), itemInHand.getAmount(), data);
+
+                entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, itemstack);
+                // CraftBukkit end
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     public boolean ad() {

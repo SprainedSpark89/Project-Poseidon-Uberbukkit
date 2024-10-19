@@ -1,11 +1,13 @@
 package org.bukkit.craftbukkit.util;
 
-import net.minecraft.server.Chunk;
-import net.minecraft.server.MinecraftServer;
+import static org.bukkit.craftbukkit.util.Java15Compat.Arrays_copyOf;
 
 import java.util.ArrayList;
 
-import static org.bukkit.craftbukkit.util.Java15Compat.Arrays_copyOf;
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
+import net.minecraft.server.Chunk;
+import net.minecraft.server.MinecraftServer;
 
 public class LongHashtable<V> extends LongHash {
     Object[][][] values = new Object[256][][];
@@ -30,9 +32,15 @@ public class LongHashtable<V> extends LongHash {
             Chunk c = (Chunk) value;
             if (msw != c.x || lsw != c.z) {
                 MinecraftServer.log.info("Chunk (" + c.x + ", " + c.z + ") stored at  (" + msw + ", " + lsw + ")");
-                Throwable x = new Throwable();
-                x.fillInStackTrace();
-                x.printStackTrace();
+
+                if (PoseidonConfig.getInstance().getBoolean("version.experimental.force_fix_chunk_coords_corruption", false)) {
+                    c.x = msw;
+                    c.z = lsw;
+                } else {
+                    Throwable x = new Throwable();
+                    x.fillInStackTrace();
+                    x.printStackTrace();
+                }
             }
         }
         return value;
@@ -102,10 +110,10 @@ public class LongHashtable<V> extends LongHash {
             if (((Entry) inner[i]).key == key) {
                 for (i++; i < inner.length; i++) {
                     if (inner[i] == null) break;
-                    inner[i-1] = inner[i];
+                    inner[i - 1] = inner[i];
                 }
 
-                inner[i-1] = null;
+                inner[i - 1] = null;
                 this.cache = null;
                 return;
             }
@@ -115,13 +123,13 @@ public class LongHashtable<V> extends LongHash {
     public synchronized ArrayList<V> values() {
         ArrayList<V> ret = new ArrayList<V>();
 
-        for (Object[][] outer: this.values) {
+        for (Object[][] outer : this.values) {
             if (outer == null) continue;
 
-            for (Object[] inner: outer) {
+            for (Object[] inner : outer) {
                 if (inner == null) continue;
 
-                for (Object entry: inner) {
+                for (Object entry : inner) {
                     if (entry == null) break;
 
                     ret.add((V) ((Entry) entry).value);

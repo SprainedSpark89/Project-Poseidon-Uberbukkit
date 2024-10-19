@@ -3,15 +3,13 @@ package org.bukkit.craftbukkit.inventory;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 public class CraftItemStack extends ItemStack {
     protected net.minecraft.server.ItemStack item;
 
     public CraftItemStack(net.minecraft.server.ItemStack item) {
-        super(
-            item != null ? item.id: 0,
-            item != null ? item.count : 0,
-            (short)(item != null ? item.damage : 0)
-        );
+        super(item != null ? item.id : 0, item != null ? item.count : 0, (short) (item != null ? item.damage : 0));
         this.item = item;
     }
 
@@ -67,6 +65,11 @@ public class CraftItemStack extends ItemStack {
 
     @Override
     public void setTypeId(int type) {
+        // uberbukkit
+        if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(type)) {
+            return;
+        }
+
         if (type == 0) {
             super.setTypeId(0);
             super.setAmount(0);

@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import java.util.Random;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class BlockTNT extends Block {
 
     public BlockTNT(int i, int j) {
@@ -32,10 +34,12 @@ public class BlockTNT extends Block {
     }
 
     public void d(World world, int i, int j, int k) {
-        EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
+        if (!world.isStatic) {
+            EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
-        entitytntprimed.fuseTicks = world.random.nextInt(entitytntprimed.fuseTicks / 4) + entitytntprimed.fuseTicks / 8;
-        world.addEntity(entitytntprimed);
+            entitytntprimed.fuseTicks = world.random.nextInt(entitytntprimed.fuseTicks / 4) + entitytntprimed.fuseTicks / 8;
+            world.addEntity(entitytntprimed);
+        }
     }
 
     public void postBreak(World world, int i, int j, int k, int l) {
@@ -52,7 +56,12 @@ public class BlockTNT extends Block {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id) {
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.tnt_require_lighter", true)) {
+            world.setRawData(i, j, k, 1);
+        }
+
+        if ((entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id)) {
             world.setRawData(i, j, k, 1);
         }
 

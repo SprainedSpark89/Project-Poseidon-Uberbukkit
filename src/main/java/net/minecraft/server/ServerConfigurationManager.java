@@ -1,6 +1,9 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
@@ -12,9 +15,6 @@ import org.bukkit.event.player.*;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
-
-// CraftBukkit start
-// CraftBukkit end
 
 public class ServerConfigurationManager {
 
@@ -113,7 +113,7 @@ public class ServerConfigurationManager {
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        if((boolean) PoseidonConfig.getInstance().getConfigOption("world-settings.teleport-to-highest-safe-block")) {
+        if ((boolean) PoseidonConfig.getInstance().getConfigOption("world-settings.teleport-to-highest-safe-block")) {
             while (worldserver.getEntities(entityplayer, entityplayer.boundingBox).size() != 0) {
                 entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
             }
@@ -150,19 +150,19 @@ public class ServerConfigurationManager {
         // CraftBukkit end
 
         //Project POSEIDON Start
-//        boolean found = false;
-//        for (int i = 0; i < this.players.size(); ++i) {
-//            EntityPlayer ep = (EntityPlayer) this.players.get(i);
-//            if (entityplayer.name.equalsIgnoreCase(ep.name)) {
-//                found = true;
-//                break;
-//            }
-//        }
-//        if (!found) {
-//            //return null; - This caused a bug which could block future connections if a quit event occurs before a join event, i think
-//            playerQuitEvent.setQuitMessage(null);
-//        }
-//        PlayerTracker.getInstance().removePlayer(entityplayer.name);
+        //        boolean found = false;
+        //        for (int i = 0; i < this.players.size(); ++i) {
+        //            EntityPlayer ep = (EntityPlayer) this.players.get(i);
+        //            if (entityplayer.name.equalsIgnoreCase(ep.name)) {
+        //                found = true;
+        //                break;
+        //            }
+        //        }
+        //        if (!found) {
+        //            //return null; - This caused a bug which could block future connections if a quit event occurs before a join event, i think
+        //            playerQuitEvent.setQuitMessage(null);
+        //        }
+        //        PlayerTracker.getInstance().removePlayer(entityplayer.name);
         //Project POSEIDON End
 
         this.playerFileData.a(entityplayer);
@@ -178,7 +178,7 @@ public class ServerConfigurationManager {
         // Instead of kicking then returning, we need to store the kick reason
         // in the event, check with plugins to see if it's ok, and THEN kick
         // depending on the outcome. Also change any reference to this.e.c to entity.world
-        EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)));
+        EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)), netloginhandler.networkManager.pvn);
         Player player = (entity == null) ? null : (Player) entity.getBukkitEntity();
         PlayerLoginEvent event = new PlayerLoginEvent(player, netloginhandler); //Project Poseidon - pass player IP through
 
@@ -187,19 +187,9 @@ public class ServerConfigurationManager {
         s1 = s1.substring(s1.indexOf("/") + 1);
         s1 = s1.substring(0, s1.indexOf(":"));
 
-        PlayerLoginEvent.Result result =
-                this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED :
-                this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
-                !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST :
-                this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL :
-                PlayerLoginEvent.Result.ALLOWED;
+        PlayerLoginEvent.Result result = this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED : this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP : !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST : this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL : PlayerLoginEvent.Result.ALLOWED;
 
-        String kickMessage =
-                result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned :
-                result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned :
-                result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist :
-                result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull :
-                s1;
+        String kickMessage = result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned : result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned : result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist : result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull : s1;
 
         event.disallow(result, kickMessage);
 
@@ -281,8 +271,8 @@ public class ServerConfigurationManager {
 
         // CraftBukkit start
         byte actualDimension = (byte) (worldserver.getWorld().getEnvironment().getId());
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) (actualDimension >= 0 ? -1 : 0)));
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn(actualDimension));
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) (actualDimension >= 0 ? -1 : 0), worldserver.getSeed()));
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn(actualDimension, worldserver.getSeed()));
         entityplayer1.spawnIn(worldserver);
         entityplayer1.dead = false;
         entityplayer1.netServerHandler.teleport(new Location(worldserver.getWorld(), entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch));
@@ -333,6 +323,9 @@ public class ServerConfigurationManager {
             finalLocation = event.getPortalTravelAgent().findOrCreate(finalLocation);
         }
         toWorld = ((CraftWorld) finalLocation.getWorld()).getHandle();
+
+        this.sendPacketNearby(entityplayer, finalLocation.getX(), finalLocation.getY(), finalLocation.getZ(), 64D, toWorld.dimension, new Packet62Sound("portal.travel", finalLocation.getX(), finalLocation.getY(), finalLocation.getZ(), 1.0F, toWorld.random.nextFloat() * 0.4F + 0.8F));
+
         this.moveToWorld(entityplayer, toWorld.dimension, finalLocation);
         // CraftBukkit end
     }
@@ -590,6 +583,14 @@ public class ServerConfigurationManager {
 
     public void sendPacketNearby(double d0, double d1, double d2, double d3, int i, Packet packet) {
         this.sendPacketNearby((EntityHuman) null, d0, d1, d2, d3, i, packet);
+    }
+
+    public void sendPacketNearbyToScale(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
+        float var10 = 16.0F;
+        if (d3 > 1.0F) {
+            var10 *= d3;
+        }
+        this.sendPacketNearby(entityhuman, d0, d1, d2, var10, i, packet);
     }
 
     public void sendPacketNearby(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {

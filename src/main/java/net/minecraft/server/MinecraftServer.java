@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.legacyminecraft.poseidon.util.ServerLogRotator;
 import com.projectposeidon.johnymuffin.UUIDManager;
 import com.legacyminecraft.poseidon.watchdog.WatchDogThread;
@@ -96,7 +97,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         // CraftBukkit end
 
         //If Poseidon Config DEBUG is enabled, enable debug mode
-        if(options.has("debug-config")) {
+        if (options.has("debug-config")) {
             log.info("[Poseidon] Configuration debug mode has been enabled. This will cause the poseidon.yml to be reloaded every time the server starts.");
             PoseidonConfig.getInstance().resetConfig();
         }
@@ -112,7 +113,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
             net.minecraft.server.ModLoader.Init(this);
         }
 
-        log.info("Starting minecraft server version Beta 1.7.3");
+        log.info("Starting minecraft server... Accepting PVNs: " + String.join(", ", PoseidonConfig.getInstance().getString("version.allow_join.protocol", "14").split(",")));
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("**** NOT ENOUGH RAM!");
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -373,6 +374,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         //Project Poseidon Start
         UUIDManager.getInstance().saveJsonArray();
+        CrackedAllowlist.get().saveAllowlist();
         if (watchDogThread != null) {
             log.info("Stopping Poseidon Watchdog");
             watchDogThread.interrupt();
@@ -520,7 +522,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         if (currentTime - lastTick >= 1000) {
             double tps = tickCount / ((currentTime - lastTick) / 1000.0);
             tpsRecords.addFirst(tps);
-            if(tpsRecords.size() > 900) { //Don't keep more than 15 minutes of data
+            if (tpsRecords.size() > 900) { //Don't keep more than 15 minutes of data
                 tpsRecords.removeLast();
             }
 
@@ -531,7 +533,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
         //Project Poseidon End - Tick Update
 
 
-
         for (j = 0; j < this.worlds.size(); ++j) { // CraftBukkit
             // if (j == 0 || this.propertyManager.getBoolean("allow-nether", true)) { // CraftBukkit
             WorldServer worldserver = this.worlds.get(j); // CraftBukkit
@@ -540,7 +541,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 // CraftBukkit start - only send timeupdates to the people in that world
                 for (int i = 0; i < worldserver.players.size(); ++i) { // Project Poseidon: serverConfigurationManager -> worldserver.players
                     EntityPlayer entityPlayer = (EntityPlayer) worldserver.players.get(i);
-                    if(entityPlayer != null) {
+                    if (entityPlayer != null) {
                         entityPlayer.netServerHandler.sendPacket(new Packet4UpdateTime(entityPlayer.getPlayerTime())); // Add support for per player time
 
                     }

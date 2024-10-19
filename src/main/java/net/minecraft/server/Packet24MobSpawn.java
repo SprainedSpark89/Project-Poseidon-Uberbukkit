@@ -17,7 +17,8 @@ public class Packet24MobSpawn extends Packet {
     private DataWatcher h;
     private List i;
 
-    public Packet24MobSpawn() {}
+    public Packet24MobSpawn() {
+    }
 
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
@@ -38,18 +39,31 @@ public class Packet24MobSpawn extends Packet {
         this.e = datainputstream.readInt();
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
-        this.i = DataWatcher.a(datainputstream);
+        // uberbukkit
+        if (this.pvn >= 8) {
+            this.i = DataWatcher.a(datainputstream);
+        } else {
+            this.i = null;
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
+
+        byte entityType = this.b;
+        // uberbukkit - a1.1.2_01 doesn't recognize cows and sheep
+        if (this.pvn <= 2 && (this.b == 92 || this.b == 93)) entityType = 91;
+
+        dataoutputstream.writeByte(entityType);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         dataoutputstream.writeInt(this.e);
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
-        this.h.a(dataoutputstream);
+        // uberbukkit
+        if (this.pvn >= 8) {
+            this.h.a(dataoutputstream);
+        }
     }
 
     public void a(NetHandler nethandler) {
@@ -57,6 +71,7 @@ public class Packet24MobSpawn extends Packet {
     }
 
     public int a() {
-        return 20;
+        // uberbukkit
+        return this.pvn >= 8 ? 20 : 19;
     }
 }

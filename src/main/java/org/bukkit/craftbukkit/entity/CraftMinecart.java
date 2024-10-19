@@ -11,9 +11,7 @@ public class CraftMinecart extends CraftVehicle implements Minecart {
      * minecart types. Here we use subclasses.
      */
     public enum Type {
-        Minecart(0),
-        StorageMinecart(1),
-        PoweredMinecart(2);
+        Minecart(0), StorageMinecart(1), PoweredMinecart(2);
 
         private final int id;
 

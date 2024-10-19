@@ -3,6 +3,9 @@ package net.minecraft.server;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.packets.ArtificialPacket53BlockChange;
 
+import uk.betacraft.uberbukkit.packet.Packet62Sound;
+import uk.betacraft.uberbukkit.packet.Packet63Digging;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -23,18 +26,21 @@ public abstract class Packet {
     private static HashMap e;
     private static int f;
 
-    public Packet() {}
-    
+    protected int pvn; // uberbukkit
+
+    public Packet() {
+    }
+
     /**
      * Register a packet
-     * @author moderator_Man
+     *
      * @param id
      * @param clientSide
      * @param serverSide
      * @param oclass
+     * @author moderator_Man
      */
-    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass)
-    {
+    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass) {
         if (packetIdToClassMap.containsKey(Integer.valueOf(id)))
             throw new IllegalArgumentException("Duplicate packet id:" + id);
         else if (packetClassToIdMap.containsKey(oclass))
@@ -42,13 +48,11 @@ public abstract class Packet {
         else {
             packetIdToClassMap.put(Integer.valueOf(id), oclass);
             packetClassToIdMap.put(oclass, Integer.valueOf(id));
-            if (clientSide)
-                clientPacketIdList.add(Integer.valueOf(id));
-            if (serverSide)
-                serverPacketIdList.add(Integer.valueOf(id));
+            if (clientSide) clientPacketIdList.add(Integer.valueOf(id));
+            if (serverSide) serverPacketIdList.add(Integer.valueOf(id));
         }
     }
-    
+
     static void a(int i, boolean flag, boolean flag1, Class oclass) {
         if (packetIdToClassMap.containsKey(Integer.valueOf(i))) {
             throw new IllegalArgumentException("Duplicate packet id:" + i);
@@ -84,7 +88,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static Packet a(DataInputStream datainputstream, boolean flag) throws IOException {
+    public static Packet a(DataInputStream datainputstream, boolean flag, int pvn) throws IOException {
         boolean flag1 = false;
         Packet packet = null;
 
@@ -107,6 +111,7 @@ public abstract class Packet {
                 throw new IOException("Bad packet id " + i);
             }
 
+            packet.pvn = pvn;
             packet.a(datainputstream);
         } catch (EOFException eofexception) {
             System.out.println("Reached end of stream");
@@ -148,7 +153,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static void a(String s, DataOutputStream dataoutputstream)  throws IOException {
+    public static void a(String s, DataOutputStream dataoutputstream) throws IOException {
         if (s.length() > 32767) {
             throw new IOException("String too big");
         } else {
@@ -158,7 +163,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static String a(DataInputStream datainputstream, int i)  throws IOException {
+    public static String a(DataInputStream datainputstream, int i) throws IOException {
         short short1 = datainputstream.readShort();
 
         if (short1 > i) {
@@ -184,13 +189,18 @@ public abstract class Packet {
 
     public abstract int a();
 
+    // uberbukkit - cloning assures that a packet queued for everyone is sent according to each player's PVN
+    public Packet clone() {
+        return this;
+    }
+
     static {
         a(0, true, true, Packet0KeepAlive.class);
         a(1, true, true, Packet1Login.class);
         a(2, true, true, Packet2Handshake.class);
         a(3, true, true, Packet3Chat.class);
         a(4, true, false, Packet4UpdateTime.class);
-        a(5, true, false, Packet5EntityEquipment.class);
+        a(5, true, true, Packet5EntityEquipment.class);
         a(6, true, false, Packet6SpawnPosition.class);
         a(7, false, true, Packet7UseEntity.class);
         a(8, true, false, Packet8UpdateHealth.class);
@@ -206,7 +216,7 @@ public abstract class Packet {
         a(18, true, true, Packet18ArmAnimation.class);
         a(19, false, true, Packet19EntityAction.class);
         a(20, true, false, Packet20NamedEntitySpawn.class);
-        a(21, true, false, Packet21PickupSpawn.class);
+        a(21, true, true, Packet21PickupSpawn.class);
         a(22, true, false, Packet22Collect.class);
         a(23, true, false, Packet23VehicleSpawn.class);
         a(24, true, false, Packet24MobSpawn.class);
@@ -229,6 +239,8 @@ public abstract class Packet {
         a(54, true, false, Packet54PlayNoteBlock.class);
         a(60, true, false, Packet60Explosion.class);
         a(61, true, false, Packet61.class);
+        a(62, true, false, Packet62Sound.class); // uberbukkit - protocol extension
+        a(63, true, false, Packet63Digging.class); // uberbukkit - protocol extension
         a(70, true, false, Packet70Bed.class);
         a(71, true, false, Packet71Weather.class);
         a(100, true, false, Packet100OpenWindow.class);

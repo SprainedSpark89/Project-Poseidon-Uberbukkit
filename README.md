@@ -1,15 +1,17 @@
-# Project-Poseidon
-![](/img/banner.png)
-## What's Project Poseidon?
-**A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.<br>**
+# Project-Poseidon-Uberbukkit
+![](/img/banner.webp)
 
-If your looking for Project Poseidon support on pre-1.7.3 versions, please check out [Project Poseidon Uberbukkit](https://github.com/Moresteck/Project-Poseidon-Uberbukkit) developed by Moresteck which supports earlier versions.<br>
+## What's UberBukkit?
+A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.<br>
+Discord (Project Poseidon): https://discord.gg/FwKg676
 
-Discord: https://discord.gg/FwKg676
+## Features (UberBukkit)
+- **Multi version support:** UberBukkit supports b1.0 - b1.7.3 versions.<br> 
+***Experimental*** alpha support is also available.
+- **Cracked + Online mode:** You can whitelist cracked players when your server has `online-mode` on.
+- **Exclusive exploit & dupe fixes**
 
-## Features
-This is a non-exhaustive list of features that Project Poseidon includes:
-
+## Features (Poseidon)
 - **UUID Support:** Settings to enable UUID-based inventories alongside methods for plugins to transition to UUID-based systems similar to modern Minecraft server implementations.
 - **Poseidon Watchdog Implementation:** An automatic utility for detecting server hangs, ending the server process, and providing diagnostics to fix the underlying issues.
 - **Packet Events:** Adds packet send and receive events for advanced plugin development without needing Spout or to use Reflections that are incompatible with modern Java versions.
@@ -33,15 +35,16 @@ This is a non-exhaustive list of features that Project Poseidon includes:
 - **Spawn Location Options:** Provides options to disable spawn location randomization and teleportation to the highest safe block on join.
 - **Configurable Mob Spawner Area Limit:** Allows server owners to set a mob-cap for mob spawners to prevent mob farms from causing extreme lag.
 
+## Want to use UberBukkit on your server?
+Please read the following article before changing over to UberBukkit (From Project-Poseidon): https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
 
+## Download
+### Releases
+You can download the latest GitHub release [here](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/releases/latest).
 
-## Want to use Project Poseidon on your server?
-Please read the following article before changing over to Project Poseidon: https://github.com/RhysB/Project-Poseidon/wiki/Implementing-Project-Poseidon-In-Production
-
-# Download
-You can download the latest builds at the [Glass Launcher Jenkins](https://jenkins.glass-launcher.net/job/Project-Poseidon/).
-
-Please note, download the artifact (JAR) without original in the name, eg. `project-poseidon-1.1.8.jar`.
+### Snapshots
+You can download the latest build through [GitHub actions](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/actions/workflows/build-and-test.yaml) (You need to be logged in on GitHub) <br>
+or get it from [betacraft.uk](https://betacraft.uk/utilities) along with **pre-made configuration files**.
 
 ## Licensing
 CraftBukkit and Bukkit are licensed under GNU General Public License v3.0<br>
@@ -50,12 +53,10 @@ Libraries in the compiled .jar files distrusted may contain their own licenses.<
 This project contains decompiled code that is copyrighted by Mojang AB typically under the `net.minecraft.server` package.<br>
 
 ## How To Setup - IntelliJ IDEA
-
 1. Clone this project using Git or a desktop client.
 2. Open IntelliJ and create a new project in the same directory as the Project Poseidon folder.
 
 ## Compiling
-
 Compiling is done via maven. To compile a JAR, cd into the Project Poseidon directory and run the following command:
 
 ```

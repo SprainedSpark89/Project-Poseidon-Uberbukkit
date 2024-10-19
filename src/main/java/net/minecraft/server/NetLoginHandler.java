@@ -2,7 +2,12 @@ package net.minecraft.server;
 
 import com.projectposeidon.ConnectionType;
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
+
+import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.protocol.Protocol;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftServer;
@@ -30,14 +35,14 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
-    
+
     private final String msgKickShutdown;
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
         this.networkManager = new NetworkManager(socket, s, this);
         this.networkManager.f = 0;
-        
+
         this.msgKickShutdown = PoseidonConfig.getInstance().getConfigString("message.kick.shutdown");
     }
 
@@ -72,11 +77,11 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void a(Packet2Handshake packet2handshake) {
-        if (this.server.onlineMode) {
+        if (this.server.onlineMode && !CrackedAllowlist.get().contains(packet2handshake.a)) {
             this.serverId = Long.toHexString(d.nextLong());
-            this.networkManager.queue(new Packet2Handshake(this.serverId));
+            this.networkManager.queue(new Packet2Handshake(this.serverId, packet2handshake.pvn11));
         } else {
-            this.networkManager.queue(new Packet2Handshake("-"));
+            this.networkManager.queue(new Packet2Handshake("-", packet2handshake.pvn11));
         }
     }
 
@@ -91,12 +96,16 @@ public class NetLoginHandler extends NetHandler {
         }
         receivedLoginPacket = true;
         this.g = packet1login.name;
-        if (packet1login.a != 14) {
-            if (packet1login.a > 14) {
-                this.disconnect("Outdated server! I'm still on Beta 1.7.3");
-            } else {
-                this.disconnect("Outdated client! Please use Beta 1.7.3");
-            }
+
+        this.networkManager.pvn = packet1login.pvn; // uberbukkit
+
+        // uberbukkit - account for b1.1_02's protocol version. assume b1.1_02
+        if (Uberbukkit.getTargetPVN() == 7 && this.networkManager.pvn == 8) this.networkManager.pvn = 7;
+
+        this.networkManager.protocol = Protocol.getProtocolClass(this.networkManager.pvn);
+
+        if (!Uberbukkit.getAllowedPVNs().contains(this.networkManager.pvn)) {
+            this.disconnect("Client version not allowed!");
         } else {
             //Project Poseidon - Start (Release2Beta)
             if (packet1login.d == (byte) -999 || packet1login.d == (byte) 25) {
@@ -117,7 +126,7 @@ public class NetLoginHandler extends NetHandler {
                 this.disconnect((String) PoseidonConfig.getInstance().getConfigOption("settings.bungeecord.bungee-mode.kick-message"));
                 return;
             }
-            
+
             if (connectionType.equals(ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.RELEASE2BETA_ONLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_ONLINE_MODE_IP_FORWARDING)) {
                 //Proxy has IP Forwarding enabled
                 if ((Boolean) PoseidonConfig.getInstance().getConfigOption("settings.release2beta.enable-ip-pass-through")) {
@@ -151,7 +160,7 @@ public class NetLoginHandler extends NetHandler {
 
             new LoginProcessHandler(this, packet1login, this.server.server, this.server.onlineMode);
             // (new ThreadLoginVerifier(this, packet1login, this.server.server)).start(); // CraftBukkit
-//            }
+            //            }
         }
     }
 
@@ -172,7 +181,13 @@ public class NetLoginHandler extends NetHandler {
             netserverhandler.setRawConnectionType(rawConnectionType);
             netserverhandler.setReceivedKeepAlive(receivedKeepAlive);
             //Poseidon End
-            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), (byte) worldserver.worldProvider.dimension));
+            // uberbukkit
+            byte dim = (byte) worldserver.worldProvider.dimension;
+            if (this.networkManager.pvn < 12) {
+                dim = 0;
+            }
+
+            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), dim));
             netserverhandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
             this.server.serverConfigurationManager.a(entityplayer, worldserver);
             // this.server.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game."));  // CraftBukkit - message moved to join event

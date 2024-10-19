@@ -45,8 +45,7 @@ public class ConnectionPause {
      * This method is for Poseidon, not plugin use. DON'T TOUCH THIS IF YOU DON'T KNOW WHAT YOU ARE DOING.
      */
     public void setActive(boolean active) {
-        if(!active)
-            this.completionTime = System.currentTimeMillis();
+        if (!active) this.completionTime = System.currentTimeMillis();
         this.active = active;
     }
 

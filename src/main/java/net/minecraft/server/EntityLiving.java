@@ -9,6 +9,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.List;
 
 // CraftBukkit start
@@ -80,8 +82,10 @@ public abstract class EntityLiving extends Entity {
         this.bs = 0.5F;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
+    // hasLineOfSight
     public boolean e(Entity entity) {
         return this.world.a(Vec3D.create(this.locX, this.locY + (double) this.t(), this.locZ), Vec3D.create(entity.locX, entity.locY + (double) entity.t(), entity.locZ)) == null;
     }
@@ -155,7 +159,8 @@ public abstract class EntityLiving extends Entity {
                 if (!event.isCancelled() && event.getDamage() != 0) {
                     boolean vc = this.velocityChanged;
                     this.damageEntity((Entity) null, event.getDamage());
-                    if (PoseidonConfig.getInstance().getBoolean("settings.fix-drowning-push-down.enabled", true)) this.velocityChanged = vc;
+                    if (PoseidonConfig.getInstance().getBoolean("settings.fix-drowning-push-down.enabled", true))
+                        this.velocityChanged = vc;
                 }
                 // CraftBukkit end
             }
@@ -471,7 +476,7 @@ public abstract class EntityLiving extends Entity {
         org.bukkit.World bworld = this.world.getWorld();
         this.world.getServer().getPluginManager().callEvent(event);
 
-        for (org.bukkit.inventory.ItemStack stack: event.getDrops()) {
+        for (org.bukkit.inventory.ItemStack stack : event.getDrops()) {
             bworld.dropItemNaturally(entity.getLocation(), stack);
         }
         // CraftBukkit end
@@ -613,7 +618,9 @@ public abstract class EntityLiving extends Entity {
         int j = MathHelper.floor(this.boundingBox.b);
         int k = MathHelper.floor(this.locZ);
 
-        return this.world.getTypeId(i, j, k) == Block.LADDER.id;
+        return this.world.getTypeId(i, j, k) == Block.LADDER.id ||
+            // uberbukkit
+            (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false) && this.world.getTypeId(i, j + 1, k) == Block.LADDER.id);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -852,7 +859,8 @@ public abstract class EntityLiving extends Entity {
         return f + f3;
     }
 
-    public void X() {}
+    public void X() {
+    }
 
     public boolean d() {
         return this.world.containsEntity(this.boundingBox) && this.world.getEntities(this, this.boundingBox).size() == 0 && !this.world.c(this.boundingBox);

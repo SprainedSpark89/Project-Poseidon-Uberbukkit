@@ -30,7 +30,7 @@ public class PoseidonConfig extends Configuration {
 
     public void resetConfig() {
         // Delete all the config options
-        for(String key : this.getKeys()) {
+        for (String key : this.getKeys()) {
             this.removeProperty(key);
         }
         // Reload the config
@@ -95,7 +95,7 @@ public class PoseidonConfig extends Configuration {
 
         generateConfigOption("settings.fix-drowning-push-down.enabled", true);
         generateConfigOption("settings.fix-drowning-push-down.info", "This setting fixes taking drowning damage pushing you down.");
-        
+
         generateConfigOption("settings.player-knockback-fix.enabled", true);
         generateConfigOption("settings.player-knockback-fix.info", "This setting fixes reduced knockback for certain players on the server.");
 
@@ -144,8 +144,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("world.settings.mob-spawner-area-limit.enable", true);
         generateConfigOption("world.settings.mob-spawner-area-limit.limit", 150);
         generateConfigOption("world.settings.mob-spawner-area-limit.chunk-radius", 8);
-        generateConfigOption("world.settings.mob-spawner-area-limit.info",
-                "This setting controls the maximum number of entities of a mob spawner type that can exist within the defined chunk radius around a mob spawner. If the number of entities exceeds this limit, the spawner will stop spawning additional entities of that type. This is useful to stop the extreme lag that can be caused by mob spawners.");
+        generateConfigOption("world.settings.mob-spawner-area-limit.info", "This setting controls the maximum number of entities of a mob spawner type that can exist within the defined chunk radius around a mob spawner. If the number of entities exceeds this limit, the spawner will stop spawning additional entities of that type. This is useful to stop the extreme lag that can be caused by mob spawners.");
 
 
         //generateConfigOption("world-settings.eject-from-vehicle-on-teleport.enabled", true);
@@ -170,6 +169,72 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.regex", "[a-zA-Z0-9_?]*");
         generateConfigOption("settings.check-username-validity.max-length", 16);
         generateConfigOption("settings.check-username-validity.min-length", 3);
+
+        generateConfigOption("settings.exempt-staff-from-flight-kick", false);
+
+        // Uberbukkit settings
+        generateConfigOption("version.worldgen.cocoabeans_loot", true);
+        generateConfigOption("version.worldgen.pre_b1_2_ore_generation", false);
+        generateConfigOption("version.worldgen.pre_b1_2_tree_generation", false);
+        generateConfigOption("version.worldgen.generate_sandstone", true);
+        generateConfigOption("version.worldgen.biomes.generate_spruces", true);
+        generateConfigOption("version.worldgen.biomes.generate_birches", true);
+        generateConfigOption("version.worldgen.generate_steveco_chests", false);
+        generateConfigOption("version.worldgen.generate_lapis_ores", true);
+        generateConfigOption("version.worldgen.generate_tallgrass", true);
+        generateConfigOption("version.worldgen.ores.world.custom_seed", false);
+        generateConfigOption("version.worldgen.ores.world.seed", 0L);
+
+        generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
+        generateConfigOption("version.mechanics.flammable_fences_stairs", true);
+        generateConfigOption("version.mechanics.glowstone_pre1_6_6", false);
+        generateConfigOption("version.mechanics.wool_recipe_pre1_6_6", false);
+        generateConfigOption("version.mechanics.allow_grow_tallgrass", true);
+        generateConfigOption("version.mechanics.allow_1_7_fence_placement", true);
+        generateConfigOption("version.mechanics.tnt_require_lighter", true);
+        generateConfigOption("version.mechanics.sheep_drop_wool_on_punch", false);
+        generateConfigOption("version.mechanics.mushroom_spread", true);
+        generateConfigOption("version.mechanics.ice_generate_only_when_snowing", false);
+        generateConfigOption("version.mechanics.pre_1_6_fire", false);
+        generateConfigOption("version.mechanics.nether_bed_explode", true);
+        generateConfigOption("version.mechanics.arrows_pickup_by_others", true);
+        generateConfigOption("version.mechanics.allow_minecart_boosters", false);
+        generateConfigOption("version.mechanics.spawn_squids", true);
+        generateConfigOption("version.mechanics.spawn_wolves", true);
+        generateConfigOption("version.mechanics.spawn_slimes", true);
+        generateConfigOption("version.mechanics.do_weather", true);
+        generateConfigOption("version.mechanics.allow_ladder_gap", false);
+        generateConfigOption("version.mechanics.old_slab_recipe", false);
+        generateConfigOption("version.mechanics.burning_pig_drop_cooked_meat", true);
+        generateConfigOption("version.mechanics.spawn_sheep_with_shades_of_black", true);
+        generateConfigOption("version.mechanics.spawn_brown_and_pink_sheep", true);
+        generateConfigOption("version.mechanics.drop_saplings_of_leaf_type", true);
+        generateConfigOption("version.mechanics.spiders_trample_crops", false);
+        generateConfigOption("version.mechanics.spiders_climb_walls", true);
+        generateConfigOption("version.mechanics.allow_blocks_at_y_127", false);
+        generateConfigOption("version.mechanics.drop_lapis_as_b1_2", false);
+        generateConfigOption("version.mechanics.allow_milking_squids", false);
+        generateConfigOption("version.mechanics.pre_b1_6_block_opacity", false);
+        generateConfigOption("version.mechanics.pre_b1_5_pumpkins", false);
+        generateConfigOption("version.mechanics.allow_bone_meal_on_grass", true);
+        generateConfigOption("version.mechanics.beds_pre_b1_6_5", false);
+        generateConfigOption("version.mechanics.pre_b1_5_block_placement_rules", false);
+        generateConfigOption("version.mechanics.trample_farmland_above_fence", false);
+        generateConfigOption("version.mechanics.seeds_replace_blocks", false);
+
+        generateConfigOption("version.mechanics.boats.drop_boat_not_wood", false);
+        generateConfigOption("version.mechanics.boats.break_boat_on_collision", true);
+
+        generateConfigOption("version.experimental.force_fix_chunk_coords_corruption", false);
+        generateConfigOption("version.allow_join.protocol", "14");
+        generateConfigOption("version.allow_join.info", "Specify client versions to accept (separated by commas - first PVN is treated as target PVN of the server)");
+        generateConfigOption("version.allow_join.pvns_of_versions", "6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3");
+
+        generateConfigOption("fix.illegal-container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
+        generateConfigOption("fix.illegal-container-interaction.max-distance", 4);
+        generateConfigOption("fix.illegal-container-interaction.log-violation", false);
+        generateConfigOption("fix.optimize-sponges", true);
+
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
 

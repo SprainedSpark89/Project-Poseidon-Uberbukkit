@@ -12,7 +12,8 @@ public class PortalTravelAgent {
 
     private Random a = new Random();
 
-    public PortalTravelAgent() {}
+    public PortalTravelAgent() {
+    }
 
     public void a(World world, Entity entity) {
         if (!this.b(world, entity)) {
@@ -121,7 +122,7 @@ public class PortalTravelAgent {
             for (j2 = k - b0; j2 <= k + b0; ++j2) {
                 d2 = (double) j2 + 0.5D - entity.locZ;
 
-                label271:
+                    label271:
                 for (l2 = 127; l2 >= 0; --l2) {
                     if (world.isEmpty(i2, l2, j2)) {
                         while (l2 > 0 && world.isEmpty(i2, l2 - 1, j2)) {
@@ -172,7 +173,7 @@ public class PortalTravelAgent {
                 for (j2 = k - b0; j2 <= k + b0; ++j2) {
                     d2 = (double) j2 + 0.5D - entity.locZ;
 
-                    label219:
+                        label219:
                     for (l2 = 127; l2 >= 0; --l2) {
                         if (world.isEmpty(i2, l2, j2)) {
                             while (world.isEmpty(i2, l2 - 1, j2)) {

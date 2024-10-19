@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.craftbukkit.block.CraftBlockState;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -41,7 +42,7 @@ public class ItemSign extends Item {
                 ++i;
             }
 
-            if (!Block.SIGN_POST.canPlace(world, i, j, k)) {
+            if (!Block.SIGN_POST.canPlace(world, i, j, k) || j >= 128 || j < 0) {
                 return false;
             } else {
                 CraftBlockState blockState = CraftBlockState.getBlockState(world, i, j, k); // CraftBukkit

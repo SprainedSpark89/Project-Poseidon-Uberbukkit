@@ -5,11 +5,11 @@ import java.util.Map;
 
 /**
  * Represents the two types of coal
+ *
  * @author sunkid
  */
 public enum CoalType {
-    COAL((byte) 0x0),
-    CHARCOAL((byte) 0x1);
+    COAL((byte) 0x0), CHARCOAL((byte) 0x1);
 
     private final byte data;
     private final static Map<Byte, CoalType> types = new HashMap<Byte, CoalType>();
@@ -30,10 +30,9 @@ public enum CoalType {
     /**
      * Gets the type of coal with the given data value
      *
-     * @param data
-     *            Data value to fetch
+     * @param data Data value to fetch
      * @return The {@link CoalType} representing the given value, or null if
-     *         it doesn't exist
+     * it doesn't exist
      */
     public static CoalType getByData(final byte data) {
         return types.get(data);

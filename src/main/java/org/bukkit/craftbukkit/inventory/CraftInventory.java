@@ -1,6 +1,8 @@
 package org.bukkit.craftbukkit.inventory;
 
 import net.minecraft.server.IInventory;
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryTransactionEvent;
@@ -52,6 +54,11 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
+            // uberbukkit
+            if (item != null && !Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+                continue;
+            }
+
             if (item == null || item.getTypeId() <= 0) {
                 mcItems[i] = null;
             } else {
@@ -61,11 +68,16 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
     }
 
     public void setItem(int index, ItemStack item) {
+        // uberbukkit
+        if (item != null && !Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+            item = null;
+        }
+
         getInventory().setItem(index, (item == null ? null : new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability())));
     }
 
     public boolean contains(int materialId) {
-        for (ItemStack item: getContents()) {
+        for (ItemStack item : getContents()) {
             if (item != null && item.getTypeId() == materialId) {
                 return true;
             }
@@ -81,7 +93,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
         if (item == null) {
             return false;
         }
-        for (ItemStack i: getContents()) {
+        for (ItemStack i : getContents()) {
             if (item.equals(i)) {
                 return true;
             }
@@ -91,7 +103,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
     public boolean contains(int materialId, int amount) {
         int amt = 0;
-        for (ItemStack item: getContents()) {
+        for (ItemStack item : getContents()) {
             if (item != null && item.getTypeId() == materialId) {
                 amt += item.getAmount();
             }
@@ -108,7 +120,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
             return false;
         }
         int amt = 0;
-        for (ItemStack i: getContents()) {
+        for (ItemStack i : getContents()) {
             if (item.equals(i)) {
                 amt += item.getAmount();
             }
@@ -224,13 +236,17 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
-            
+
+            // uberbukkit
+            if (item != null && !Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+                return leftover;
+            }
+
             // Poseidon
             InventoryTransactionEvent event = new InventoryTransactionEvent(InventoryTransactionType.ITEM_ADDED, this, item);
             Bukkit.getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled())
-                continue;
-            
+            if (event.isCancelled()) continue;
+
             while (true) {
                 // Do we already have a stack of it?
                 int firstPartial = firstPartial(item);
@@ -285,13 +301,12 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
-            
+
             // Poseidon
             InventoryTransactionEvent event = new InventoryTransactionEvent(InventoryTransactionType.ITEM_REMOVED, this, item);
             Bukkit.getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled())
-                continue;
-            
+            if (event.isCancelled()) continue;
+
             int toDelete = item.getAmount();
 
             while (true) {

@@ -4,6 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.*;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.List;
 
 // CraftBukkit start
@@ -20,7 +22,7 @@ public class EntityMinecart extends Entity implements IInventory {
     public int e;
     public double f;
     public double g;
-    private static final int[][][] matrix = new int[][][] { { { 0, 0, -1}, { 0, 0, 1}}, { { -1, 0, 0}, { 1, 0, 0}}, { { -1, -1, 0}, { 1, 0, 0}}, { { -1, 0, 0}, { 1, -1, 0}}, { { 0, 0, -1}, { 0, -1, 1}}, { { 0, -1, -1}, { 0, 0, 1}}, { { 0, 0, 1}, { 1, 0, 0}}, { { 0, 0, 1}, { -1, 0, 0}}, { { 0, 0, -1}, { -1, 0, 0}}, { { 0, 0, -1}, { 1, 0, 0}}};
+    private static final int[][][] matrix = new int[][][] { { { 0, 0, -1 }, { 0, 0, 1 } }, { { -1, 0, 0 }, { 1, 0, 0 } }, { { -1, -1, 0 }, { 1, 0, 0 } }, { { -1, 0, 0 }, { 1, -1, 0 } }, { { 0, 0, -1 }, { 0, -1, 1 } }, { { 0, -1, -1 }, { 0, 0, 1 } }, { { 0, 0, 1 }, { 1, 0, 0 } }, { { 0, 0, 1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { 1, 0, 0 } } };
     private int k;
     private double l;
     private double m;
@@ -59,7 +61,8 @@ public class EntityMinecart extends Entity implements IInventory {
         return false;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public AxisAlignedBB a_(Entity entity) {
         return entity.boundingBox;
@@ -750,13 +753,16 @@ public class EntityMinecart extends Entity implements IInventory {
                     d0 *= 0.5D;
                     d1 *= 0.5D;
                     if (entity instanceof EntityMinecart) {
-                        double d4 = entity.locX - this.locX;
-                        double d5 = entity.locZ - this.locZ;
-                        double d6 = d4 * entity.motZ + d5 * entity.lastX;
+                        // uberbukkit
+                        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_minecart_boosters", false)) {
+                            double d4 = entity.locX - this.locX;
+                            double d5 = entity.locZ - this.locZ;
+                            double d6 = d4 * entity.motZ + d5 * entity.lastX;
 
-                        d6 *= d6;
-                        if (d6 > 5.0D) {
-                            return;
+                            d6 *= d6;
+                            if (d6 > 5.0D) {
+                                return;
+                            }
                         }
 
                         double d7 = entity.motX + this.motX;
@@ -837,7 +843,8 @@ public class EntityMinecart extends Entity implements IInventory {
         return 64;
     }
 
-    public void update() {}
+    public void update() {
+    }
 
     public boolean a(EntityHuman entityhuman) {
         if (this.type == 0) {

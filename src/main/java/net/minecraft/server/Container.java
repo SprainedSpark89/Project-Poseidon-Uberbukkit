@@ -1,5 +1,8 @@
 package net.minecraft.server;
 
+import me.devcody.uberbukkit.util.math.Vec3i;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,8 +16,10 @@ public abstract class Container {
     private short a = 0;
     protected List listeners = new ArrayList();
     private Set b = new HashSet();
+    private Vec3i position = null;
 
-    public Container() {}
+    public Container() {
+    }
 
     protected void a(Slot slot) {
         slot.a = this.e.size();
@@ -281,5 +286,18 @@ public abstract class Container {
                 }
             }
         }
+    }
+
+    public boolean isPositioned() {
+        return (this.position != null);
+    }
+
+    public void setPosition(Vec3i position) {
+        this.position = position;
+    }
+
+    @Nullable
+    public Vec3i getPosition() {
+        return position;
     }
 }

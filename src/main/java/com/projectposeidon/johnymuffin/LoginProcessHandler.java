@@ -2,12 +2,12 @@ package com.projectposeidon.johnymuffin;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.PoseidonPlugin;
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.legacyminecraft.poseidon.uuid.ThreadUUIDFetcher;
 import net.minecraft.server.NetLoginHandler;
 import net.minecraft.server.Packet1Login;
 import net.minecraft.server.ThreadLoginVerifier;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerConnectionInitializationEvent;
@@ -78,7 +78,8 @@ public class LoginProcessHandler {
             return;
         }
 
-        if (onlineMode) {
+        // Account for cracked allowlist
+        if (onlineMode && !CrackedAllowlist.get().contains(this.packet1Login.name)) {
             //Server is running online mode
             verifyMojangSession();
         } else {
@@ -163,8 +164,7 @@ public class LoginProcessHandler {
         for (Player p : server.getOnlinePlayers()) {
             if (p.getName().equalsIgnoreCase(username) || p.getUniqueId().equals(uuid)) {
                 cancelLoginProcess(this.msgKickAlreadyOnline);
-                System.out.println("[Poseidon] User " + username + " has been blocked from connecting as they share a username or UUID with a user who is already online called " + p.getName() +
-                        "\nMost likely the user has changed their UUID or the server is running in offline mode and someone has attempted to connect with their name");
+                System.out.println("[Poseidon] User " + username + " has been blocked from connecting as they share a username or UUID with a user who is already online called " + p.getName() + "\nMost likely the user has changed their UUID or the server is running in offline mode and someone has attempted to connect with their name");
             }
         }
 
@@ -230,8 +230,7 @@ public class LoginProcessHandler {
     public void removeConnectionInterrupt(ConnectionPause connectionPause) {
         //Check if the connection pause is registered and active
         if (!connectionPauses.contains(connectionPause)) {
-            System.out.println("[Poseidon] A plugin has tried to remove a connection pause from the player " + packet1Login.name + " called " + connectionPause.getConnectionPauseName() +
-                    " from the plugin " + connectionPause.getPluginName() + ". Please contact the plugin author and get them to check their logic as this is a duplicate remove, or a pause for another player.");
+            System.out.println("[Poseidon] A plugin has tried to remove a connection pause from the player " + packet1Login.name + " called " + connectionPause.getConnectionPauseName() + " from the plugin " + connectionPause.getPluginName() + ". Please contact the plugin author and get them to check their logic as this is a duplicate remove, or a pause for another player.");
             return;
         }
         //Handle the completion of the pause

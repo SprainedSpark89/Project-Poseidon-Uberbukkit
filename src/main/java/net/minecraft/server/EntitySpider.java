@@ -1,9 +1,14 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 // CraftBukkit end
+
+//uberbukkit start
+import com.legacyminecraft.poseidon.PoseidonConfig;
+//uberbukkit end
 
 public class EntitySpider extends EntityMonster {
 
@@ -19,7 +24,7 @@ public class EntitySpider extends EntityMonster {
     }
 
     protected boolean n() {
-        return false;
+        return PoseidonConfig.getInstance().getBoolean("version.mechanics.spiders_trample_crops", false);
     }
 
     protected Entity findTarget() {
@@ -93,6 +98,6 @@ public class EntitySpider extends EntityMonster {
     }
 
     public boolean p() {
-        return this.positionChanged;
+        return PoseidonConfig.getInstance().getBoolean("version.mechanics.spiders_climb_walls", true) ? this.positionChanged : super.p();
     }
 }

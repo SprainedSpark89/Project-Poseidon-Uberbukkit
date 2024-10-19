@@ -30,7 +30,12 @@ public class Packet130UpdateSign extends Packet {
         this.lines = new String[4];
 
         for (int i = 0; i < 4; ++i) {
-            this.lines[i] = a(datainputstream, 15);
+            // uberbukkit
+            if (this.pvn >= 11) {
+                this.lines[i] = a(datainputstream, 15);
+            } else {
+                this.lines[i] = datainputstream.readUTF();
+            }
         }
     }
 
@@ -40,7 +45,12 @@ public class Packet130UpdateSign extends Packet {
         dataoutputstream.writeInt(this.z);
 
         for (int i = 0; i < 4; ++i) {
-            a(this.lines[i], dataoutputstream);
+            // uberbukkit
+            if (this.pvn >= 11) {
+                a(this.lines[i], dataoutputstream);
+            } else {
+                dataoutputstream.writeUTF(this.lines[i]);
+            }
         }
     }
 
@@ -56,5 +66,10 @@ public class Packet130UpdateSign extends Packet {
         }
 
         return i;
+    }
+
+    @Override
+    public Packet clone() {
+        return new Packet130UpdateSign(this.x, this.y, this.z, this.lines);
     }
 }

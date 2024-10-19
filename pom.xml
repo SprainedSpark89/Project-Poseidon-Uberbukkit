@@ -1,11 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bukkit</groupId>
-    <artifactId>project-poseidon</artifactId>
+    <artifactId>uberbukkit</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.8</version>
-    <name>Project-Poseidon</name>
+    <version>2.0.0</version>
+    <name>UberBukkit</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <api.version>unknown</api.version>
@@ -102,7 +102,6 @@
             <systemPath>${project.basedir}/libs/ModLoaderMP.jar</systemPath>
         </dependency>
 
-
         <dependency>
             <groupId>org.avaje</groupId>
             <artifactId>ebean</artifactId>
@@ -149,20 +148,20 @@
             <artifactId>gson</artifactId>
             <version>2.9.0</version>
         </dependency>
-
     </dependencies>
+
     <!-- This builds a completely 'ready to start' jar with all dependencies inside -->
     <build>
         <defaultGoal>clean install</defaultGoal>
-<!--        <sourceDirectory>src</sourceDirectory>-->
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>src</directory>-->
-<!--                <excludes>-->
-<!--                    <exclude>**/*.java</exclude>-->
-<!--                </excludes>-->
-<!--            </resource>-->
-<!--        </resources>-->
+        <!--        <sourceDirectory>src</sourceDirectory>-->
+        <!--        <resources>-->
+        <!--            <resource>-->
+        <!--                <directory>src</directory>-->
+        <!--                <excludes>-->
+        <!--                    <exclude>**/*.java</exclude>-->
+        <!--                </excludes>-->
+        <!--            </resource>-->
+        <!--        </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -172,8 +171,8 @@
                     <archive>
                         <manifestEntries>
                             <Main-Class>org.bukkit.craftbukkit.Main</Main-Class>
-                            <Implementation-Title>Project-Posiden</Implementation-Title>
-                            <Implementation-Vendor>RhysB</Implementation-Vendor>
+                            <Implementation-Title>UberBukkit</Implementation-Title>
+                            <Implementation-Vendor>Moresteck</Implementation-Vendor>
                             <Specification-Title>Bukkit</Specification-Title>
                             <Specification-Version>${api.version}</Specification-Version>
                             <Specification-Vendor>Bukkit Team</Specification-Vendor>

@@ -18,14 +18,13 @@ public interface ServicesManager {
     /**
      * Register a provider of a service.
      *
-     * @param <T> Provider
-     * @param service service class
+     * @param <T>      Provider
+     * @param service  service class
      * @param provider provider to register
-     * @param plugin plugin with the provider
+     * @param plugin   plugin with the provider
      * @param priority priority of the provider
      */
-    public <T> void register(Class<T> service, T provider, Plugin plugin,
-            ServicePriority priority);
+    public <T> void register(Class<T> service, T provider, Plugin plugin, ServicePriority priority);
 
     /**
      * Unregister all the providers registered by a particular plugin.
@@ -85,8 +84,7 @@ public interface ServicesManager {
      * @param service
      * @return list of registrations
      */
-    public <T> Collection<RegisteredServiceProvider<T>> getRegistrations(
-            Class<T> service);
+    public <T> Collection<RegisteredServiceProvider<T>> getRegistrations(Class<T> service);
 
     /**
      * Get a list of known services. A service is known if it has registered
@@ -101,7 +99,7 @@ public interface ServicesManager {
      * check this first only to call <code>load(service)</code> later, as that
      * would be a non-thread safe situation.
      *
-     * @param <T> service
+     * @param <T>     service
      * @param service service to check
      * @return whether there has been a registered provider
      */

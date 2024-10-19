@@ -1,21 +1,20 @@
 package net.minecraft.server;
 
+import java.util.List;
+import java.util.Random;
+
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 
-import java.util.List;
-import java.util.Random;
-
-// CraftBukkit start
-// CraftBukkit end
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class BlockPressurePlate extends Block {
 
     private EnumMobType a;
 
     protected BlockPressurePlate(int i, int j, EnumMobType enummobtype, Material material) {
-        super(i, j, material);
+        super(i, j, Uberbukkit.getTargetPVN() >= 12 ? material : Material.STONE);
         this.a = enummobtype;
         this.a(true);
         float f = 0.0625F;
@@ -43,7 +42,8 @@ public class BlockPressurePlate extends Block {
         return world.e(i, j - 1, k);
     }
 
-    public void c(World world, int i, int j, int k) {}
+    public void c(World world, int i, int j, int k) {
+    }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         boolean flag = false;
@@ -102,7 +102,7 @@ public class BlockPressurePlate extends Block {
 
         if (flag != flag1) {
             if (flag1) {
-                for (Object object: list) {
+                for (Object object : list) {
                     if (object != null) {
                         org.bukkit.event.Cancellable cancellable;
 

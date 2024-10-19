@@ -1,7 +1,9 @@
 package org.bukkit.craftbukkit.entity;
 
+import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.projectposeidon.ConnectionType;
 import net.minecraft.server.*;
+
 import org.bukkit.Achievement;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
@@ -95,6 +97,14 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void sendRawMessage(String message) {
+        // uberbukkit
+        int pvn = getHandle().netServerHandler.networkManager.pvn;
+
+        // The WorldEdit plugin greets the client with this character sequence
+        // to establish communication with WorldEditCUI (client-side mod).
+        // However, this char sequence crashes clients before b1.5, so this filter is needed
+        if (pvn < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75")) return;
+
         try {
             getHandle().netServerHandler.sendPacket(new Packet3Chat(message));
         } catch (NullPointerException exception) {
@@ -184,6 +194,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void playEffect(Location loc, Effect effect, int data) {
+
         int packetData = effect.getId();
         Packet61 packet = new Packet61(packetData, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), data);
         getHandle().netServerHandler.sendPacket(packet);
@@ -336,6 +347,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     private void sendStatistic(int id, int amount) {
+
         while (amount > Byte.MAX_VALUE) {
             sendStatistic(id, Byte.MAX_VALUE);
             amount -= Byte.MAX_VALUE;
@@ -432,9 +444,41 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void sendPacket(final Player player, final Packet packet) {
-        if(player.isOnline()) {
+        if (player.isOnline()) {
             NetServerHandler nsh = getHandle().netServerHandler;
             nsh.sendPacket(packet);
         }
     }
+
+    // uberbukkit start
+
+    public boolean isCracked() {
+        return CrackedAllowlist.get().contains(getName());
+    }
+
+    public boolean hasBed() {
+        return ((EntityHuman) getHandle()).b != null;
+    }
+
+    public Location getBedLocation() {
+        ChunkCoordinates coords = ((EntityHuman) getHandle()).b;
+        String worldname = getHandle().spawnWorld;
+
+        org.bukkit.World world = getServer().getWorld(worldname);
+
+        return new Location(world, coords.x, coords.y, coords.z);
+    }
+
+    public void setBedLocation(Location location) {
+        ChunkCoordinates coords = new ChunkCoordinates(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+
+        ((EntityHuman) getHandle()).b = coords;
+
+        String worldname = "";
+        if (location.getWorld() != null) worldname = location.getWorld().getName();
+
+        getHandle().spawnWorld = worldname;
+    }
+
+    // uberbukkit end
 }

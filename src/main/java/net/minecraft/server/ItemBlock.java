@@ -1,10 +1,13 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.craftbukkit.block.CraftBlockState;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockPlaceEvent;
 // CraftBukkit end
+
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
 public class ItemBlock extends Item {
 
@@ -49,7 +52,7 @@ public class ItemBlock extends Item {
 
         if (itemstack.count == 0) {
             return false;
-        } else if (j == 127 && Block.byId[this.id].material.isBuildable()) {
+        } else if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_blocks_at_y_127", false) && j == 127 && Block.byId[this.id].material.isBuildable()) {
             return false;
         } else if (world.a(this.id, i, j, k, false, l)) {
             Block block = Block.byId[this.id];
@@ -64,23 +67,22 @@ public class ItemBlock extends Item {
             CraftBlockState blockStateBelow = null;
             // Toggles whether the normal or the block below is used for the place event 
             boolean eventUseBlockBelow = false;
-            if ((world.getTypeId(i, j - 1, k) == Block.STEP.id || world.getTypeId(i, j - 1, k) == Block.DOUBLE_STEP.id)
-                    && (itemstack.id == Block.DOUBLE_STEP.id || itemstack.id == Block.STEP.id)) {
+            if ((world.getTypeId(i, j - 1, k) == Block.STEP.id || world.getTypeId(i, j - 1, k) == Block.DOUBLE_STEP.id) && (itemstack.id == Block.DOUBLE_STEP.id || itemstack.id == Block.STEP.id)) {
                 blockStateBelow = CraftBlockState.getBlockState(world, i, j - 1, k);
                 // Step is placed on step, forms a doublestep replacing the original step, so we need the lower block
                 eventUseBlockBelow = itemstack.id == Block.STEP.id && blockStateBelow.getTypeId() == Block.STEP.id;
             }
 
             /**
-            * @see net.minecraft.server.World#setTypeIdAndData(int i, int j, int k, int l, int i1)
-            *
-            * This replaces world.setTypeIdAndData(IIIII), we're doing this because we need to
-            * hook between the 'placement' and the informing to 'world' so we can
-            * sanely undo this.
-            *
-            * Whenever the call to 'world.setTypeIdAndData' changes we need to figure out again what to
-            * replace this with.
-            */
+             * @see net.minecraft.server.World#setTypeIdAndData(int i, int j, int k, int l, int i1)
+             *
+             * This replaces world.setTypeIdAndData(IIIII), we're doing this because we need to
+             * hook between the 'placement' and the informing to 'world' so we can
+             * sanely undo this.
+             *
+             * Whenever the call to 'world.setTypeIdAndData' changes we need to figure out again what to
+             * replace this with.
+             */
             if (world.setRawTypeIdAndData(i, j, k, this.id, this.filterData(itemstack.getData()))) { // <-- world.setTypeIdAndData does this to place the block
                 BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, eventUseBlockBelow ? blockStateBelow : replacedBlockState, clickedX, clickedY, clickedZ, block);
 

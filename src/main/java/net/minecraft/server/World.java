@@ -1,11 +1,24 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
@@ -17,12 +30,17 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
-import java.util.*;
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 // CraftBukkit start
 // CraftBukkit end
 
 public class World implements IBlockAccess {
+
+    // uberbukkit
+    private static boolean pre1_5_placement_rules = PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_5_block_placement_rules", false);
 
     public boolean a = false;
     private List C = new ArrayList();
@@ -280,6 +298,11 @@ public class World implements IBlockAccess {
     // CraftBukkit end
 
     public boolean setRawTypeIdAndData(int i, int j, int k, int l, int i1) {
+        // uberbukkit
+        if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(l)) {
+            return false;
+        }
+
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -296,6 +319,11 @@ public class World implements IBlockAccess {
     }
 
     public boolean setRawTypeId(int i, int j, int k, int l) {
+        // uberbukkit
+        if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(l)) {
+            return false;
+        }
+
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -480,7 +508,12 @@ public class World implements IBlockAccess {
             if (flag) {
                 int l = this.getTypeId(i, j, k);
 
-                if (l == Block.STEP.id || l == Block.SOIL.id || l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id) {
+                boolean check = false;
+                if (Uberbukkit.getTargetPVN() >= 12) {
+                    check = l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id;
+                }
+
+                if (l == Block.STEP.id || l == Block.SOIL.id || check) {
                     int i1 = this.a(i, j + 1, k, false);
                     int j1 = this.a(i + 1, j, k, false);
                     int k1 = this.a(i - 1, j, k, false);
@@ -835,7 +868,7 @@ public class World implements IBlockAccess {
 
 
     public boolean addEntity(Entity entity, SpawnReason spawnReason) { // Changed signature, added SpawnReason
-    // CraftBukkit end
+        // CraftBukkit end
         int i = MathHelper.floor(entity.locX / 16.0D);
         int j = MathHelper.floor(entity.locZ / 16.0D);
         boolean flag = false;
@@ -1540,6 +1573,10 @@ public class World implements IBlockAccess {
         }
 
         if (this.getTypeId(i, j, k) == Block.FIRE.id) {
+            if (entityhuman != null) {
+                BlockBreakEvent event = CraftEventFactory.callBlockBreakEvent(entityhuman, i, j, k);
+                if (event.isCancelled()) return;
+            }
             this.a(entityhuman, 1004, i, j, k, 0);
             this.setTypeId(i, j, k, 0);
         }
@@ -1596,6 +1633,9 @@ public class World implements IBlockAccess {
     }
 
     public boolean e(int i, int j, int k) {
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_6_block_opacity", false)) {
+            return this.p(i, j, k);
+        }
         Block block = Block.byId[this.getTypeId(i, j, k)];
 
         return block == null ? false : block.material.h() && block.b();
@@ -1738,7 +1778,13 @@ public class World implements IBlockAccess {
             this.save(false, (IProgressUpdate) null);
         }
 
-        this.worldData.a(i);
+        // uberbukkit
+        if (this.worldProvider instanceof WorldProviderHell && Uberbukkit.getTargetPVN() < 12) {
+            this.worldData.a(18000);
+        } else {
+            this.worldData.a(i);
+        }
+
         this.a(false);
         this.j();
     }
@@ -1946,16 +1992,19 @@ public class World implements IBlockAccess {
                         // CraftBukkit end
                     }
 
-                    // CraftBukkit start
-                        if (l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
-                            BlockState blockState = this.getWorld().getBlockAt(l + i, k1 - 1, j1 + j).getState();
-                            blockState.setTypeId(Block.ICE.id);
+                    // uberbukkit
+                    boolean blocked = PoseidonConfig.getInstance().getBoolean("version.mechanics.ice_generate_only_when_snowing", false) && !this.v();
 
-                            BlockFormEvent iceBlockForm = new BlockFormEvent(blockState.getBlock(), blockState);
-                            this.getServer().getPluginManager().callEvent(iceBlockForm);
-                            if (!iceBlockForm.isCancelled()) {
-                                blockState.update(true);
-                            }
+                    // CraftBukkit start
+                    if (!blocked && l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
+                        BlockState blockState = this.getWorld().getBlockAt(l + i, k1 - 1, j1 + j).getState();
+                        blockState.setTypeId(Block.ICE.id);
+
+                        BlockFormEvent iceBlockForm = new BlockFormEvent(blockState.getBlock(), blockState);
+                        this.getServer().getPluginManager().callEvent(iceBlockForm);
+                        if (!iceBlockForm.isCancelled()) {
+                            blockState.update(true);
+                        }
                     }
                     // CraftBukkit end
                 }
@@ -2104,11 +2153,16 @@ public class World implements IBlockAccess {
         if (axisalignedbb != null && !this.containsEntity(axisalignedbb)) {
             defaultReturn = false; // CraftBukkit
         } else {
-            if (block == Block.WATER || block == Block.STATIONARY_WATER || block == Block.LAVA || block == Block.STATIONARY_LAVA || block == Block.FIRE || block == Block.SNOW) {
-                block = null;
-            }
+            // uberbukkit - allow placing triple chests
+            if (pre1_5_placement_rules) {
+                defaultReturn = (block != Block.WATER && block != Block.STATIONARY_WATER && block != Block.LAVA && block != Block.STATIONARY_LAVA && block != Block.FIRE && block != Block.SNOW ? i > 0 && block == null && block1.canPlace(this, j, k, l) : true);
+            } else {
+                if (block == Block.WATER || block == Block.STATIONARY_WATER || block == Block.LAVA || block == Block.STATIONARY_LAVA || block == Block.FIRE || block == Block.SNOW) {
+                    block = null;
+                }
 
-            defaultReturn = i > 0 && block == null && block1.canPlace(this, j, k, l, i1); // CraftBukkit
+                defaultReturn = i > 0 && block == null && block1.canPlace(this, j, k, l, i1); // CraftBukkit
+            }
         }
 
         // CraftBukkit start
@@ -2296,7 +2350,8 @@ public class World implements IBlockAccess {
         return true;
     }
 
-    public void a(Entity entity, byte b0) {}
+    public void a(Entity entity, byte b0) {
+    }
 
     public IChunkProvider o() {
         return this.chunkProvider;
@@ -2400,7 +2455,11 @@ public class World implements IBlockAccess {
     }
 
     public boolean v() {
-        return (double) this.d(1.0F) > 0.2D;
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true))
+            return (double) this.d(1.0F) > 0.2D;
+
+        return false;
     }
 
     public boolean s(int i, int j, int k) {

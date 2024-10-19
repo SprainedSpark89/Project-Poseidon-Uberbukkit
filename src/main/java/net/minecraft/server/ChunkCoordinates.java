@@ -6,7 +6,8 @@ public class ChunkCoordinates implements Comparable {
     public int y;
     public int z;
 
-    public ChunkCoordinates() {}
+    public ChunkCoordinates() {
+    }
 
     public ChunkCoordinates(int i, int j, int k) {
         this.x = i;

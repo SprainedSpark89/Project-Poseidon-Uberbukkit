@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import me.devcody.uberbukkit.util.math.Vec3i;
+
 import java.util.Random;
 
 public class BlockChest extends BlockContainer {
@@ -105,12 +107,11 @@ public class BlockChest extends BlockContainer {
                 object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.getTileEntity(i, j, k + 1));
             }
 
-            if (world.isStatic) {
-                return true;
-            } else {
-                entityhuman.a((IInventory) object);
-                return true;
+            if (!world.isStatic) {
+                entityhuman.a((IInventory) object, new Vec3i(i, j, k));
             }
+
+            return true;
         }
     }
 

@@ -22,10 +22,9 @@ public class PlayerTeleportEvent extends PlayerMoveEvent {
 
     //Poseidon - Start
     private void blockCrossDimensionDupe() {
-        if (this.getFrom().getWorld() != this.getTo().getWorld()) {
+        if (this instanceof PlayerPortalEvent || this.getFrom().getWorld() != this.getTo().getWorld()) {
             EntityPlayer entity = ((CraftPlayer) this.getPlayer()).getHandle();
-            if (entity.activeContainer == entity.defaultContainer)
-                return;
+            if (entity.activeContainer == entity.defaultContainer) return;
             System.out.println("[Poseidon] Force closing " + player.getName() + "'s inventory as they have teleported to a different world. This is to prevent a dupe bug.");
             entity.y();
         }

@@ -1,13 +1,12 @@
 package net.minecraft.server;
 
-import org.bukkit.event.painting.PaintingBreakByEntityEvent;
-import org.bukkit.event.painting.PaintingBreakByWorldEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
-// CraftBukkit start
-// CraftBukkit end
+import org.bukkit.event.painting.PaintingBreakByEntityEvent;
+import org.bukkit.event.painting.PaintingBreakByWorldEvent;
+
+import uk.betacraft.uberbukkit.Uberbukkit;
 
 public class EntityPainting extends Entity {
 
@@ -38,6 +37,9 @@ public class EntityPainting extends Entity {
         for (int j1 = 0; j1 < i1; ++j1) {
             EnumArt enumart = aenumart[j1];
 
+            // uberbukkit - make paintings show just the motives that exist in the target version
+            if (enumart == EnumArt.BURNINGSKULL && Uberbukkit.getTargetPVN() < 8) continue;
+
             this.e = enumart;
             this.b(l);
             if (this.h()) {
@@ -52,7 +54,8 @@ public class EntityPainting extends Entity {
         this.b(l);
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public void b(int i) {
         this.a = i;
@@ -239,6 +242,10 @@ public class EntityPainting extends Entity {
             EnumArt enumart = aenumart[j];
 
             if (enumart.A.equals(s)) {
+
+                // uberbukkit - make paintings show just the motives that exist in the target version
+                if (enumart == EnumArt.BURNINGSKULL && Uberbukkit.getTargetPVN() < 8) break;
+
                 this.e = enumart;
             }
         }

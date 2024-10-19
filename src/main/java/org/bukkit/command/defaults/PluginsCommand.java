@@ -21,7 +21,7 @@ public class PluginsCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        
+
         sender.sendMessage("Plugins" + getPluginList());
         return true;
     }
@@ -46,8 +46,7 @@ public class PluginsCommand extends Command {
             }
 
             pluginList.append(plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);
-            if (plugin.isEnabled())
-                enabled++;
+            if (plugin.isEnabled()) enabled++;
             pluginList.append(plugin.getDescription().getName());
         }
 

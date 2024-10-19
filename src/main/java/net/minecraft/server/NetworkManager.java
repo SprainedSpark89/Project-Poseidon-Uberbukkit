@@ -1,17 +1,24 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-import com.legacyminecraft.poseidon.event.PlayerReceivePacketEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
+import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.event.PlayerReceivePacketEvent;
+
+import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.protocol.Protocol;
 
 public class NetworkManager {
 
@@ -46,6 +53,10 @@ public class NetworkManager {
 
     private final int threshold;
 
+    // uberbukkit
+    public int pvn = 0;
+    public Protocol protocol = null;
+
     public NetworkManager(Socket socket, String s, NetHandler nethandler) {
         this.socket = socket;
         this.i = socket.getRemoteSocketAddress();
@@ -72,8 +83,15 @@ public class NetworkManager {
             if (PoseidonConfig.getEmptyNode().getBoolean("settings.enable-tpc-nodelay", false)) {
                 socket.setTcpNoDelay(true);
             }
-            this.input = new DataInputStream(socket.getInputStream());
-            this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 5120));
+
+            // uberbukkit
+            if (Uberbukkit.getTargetPVN() >= 11) {
+                this.input = new DataInputStream(socket.getInputStream());
+                this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 5120));
+            } else {
+                this.input = new DataInputStream(socket.getInputStream());
+                this.output = new DataOutputStream(socket.getOutputStream());
+            }
         } catch (java.io.IOException socketexception) {
             // CraftBukkit end
             System.err.println(socketexception.getMessage());
@@ -107,6 +125,12 @@ public class NetworkManager {
     public void queue(Packet packet) {
         if (!this.q) {
             Object object = this.g;
+
+            // uberbukkit
+            if (this.protocol != null && !this.protocol.canReceivePacket(packet.b())) return;
+
+            // uberbukkit
+            if (this.pvn != 0) packet.pvn = this.pvn;
 
             synchronized (this.g) {
                 this.x += packet.a() + 1;
@@ -177,7 +201,7 @@ public class NetworkManager {
         boolean flag = false;
 
         try {
-            Packet packet = Packet.a(this.input, this.p.c());
+            Packet packet = Packet.a(this.input, this.p.c(), this.pvn); // uberbukkit - allows packets to be read accordingly to client version
 
             if (packet != null) {
                 int[] aint = d;
@@ -202,7 +226,7 @@ public class NetworkManager {
 
     private void a(Exception exception) {
         exception.printStackTrace();
-        this.a("disconnect.genericReason", new Object[]{"Internal exception: " + exception.toString()});
+        this.a("disconnect.genericReason", new Object[] { "Internal exception: " + exception.toString() });
     }
 
     public void a(String s, Object... aobject) {
@@ -292,7 +316,7 @@ public class NetworkManager {
 
             //Poseidon End
 
-//            packet.a(this.p);
+            //            packet.a(this.p);
         }
 
         this.a();

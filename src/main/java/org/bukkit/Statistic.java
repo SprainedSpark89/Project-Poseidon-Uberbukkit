@@ -7,15 +7,7 @@ import java.util.Map;
  * Represents a countable statistic, which is collected by the client
  */
 public enum Statistic {
-    DAMAGE_DEALT(2020),
-    DAMAGE_TAKEN(2021),
-    DEATHS(2022),
-    MOB_KILLS(2023),
-    PLAYER_KILLS(2024),
-    FISH_CAUGHT(2025),
-    MINE_BLOCK(16777216, true),
-    USE_ITEM(6908288, false),
-    BREAK_ITEM(16973824, true);
+    DAMAGE_DEALT(2020), DAMAGE_TAKEN(2021), DEATHS(2022), MOB_KILLS(2023), PLAYER_KILLS(2024), FISH_CAUGHT(2025), MINE_BLOCK(16777216, true), USE_ITEM(6908288, false), BREAK_ITEM(16973824, true);
 
     private final static Map<Integer, Statistic> statistics = new HashMap<Integer, Statistic>();
     private final int id;
@@ -47,7 +39,7 @@ public enum Statistic {
 
     /**
      * Checks if this is a substatistic.
-     *
+     * <p>
      * A substatistic exists in mass for each block or item, depending on {@link #isBlock()}
      *
      * @return true if this is a substatistic

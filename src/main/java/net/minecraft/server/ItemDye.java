@@ -1,9 +1,11 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class ItemDye extends Item {
 
-    public static final String[] a = new String[] { "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
-    public static final int[] bk = new int[] { 1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 2651799, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
+    public static final String[] a = new String[] { "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white" };
+    public static final int[] bk = new int[] { 1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 2651799, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320 };
 
     public ItemDye(int i) {
         super(i);
@@ -33,11 +35,11 @@ public class ItemDye extends Item {
                 return true;
             }
 
-            if (i1 == Block.GRASS.id) {
+            if (i1 == Block.GRASS.id && PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_bone_meal_on_grass", true)) {
                 if (!world.isStatic) {
                     --itemstack.count;
 
-                    label53:
+                        label53:
                     for (int j1 = 0; j1 < 128; ++j1) {
                         int k1 = i;
                         int l1 = j + 1;
@@ -53,7 +55,8 @@ public class ItemDye extends Item {
                         }
 
                         if (world.getTypeId(k1, l1, i2) == 0) {
-                            if (b.nextInt(10) != 0) {
+                            // uberbukkit
+                            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_grow_tallgrass", true) && b.nextInt(10) != 0) {
                                 world.setTypeIdAndData(k1, l1, i2, Block.LONG_GRASS.id, 1);
                             } else if (b.nextInt(3) != 0) {
                                 world.setTypeId(k1, l1, i2, Block.YELLOW_FLOWER.id);
