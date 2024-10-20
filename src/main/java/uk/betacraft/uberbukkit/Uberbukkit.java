@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Uberbukkit {
     // TODO: Change this automatically migration to Gradle
-    private static final String version = "2.0.1";
+    private static final String version = "2.0.2";
     private static Integer pvn = null;
     private static List<Integer> pvns = null;
 
