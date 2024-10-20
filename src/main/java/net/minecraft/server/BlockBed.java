@@ -195,11 +195,10 @@ public class BlockBed extends Block {
         return null;
     }
 
-    public Optional<List<ItemStack>> getDrops(World world, int x, int y, int z, int data) {
-        if (!d(data)) {
-            return super.getDrops(world, x, y, z, data);
+    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
+        if (!d(l)) {
+            super.dropNaturally(world, i, j, k, l, f);
         }
-        return Optional.empty();
     }
 
     public int e() {
