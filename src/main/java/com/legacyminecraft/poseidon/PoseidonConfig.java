@@ -184,6 +184,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.generate_tallgrass", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
+		generateConfigOption("version.worldgen.generate_lakes", true);
 
         generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
