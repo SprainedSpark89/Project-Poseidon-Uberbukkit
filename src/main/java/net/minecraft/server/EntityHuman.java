@@ -781,7 +781,7 @@ public abstract class EntityHuman extends EntityLiving {
             this.sleepTicks = 100;
         }
 
-        if (flag2) {
+        if (flag2 && PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_set_spawnpoint", true)) {
             this.a(this.A);
         }
     }
