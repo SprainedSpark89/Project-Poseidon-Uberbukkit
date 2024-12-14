@@ -41,13 +41,14 @@ import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
 import com.projectposeidon.ConnectionType;
 
 import me.devcody.uberbukkit.nms.patch.IllegalContainerInteractionFix;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 import uk.betacraft.uberbukkit.packet.Packet62Sound;
 import uk.betacraft.uberbukkit.packet.Packet63Digging;
 import uk.betacraft.uberbukkit.protocol.Protocol;
 
 public class NetServerHandler extends NetHandler implements ICommandListener {
 
-    private static boolean isStaffExemptFromFlyKick = PoseidonConfig.getInstance().getBoolean("settings.exempt-staff-from-flight-kick", false);
+    private static boolean isStaffExemptFromFlyKick = UberbukkitConfig.getInstance().getBoolean("settings.exempt-staff-from-flight-kick", false);
     public static Logger a = Logger.getLogger("Minecraft");
     public NetworkManager networkManager;
     public boolean disconnected = false;

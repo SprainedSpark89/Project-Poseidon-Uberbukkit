@@ -1,14 +1,14 @@
 package me.devcody.uberbukkit.nms.patch;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
 import me.devcody.uberbukkit.util.math.Vec3i;
 import net.minecraft.server.EntityPlayer;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.logging.Logger;
 
 public class IllegalContainerInteractionFix {
-    public static final int MAX_DISTANCE = PoseidonConfig.getInstance().getInt("fix.illegal-container-interaction.max-distance", 4);
-    public static final boolean LOG_VIOLATION = PoseidonConfig.getInstance().getBoolean("fix.illegal-container-interaction.log-violation", false);
+    public static final int MAX_DISTANCE = UberbukkitConfig.getInstance().getInt("fix.illegal-container-interaction.max-distance", 4);
+    public static final boolean LOG_VIOLATION = UberbukkitConfig.getInstance().getBoolean("fix.illegal-container-interaction.log-violation", false);
 
     public static boolean checkForViolations(Vec3i containerPosition, EntityPlayer player) {
         if (containerPosition == null || player == null) {

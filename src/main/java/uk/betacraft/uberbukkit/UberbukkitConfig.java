@@ -34,14 +34,21 @@ public class UberbukkitConfig extends Configuration {
         if (versionKeys == null) return;
 
         for (String key : versionKeys) {
-            Object property = PoseidonConfig.getInstance().getProperty(oldKey + "." + key);
-            if (property != null) {
-                // move the entry to uberbukkit.yml
-                this.setProperty(newKey + "." + key, property);
-                // remove the entry from poseidon.yml
-                PoseidonConfig.getInstance().removeProperty(oldKey + "." + key);
-            }
+            this.migrateExact(oldKey + "." + key, newKey + "." + key, Object.class);
         }
+    }
+
+    private void migrateExact(String oldKey, String newKey, Class<?> clazz) {
+        Object val = PoseidonConfig.getInstance().getProperty(oldKey);
+
+        if (clazz.isInstance(val)) {
+            this.setProperty(newKey, val);
+            PoseidonConfig.getInstance().removeProperty(oldKey);
+        }
+    }
+
+    private void migrateExact(String key, Class<?> clazz) {
+        this.migrateExact(key, key, clazz);
     }
 
     private void migrateFromPoseidonConfig() {
@@ -51,9 +58,10 @@ public class UberbukkitConfig extends Configuration {
         migrateByKey("version.worldgen.biomes", "worldgen.biomes");
         migrateByKey("version.worldgen.ores.world", "worldgen.ores.world");
         migrateByKey("version.experimental", "experimental");
+        migrateByKey("fix.illegal-container-interaction", "fix.illegal-container-interaction");
 
-        String pvns = PoseidonConfig.getInstance().getString("version.allow_join.protocol");
-        this.setProperty("client.allowed_protocols.value", pvns);
+        migrateExact("settings.exempt-staff-from-flight-kick", Boolean.class);
+        migrateExact("version.allow_join.protocol", "client.allowed_protocols.value", String.class);
     }
 
     private void writeDefaults() {
@@ -114,6 +122,12 @@ public class UberbukkitConfig extends Configuration {
         writeDefault("mechanics.seeds_replace_blocks", false);
         writeDefault("mechanics.boats.drop_boat_not_wood", false);
         writeDefault("mechanics.boats.break_boat_on_collision", true);
+
+        writeDefault("settings.exempt-staff-from-flight-kick", false);
+
+        writeDefault("fix.illegal-container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
+        writeDefault("fix.illegal-container-interaction.max-distance", 4);
+        writeDefault("fix.illegal-container-interaction.log-violation", false);
 
         writeDefault("experimental.force_fix_chunk_coords_corruption", false);
 
