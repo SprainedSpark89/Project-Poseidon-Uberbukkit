@@ -1,9 +1,8 @@
 package net.minecraft.server;
 
-import java.util.Calendar;
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class ChunkProviderGenerate implements IChunkProvider {
 
@@ -182,7 +181,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
                                 --j1;
                                 abyte[l1] = b2;
                                 // uberbukkit
-                                if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_sandstone", true) && j1 == 0 && b2 == Block.SAND.id) {
+                                if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_sandstone", true) && j1 == 0 && b2 == Block.SAND.id) {
                                     j1 = this.j.nextInt(4);
                                     b2 = (byte) Block.SANDSTONE.id;
                                 }
@@ -423,7 +422,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_lapis_ores", true)) {
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_lapis_ores", true)) {
             for (k1 = 0; k1 < 1; ++k1) {
                 l1 = k + this.j.nextInt(16);
                 i2 = this.j.nextInt(16) + this.j.nextInt(16);
@@ -469,7 +468,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         // uberbukkit
         Object object = biomebase.a(this.j);
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_tree_generation", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.pre_b1_2_tree_generation", false)) {
             object = new WorldGenTrees();
             if (this.j.nextInt(10) == 0) {
                 object = new WorldGenBigTree();
@@ -546,7 +545,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         int k3;
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_tallgrass", true)) {
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_tallgrass", true)) {
             for (k2 = 0; k2 < b1; ++k2) {
                 byte b2 = 1;
 
@@ -567,7 +566,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_tallgrass", true)) {
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_tallgrass", true)) {
             for (k2 = 0; k2 < b1; ++k2) {
                 i3 = k + this.j.nextInt(16) + 8;
                 l2 = this.j.nextInt(128);
@@ -653,7 +652,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_steveco_chests", false)) {
             k2 = k + this.j.nextInt(16) + 8;
             l2 = this.j.nextInt(128);
             i3 = l + this.j.nextInt(16) + 8;

@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class BlockLightStone extends Block {
 
@@ -12,7 +12,7 @@ public class BlockLightStone extends Block {
 
     public int a(Random random) {
         // uberbukkit
-        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.glowstone_pre1_6_6", false))
+        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.glowstone_pre1_6_6", false))
             return 2 + random.nextInt(3);
 
         return super.a(random);

@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import org.bukkit.event.block.LeavesDecayEvent;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.Random;
 
@@ -130,7 +130,7 @@ public class BlockLeaves extends BlockLeavesBase {
 
         int data = world.getData(i, j, k);
         // uberbukkit
-        if (data > 0 && !PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
+        if (data > 0 && !UberbukkitConfig.getInstance().getBoolean("mechanics.drop_saplings_of_leaf_type", true)) {
             data = 0;
         }
 
@@ -157,7 +157,7 @@ public class BlockLeaves extends BlockLeavesBase {
 
     protected int a_(int i) {
         // uberbukkit
-        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
+        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.drop_saplings_of_leaf_type", true)) {
             return 0;
         } else {
             return i & 3;

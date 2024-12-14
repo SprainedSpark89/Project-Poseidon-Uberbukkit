@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import org.bukkit.event.block.BlockSpreadEvent;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class BlockMushroom extends BlockFlower {
 
     public void a(World world, int i, int j, int k, Random random) {
         // uberbukkit
-        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.mushroom_spread", true)) return;
+        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.mushroom_spread", true)) return;
 
         if (random.nextInt(100) == 0) {
             int l = i + random.nextInt(3) - 1;

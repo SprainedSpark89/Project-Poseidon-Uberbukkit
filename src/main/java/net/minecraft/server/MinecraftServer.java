@@ -19,6 +19,7 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.PluginLoadOrder;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,7 +114,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
             net.minecraft.server.ModLoader.Init(this);
         }
 
-        log.info("Starting minecraft server... Accepting PVNs: " + String.join(", ", PoseidonConfig.getInstance().getString("version.allow_join.protocol", "14").split(",")));
+        log.info("Starting minecraft server... Accepting PVNs: " + String.join(", ", UberbukkitConfig.getInstance().getString("client.allowed_protocols.value", "14").split(",")));
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("**** NOT ENOUGH RAM!");
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");

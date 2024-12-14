@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class WorldGenMinable extends WorldGenerator {
 
@@ -15,8 +15,8 @@ public class WorldGenMinable extends WorldGenerator {
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.ores." + world.worldData.name + ".custom_seed", false)) {
-            String text = PoseidonConfig.getInstance().getString("version.worldgen.ores." + world.worldData.name + ".seed");
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.ores." + world.worldData.name + ".custom_seed", false)) {
+            String text = UberbukkitConfig.getInstance().getString("worldgen.ores." + world.worldData.name + ".seed");
             long seed = 0L;
             if (text != null) {
                 seed = Long.parseLong(text);
@@ -41,7 +41,7 @@ public class WorldGenMinable extends WorldGenerator {
             double d11 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
 
             // uberbukkit
-            if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_ore_generation", false)) {
+            if (UberbukkitConfig.getInstance().getBoolean("worldgen.pre_b1_2_ore_generation", false)) {
                 for (int i1 = (int) (d6 - d10 / 2.0D); i1 <= (int) (d6 + d10 / 2.0D); ++i1) {
                     for (int j1 = (int) (d7 - d11 / 2.0D); j1 <= (int) (d7 + d11 / 2.0D); ++j1) {
                         for (int k1 = (int) (d8 - d10 / 2.0D); k1 <= (int) (d8 + d10 / 2.0D); ++k1) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class BiomeBase {
 
@@ -50,10 +50,10 @@ public class BiomeBase {
         this.t.add(new BiomeMeta(EntityChicken.class, 10));
         this.t.add(new BiomeMeta(EntityCow.class, 8));
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_squids", true))
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.spawn_squids", true))
             this.u.add(new BiomeMeta(EntitySquid.class, 10));
 
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_slimes", true))
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.spawn_slimes", true))
             this.s.add(new BiomeMeta(EntitySlime.class, 10));
     }
 

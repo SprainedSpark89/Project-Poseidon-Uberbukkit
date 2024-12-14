@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         this.getServer().getPluginManager().callEvent(lightning);
 
         // uberbukkit
-        if (lightning.isCancelled() || !PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true)) {
+        if (lightning.isCancelled() || !UberbukkitConfig.getInstance().getBoolean("mechanics.do_weather", true)) {
             return false;
         }
 

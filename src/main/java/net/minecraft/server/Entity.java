@@ -12,7 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.vehicle.VehicleBlockCollisionEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.List;
 import java.util.Random;
@@ -39,7 +39,7 @@ public abstract class Entity {
     };
     // Poseidon end
     // uberbukkit
-    private static boolean trampleFarmlandAboveFence = PoseidonConfig.getInstance().getBoolean("version.mechanics.trample_farmland_above_fence", false);
+    private static final boolean trampleFarmlandAboveFence = UberbukkitConfig.getInstance().getBoolean("mechanics.trample_farmland_above_fence", false);
 
     private static int entityCount = 0;
     public int id;

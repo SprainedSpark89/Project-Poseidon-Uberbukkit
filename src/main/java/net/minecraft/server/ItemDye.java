@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class ItemDye extends Item {
 
@@ -35,7 +35,7 @@ public class ItemDye extends Item {
                 return true;
             }
 
-            if (i1 == Block.GRASS.id && PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_bone_meal_on_grass", true)) {
+            if (i1 == Block.GRASS.id && UberbukkitConfig.getInstance().getBoolean("mechanics.allow_bone_meal_on_grass", true)) {
                 if (!world.isStatic) {
                     --itemstack.count;
 
@@ -56,7 +56,7 @@ public class ItemDye extends Item {
 
                         if (world.getTypeId(k1, l1, i2) == 0) {
                             // uberbukkit
-                            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_grow_tallgrass", true) && b.nextInt(10) != 0) {
+                            if (UberbukkitConfig.getInstance().getBoolean("mechanics.allow_grow_tallgrass", true) && b.nextInt(10) != 0) {
                                 world.setTypeIdAndData(k1, l1, i2, Block.LONG_GRASS.id, 1);
                             } else if (b.nextInt(3) != 0) {
                                 world.setTypeId(k1, l1, i2, Block.YELLOW_FLOWER.id);

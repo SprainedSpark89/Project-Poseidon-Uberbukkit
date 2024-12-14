@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class EntitySheep extends EntityAnimal {
 
@@ -21,7 +21,7 @@ public class EntitySheep extends EntityAnimal {
 
     public boolean damageEntity(Entity entity, int i) {
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.sheep_drop_wool_on_punch", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.sheep_drop_wool_on_punch", false)) {
             if (!this.world.isStatic && !this.isSheared() && entity instanceof EntityLiving) {
                 this.setSheared(true);
                 int j = 1 + this.random.nextInt(3);
@@ -136,8 +136,8 @@ public class EntitySheep extends EntityAnimal {
         int i = random.nextInt(100);
 
         // uberbukkit
-        boolean spawn_black = PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_sheep_with_shades_of_black", true);
-        boolean spawn_brown_pink = PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_brown_and_pink_sheep", true);
+        boolean spawn_black = UberbukkitConfig.getInstance().getBoolean("mechanics.spawn_sheep_with_shades_of_black", true);
+        boolean spawn_brown_pink = UberbukkitConfig.getInstance().getBoolean("mechanics.spawn_brown_and_pink_sheep", true);
 
         if (i < 5 && spawn_black) {
             return 15;

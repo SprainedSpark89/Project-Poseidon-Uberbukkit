@@ -4,9 +4,8 @@ package net.minecraft.server;
 
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
 import org.bukkit.event.entity.PigZapEvent;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 // CraftBukkit end
 
 public class EntityPig extends EntityAnimal {
@@ -54,7 +53,7 @@ public class EntityPig extends EntityAnimal {
 
     protected int j() {
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.burning_pig_drop_cooked_meat", true) && this.fireTicks > 0) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.burning_pig_drop_cooked_meat", true) && this.fireTicks > 0) {
             return Item.GRILLED_PORK.id;
         } else {
             return Item.PORK.id;

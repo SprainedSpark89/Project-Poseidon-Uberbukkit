@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.List;
 
@@ -298,7 +298,7 @@ public class EntityArrow extends Entity {
         if (!this.world.isStatic) {
 
             // uberbukkit
-            if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.arrows_pickup_by_others", true)) {
+            if (!UberbukkitConfig.getInstance().getBoolean("mechanics.arrows_pickup_by_others", true)) {
                 if (this.shooter != entityhuman) {
                     return;
                 }

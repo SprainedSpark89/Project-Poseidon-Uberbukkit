@@ -6,7 +6,7 @@ import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class EntitySquid extends EntityWaterAnimal {
 
@@ -83,7 +83,7 @@ public class EntitySquid extends EntityWaterAnimal {
 
     public boolean a(EntityHuman entityhuman) {
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_milking_squids", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.allow_milking_squids", false)) {
             ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
             if (itemstack != null && itemstack.id == Item.BUCKET.id) {

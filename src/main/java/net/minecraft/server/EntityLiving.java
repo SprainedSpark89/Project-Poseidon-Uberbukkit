@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.List;
 
@@ -620,7 +620,7 @@ public abstract class EntityLiving extends Entity {
 
         return this.world.getTypeId(i, j, k) == Block.LADDER.id ||
             // uberbukkit
-            (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false) && this.world.getTypeId(i, j + 1, k) == Block.LADDER.id);
+            (UberbukkitConfig.getInstance().getBoolean("mechanics.allow_ladder_gap", false) && this.world.getTypeId(i, j + 1, k) == Block.LADDER.id);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
