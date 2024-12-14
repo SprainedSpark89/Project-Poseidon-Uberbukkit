@@ -31,8 +31,7 @@ public class UberbukkitConfig extends Configuration {
 
     private void migrateByKey(String oldKey, String newKey) {
         List<String> versionKeys = PoseidonConfig.getInstance().getKeys(oldKey);
-        if (versionKeys == null)
-            return;
+        if (versionKeys == null) return;
 
         for (String key : versionKeys) {
             Object property = PoseidonConfig.getInstance().getProperty(oldKey + "." + key);
