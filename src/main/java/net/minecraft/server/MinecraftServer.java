@@ -1,9 +1,9 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.Poseidon;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.util.CrackedAllowlist;
 import com.legacyminecraft.poseidon.util.ServerLogRotator;
-import com.projectposeidon.johnymuffin.UUIDManager;
 import com.legacyminecraft.poseidon.watchdog.WatchDogThread;
 import jline.ConsoleReader;
 import joptsimple.OptionSet;
@@ -66,8 +66,9 @@ public class MinecraftServer implements Runnable, ICommandListener {
     // CraftBukkit end
 
     //Poseidon Start
-    private WatchDogThread watchDogThread;
+//    private WatchDogThread watchDogThread;
     private boolean modLoaderSupport = false;
+//    private PoseidonVersionChecker poseidonVersionChecker;
     //Poseidon End
 
     public MinecraftServer(OptionSet options) { // CraftBukkit - adds argument OptionSet
@@ -173,26 +174,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.a(new WorldLoaderServer(new File(".")), s1, k);
 
         //Project Poseidon Start
-        log.info("[Poseidon] Starting Project Poseidon Modules!");
-
-        PoseidonConfig.getInstance();
-        UUIDManager.getInstance();
-
-        //Start Watchdog
-        watchDogThread = new WatchDogThread(Thread.currentThread());
-        if (PoseidonConfig.getInstance().getBoolean("settings.enable-watchdog", true)) {
-            log.info("[Poseidon] Starting Watchdog to detect any server hangs!");
-            watchDogThread.start();
-            watchDogThread.tickUpdate();
-        }
-        //Start Poseidon Statistics
-        if (PoseidonConfig.getInstance().getBoolean("settings.settings.statistics.enabled", true)) {
-//            new PoseidonStatisticsAgent(this, this.server);
-        } else {
-            log.info("[Poseidon] Please consider enabling statistics in Poseidon.yml. It helps us see how many servers are running Poseidon, and what versions.");
-        }
-
-        log.info("[Poseidon] Finished loading Project Poseidon Modules!");
+        Poseidon.getServer().initializeServer();
         //Project Poseidon End
 
         // CraftBukkit start
@@ -374,12 +356,11 @@ public class MinecraftServer implements Runnable, ICommandListener {
         log.info("Stopping server");
 
         //Project Poseidon Start
-        UUIDManager.getInstance().saveJsonArray();
+
+        // This is done before disablePlugins() to ensure the watchdog doesn't detect plugins disabling as a server hang
+        Poseidon.getServer().shutdownServer();
+
         CrackedAllowlist.get().saveAllowlist();
-        if (watchDogThread != null) {
-            log.info("Stopping Poseidon Watchdog");
-            watchDogThread.interrupt();
-        }
         //Project Poseidon End
 
         // CraftBukkit start
@@ -436,7 +417,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                     } else {
                         while (j > 50L) {
                             MinecraftServer.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
-                            watchDogThread.tickUpdate(); // Project Poseidon
+                            getWatchdog().tickUpdate(); // Project Poseidon
                             j -= 50L;
                             this.h();
                         }
@@ -654,6 +635,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
     }
 
     public WatchDogThread getWatchdog() {
-        return this.watchDogThread;
+        return Poseidon.getServer().getWatchDogThread();
     }
 }

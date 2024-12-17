@@ -46,6 +46,8 @@ You can download the latest GitHub release [here](https://github.com/Moresteck/P
 You can download the latest build through [GitHub actions](https://github.com/Moresteck/Project-Poseidon-Uberbukkit/actions/workflows/build-and-test.yaml) (You need to be logged in on GitHub) <br>
 or get it from [betacraft.uk](https://betacraft.uk/utilities) along with **pre-made configuration files**.
 
+Please note, download the artifact (JAR) without `original` in the name, eg. `uberbukkit-2.0.2.jar`.
+
 ## Licensing
 CraftBukkit and Bukkit are licensed under GNU General Public License v3.0<br>
 Any future commits to this repository will remain under the same GNU General Public License v3.0<br>

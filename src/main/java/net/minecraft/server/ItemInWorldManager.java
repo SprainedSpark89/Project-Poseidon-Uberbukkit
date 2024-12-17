@@ -283,20 +283,13 @@ public class ItemInWorldManager {
         boolean flag = this.b(i, j, k);
         ItemStack itemstack = this.player.G();
 
-        if (itemstack != null) {
-            itemstack.a(l, i, j, k, this.player);
-            // Uberbukkit - ref1
-        }
-
         if (flag && this.player.b(Block.byId[l])) {
             Block.byId[l].a(this.world, this.player, i, j, k, i1);
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
         }
 
-        // Uberbukkit - moved from ref1
-        // Fix tools not dropping the block on their last use
-        // TODO maybe make it optional?
         if (itemstack != null) {
+            itemstack.a(l, i, j, k, this.player);
             if (itemstack.count == 0) {
                 itemstack.a(this.player);
                 this.player.H();
