@@ -1,7 +1,8 @@
 package net.minecraft.server;
 
 import org.bukkit.event.block.BlockRedstoneEvent;
-import com.legacyminecraft.poseidon.PoseidonConfig;
+
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class BlockPumpkin extends Block {
 
@@ -46,7 +47,7 @@ public class BlockPumpkin extends Block {
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
         double dt = 2.5D;
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_5_pumpkins", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.pre_b1_5_pumpkins", false)) {
             dt = 0.5D;
         }
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + dt) & 3;

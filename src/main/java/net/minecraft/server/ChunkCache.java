@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class ChunkCache implements IBlockAccess {
 
@@ -77,7 +77,7 @@ public class ChunkCache implements IBlockAccess {
     }
 
     public boolean e(int i, int j, int k) {
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_6_block_opacity", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.pre_b1_6_block_opacity", false)) {
             return this.p(i, j, k);
         }
         Block block = Block.byId[this.getTypeId(i, j, k)];

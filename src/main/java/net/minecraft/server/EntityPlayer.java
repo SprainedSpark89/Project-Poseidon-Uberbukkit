@@ -21,6 +21,7 @@ import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
 import com.projectposeidon.api.PoseidonUUID;
 
 import me.devcody.uberbukkit.util.math.Vec3i;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 import uk.betacraft.uberbukkit.alpha.inventory.ProcessPacket5;
 import uk.betacraft.uberbukkit.packet.Packet62Sound;
 import uk.betacraft.uberbukkit.protocol.Protocol;
@@ -437,7 +438,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             entitytracker.a(this, packet17);
 
             // uberbukkit - beds (b1.3 - b1.6.4)
-            if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
+            if (!UberbukkitConfig.getInstance().getBoolean("mechanics.beds_pre_b1_6_5", false))
                 this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
 
             this.netServerHandler.sendPacket(packet17);
@@ -641,7 +642,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(String s) {
         // uberbukkit - fix for multiple bed alerts (b1.3 - b1.6.4)
-        if (this.netServerHandler.networkManager.pvn <= 11 || PoseidonConfig.getInstance().getBoolean("version.mechanics.beds_pre_b1_6_5", false))
+        if (this.netServerHandler.networkManager.pvn <= 11 || UberbukkitConfig.getInstance().getBoolean("mechanics.beds_pre_b1_6_5", false))
             return;
 
         StatisticStorage statisticstorage = StatisticStorage.a();

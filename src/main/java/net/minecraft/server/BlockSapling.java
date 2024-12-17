@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import org.bukkit.BlockChangeDelegate;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.Random;
 
@@ -45,9 +45,9 @@ public class BlockSapling extends BlockFlower {
         BlockChangeWithNotify delegate = new BlockChangeWithNotify(world);
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true) && l == 1) {
+        if (l == 1 && UberbukkitConfig.getInstance().getBoolean("worldgen.biomes.generate_spruces", true)) {
             grownTree = new WorldGenTaiga2().generate(delegate, random, i, j, k);
-        } else if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_birches", true) && l == 2) {
+        } else if (l == 2 && UberbukkitConfig.getInstance().getBoolean("worldgen.biomes.generate_birches", true)) {
             grownTree = new WorldGenForest().generate(delegate, random, i, j, k);
         } else {
             if (random.nextInt(10) == 0) {
@@ -65,7 +65,7 @@ public class BlockSapling extends BlockFlower {
 
     protected int a_(int i) {
         // uberbukkit
-        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
+        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.drop_saplings_of_leaf_type", true)) {
             return 0;
         } else {
             return i & 3;

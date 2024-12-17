@@ -7,7 +7,7 @@ import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockPlaceEvent;
 // CraftBukkit end
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class ItemHoe extends Item {
 
@@ -46,7 +46,7 @@ public class ItemHoe extends Item {
                 itemstack.damage(1, entityhuman);
 
                 // uberbukkit
-                if (PoseidonConfig.getInstance().getBoolean("version.mechanics.tile_grass_drop_seeds", false)) {
+                if (UberbukkitConfig.getInstance().getBoolean("mechanics.tile_grass_drop_seeds", false)) {
                     if (world.random.nextInt(8) == 0 && i1 == Block.GRASS.id) {
                         byte b0 = 1;
 

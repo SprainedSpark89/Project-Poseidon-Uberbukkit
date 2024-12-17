@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class BlockLockedChest extends Block {
 
@@ -17,7 +17,7 @@ public class BlockLockedChest extends Block {
 
     public boolean canPlace(World world, int i, int j, int k) {
         // uberbukkit
-        if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", true)) {
+        if (!UberbukkitConfig.getInstance().getBoolean("worldgen.generate_steveco_chests", true)) {
             return true;
         }
 
@@ -48,7 +48,7 @@ public class BlockLockedChest extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         // uberbukkit
-        if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", true))
+        if (!UberbukkitConfig.getInstance().getBoolean("worldgen.generate_steveco_chests", true))
             world.setTypeId(i, j, k, 0);
     }
 }

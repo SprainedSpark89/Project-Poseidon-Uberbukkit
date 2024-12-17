@@ -1,6 +1,5 @@
 package uk.betacraft.uberbukkit;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
 import net.minecraft.server.MinecraftServer;
 import org.bukkit.Bukkit;
 import uk.betacraft.uberbukkit.protocol.Protocol;
@@ -17,7 +16,7 @@ public class Uberbukkit {
     public static int getTargetPVN() {
         if (pvn != null) return pvn;
 
-        String pvnstr = PoseidonConfig.getInstance().getString("version.allow_join.protocol", "14");
+        String pvnstr = UberbukkitConfig.getInstance().getString("client.allowed_protocols.value", "14");
 
         // separate target version from other allowed PVNs
         int commaIndex = pvnstr.indexOf(",");
@@ -40,7 +39,7 @@ public class Uberbukkit {
     public static List<Integer> getAllowedPVNs() {
         if (pvns != null) return pvns;
 
-        String[] pvnstrs = PoseidonConfig.getInstance().getString("version.allow_join.protocol", "14").split(",");
+        String[] pvnstrs = UberbukkitConfig.getInstance().getString("client.allowed_protocols.value", "14").split(",");
 
         pvns = new LinkedList<>();
 

@@ -2,13 +2,10 @@ package net.minecraft.server;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class BlockBed extends Block {
 
@@ -38,7 +35,7 @@ public class BlockBed extends Block {
             }
 
             // uberbukkit
-            if (!world.worldProvider.d() && PoseidonConfig.getInstance().getBoolean("version.mechanics.nether_bed_explode", true)) {
+            if (!world.worldProvider.d() && UberbukkitConfig.getInstance().getBoolean("mechanics.nether_bed_explode", true)) {
                 double d0 = (double) i + 0.5D;
                 double d1 = (double) j + 0.5D;
                 double d2 = (double) k + 0.5D;
