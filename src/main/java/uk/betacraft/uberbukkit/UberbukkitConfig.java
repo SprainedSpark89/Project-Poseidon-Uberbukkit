@@ -29,13 +29,15 @@ public class UberbukkitConfig extends Configuration {
         this.save();
     }
 
-    private void migrateByKey(String oldKey, String newKey) {
-        List<String> versionKeys = PoseidonConfig.getInstance().getKeys(oldKey);
-        if (versionKeys == null) return;
+    private void migrateSubKeys(String oldKey, String newKey) {
+        List<String> subKeys = PoseidonConfig.getInstance().getKeys(oldKey);
+        if (subKeys == null) return;
 
-        for (String key : versionKeys) {
+        for (String key : subKeys) {
             this.migrateExact(oldKey + "." + key, newKey + "." + key, Object.class);
         }
+
+        PoseidonConfig.getInstance().removeProperty(oldKey);
     }
 
     private void migrateExact(String oldKey, String newKey, Class<?> clazz) {
@@ -52,16 +54,20 @@ public class UberbukkitConfig extends Configuration {
     }
 
     private void migrateFromPoseidonConfig() {
-        migrateByKey("version.mechanics", "mechanics");
-        migrateByKey("version.mechanics.boats", "mechanics.boats");
-        migrateByKey("version.worldgen", "worldgen");
-        migrateByKey("version.worldgen.biomes", "worldgen.biomes");
-        migrateByKey("version.worldgen.ores.world", "worldgen.ores.world");
-        migrateByKey("version.experimental", "experimental");
-        migrateByKey("fix.illegal-container-interaction", "fix.illegal-container-interaction");
+        migrateSubKeys("version.mechanics", "mechanics");
+        migrateSubKeys("version.mechanics.boats", "mechanics.boats");
+        migrateSubKeys("version.worldgen", "worldgen");
+        migrateSubKeys("version.worldgen.biomes", "worldgen.biomes");
+        migrateSubKeys("version.worldgen.ores.world", "worldgen.ores.world");
+        migrateSubKeys("version.experimental", "experimental");
+        migrateSubKeys("fix.illegal-container-interaction", "fix.illegal-container-interaction");
 
         migrateExact("settings.exempt-staff-from-flight-kick", Boolean.class);
         migrateExact("version.allow_join.protocol", "client.allowed_protocols.value", String.class);
+
+        PoseidonConfig.getInstance().removeProperty("version");
+
+        PoseidonConfig.getInstance().save();
     }
 
     private void writeDefaults() {
