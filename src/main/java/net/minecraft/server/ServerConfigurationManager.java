@@ -134,7 +134,7 @@ public class ServerConfigurationManager {
 
         // Poseidon Start
         // Notify staff of Poseidon update if they are op or have poseidon.update permission
-        if(PoseidonConfig.getInstance().getConfigBoolean("settings.update-checker.notify-staff.enabled", true) && Poseidon.getServer().isUpdateAvailable()) {
+        if (PoseidonConfig.getInstance().getConfigBoolean("settings.update-checker.notify-staff.enabled", true) && Poseidon.getServer().isUpdateAvailable()) {
             if (player.isOp() || player.hasPermission("poseidon.update")) {
                 String updateMessage = PoseidonConfig.getInstance().getConfigString("message.update.available");
                 updateMessage = updateMessage.replace("%newversion%", Poseidon.getServer().getNewestVersion());

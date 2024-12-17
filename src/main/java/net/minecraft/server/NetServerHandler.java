@@ -4,6 +4,7 @@ import com.legacyminecraft.poseidon.Poseidon;
 import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
 import com.projectposeidon.ConnectionType;
 import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

@@ -84,7 +84,7 @@ public final class PoseidonServer {
             return;
         }
 
-        if(!getBuildType().equalsIgnoreCase("production")) {
+        if (!getBuildType().equalsIgnoreCase("production")) {
             getLogger().warning("[Poseidon] Version checker is disabled as this is a " + getBuildType() + " build. The updater will only check for updates on production builds.");
             return;
         }

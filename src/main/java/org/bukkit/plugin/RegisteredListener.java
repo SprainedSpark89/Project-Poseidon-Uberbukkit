@@ -67,8 +67,8 @@ public class RegisteredListener {
      * @return Registered Priority
      */
     public void callEvent(Event event) {
-        if(event instanceof Cancellable) {
-            if(((Cancellable) event).isCancelled() && ignoreCancelled) {
+        if (event instanceof Cancellable) {
+            if (((Cancellable) event).isCancelled() && ignoreCancelled) {
                 return;
             }
         }
