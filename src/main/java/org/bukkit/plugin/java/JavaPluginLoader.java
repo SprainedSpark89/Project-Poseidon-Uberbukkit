@@ -232,7 +232,7 @@ public class JavaPluginLoader implements PluginLoader {
                     e.printStackTrace();
                 }
             };
-            eventSet.add(new RegisteredListener(listener, executor, eh.priority(), plugin));
+            eventSet.add(new RegisteredListener(listener, executor, eh.priority(), plugin, eh.ignoreCancelled()));
         }
         return ret;
     }
