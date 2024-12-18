@@ -190,7 +190,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.generate_tallgrass", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
-        generateConfigOption("version.worldgen.generate_lakes", true);
+		generateConfigOption("version.worldgen.generate_lakes", true);
 
         generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
@@ -241,7 +241,6 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("fix.illegal-container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
         generateConfigOption("fix.illegal-container-interaction.max-distance", 4);
         generateConfigOption("fix.illegal-container-interaction.log-violation", false);
-
 
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
