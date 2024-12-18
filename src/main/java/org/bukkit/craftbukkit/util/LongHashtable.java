@@ -4,10 +4,10 @@ import static org.bukkit.craftbukkit.util.Java15Compat.Arrays_copyOf;
 
 import java.util.ArrayList;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
 import net.minecraft.server.Chunk;
 import net.minecraft.server.MinecraftServer;
+
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class LongHashtable<V> extends LongHash {
     Object[][][] values = new Object[256][][];
@@ -33,7 +33,7 @@ public class LongHashtable<V> extends LongHash {
             if (msw != c.x || lsw != c.z) {
                 MinecraftServer.log.info("Chunk (" + c.x + ", " + c.z + ") stored at  (" + msw + ", " + lsw + ")");
 
-                if (PoseidonConfig.getInstance().getBoolean("version.experimental.force_fix_chunk_coords_corruption", false)) {
+                if (UberbukkitConfig.getInstance().getBoolean("experimental.force_fix_chunk_coords_corruption", false)) {
                     c.x = msw;
                     c.z = lsw;
                 } else {

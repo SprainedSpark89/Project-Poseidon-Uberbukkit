@@ -7,7 +7,7 @@ import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockPlaceEvent;
 // CraftBukkit end
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class ItemSeeds extends Item {
 
@@ -27,7 +27,7 @@ public class ItemSeeds extends Item {
             // uberbukkit start
             boolean isEmptyFlag = world.isEmpty(i, j + 1, k);
 
-            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.seeds_replace_blocks", false)) {
+            if (UberbukkitConfig.getInstance().getBoolean("mechanics.seeds_replace_blocks", false)) {
                 isEmptyFlag = true;
             }
 

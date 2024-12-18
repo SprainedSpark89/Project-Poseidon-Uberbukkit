@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class WorldGenDungeons extends WorldGenerator {
 
@@ -159,7 +159,7 @@ public class WorldGenDungeons extends WorldGenerator {
             }
             case 10: {
                 // uberbukkit
-                if (PoseidonConfig.getInstance().getBoolean("version.worldgen.cocoabeans_loot", true)) {
+                if (UberbukkitConfig.getInstance().getBoolean("worldgen.cocoabeans_loot", true)) {
                     return new ItemStack(Item.INK_SACK, 1, 3);
                 }
             }

@@ -8,9 +8,8 @@ import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.material.MaterialData;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
 import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -35,7 +34,7 @@ public class BlockFire extends Block {
         this.a(Block.WOOL.id, 30, 60);
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.flammable_fences_stairs", true)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.flammable_fences_stairs", true)) {
             this.a(Block.FENCE.id, 5, 20);
             this.a(Block.WOOD_STAIRS.id, 5, 20);
         }
@@ -64,15 +63,15 @@ public class BlockFire extends Block {
 
     public int c() {
         // uberbukkit
-        return PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_1_6_fire", false) ? 10 : 40;
+        return UberbukkitConfig.getInstance().getBoolean("mechanics.pre_1_6_fire", false) ? 10 : 40;
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         boolean flag = world.getTypeId(i, j - 1, k) == Block.NETHERRACK.id;
-        boolean oldfire = PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_1_6_fire", false);
+        boolean oldFire = UberbukkitConfig.getInstance().getBoolean("mechanics.pre_1_6_fire", false);
 
         // uberbukkit
-        if (!oldfire && !this.canPlace(world, i, j, k)) {
+        if (!oldFire && !this.canPlace(world, i, j, k)) {
             world.setTypeId(i, j, k, 0);
         }
 
@@ -82,7 +81,7 @@ public class BlockFire extends Block {
             int l = world.getData(i, j, k);
 
             // uberbukkit - fire
-            if (oldfire) {
+            if (oldFire) {
                 if (l < 15) {
                     world.setData(i, j, k, l + 1);
                     world.c(i, j, k, this.id, this.c());
@@ -112,7 +111,7 @@ public class BlockFire extends Block {
                 // CraftBukkit end
 
                 // uberbukkit
-                if (oldfire) {
+                if (oldFire) {
                     if (l % 2 == 0 && l > 2) {
                         this.a(world, i + 1, j, k, 300, random, l);
                         this.a(world, i - 1, j, k, 300, random, l);
@@ -221,7 +220,7 @@ public class BlockFire extends Block {
                     }
                 }
 
-                if (oldfire && l == 15) {
+                if (oldFire && l == 15) {
                     this.a(world, i + 1, j, k, 1, random, 0);
                     this.a(world, i - 1, j, k, 1, random, 0);
                     this.a(world, i, j - 1, k, 1, random, 0);
@@ -250,7 +249,7 @@ public class BlockFire extends Block {
             // CraftBukkit end
 
             // uberbukkit
-            if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_1_6_fire", false)) {
+            if (!UberbukkitConfig.getInstance().getBoolean("mechanics.pre_1_6_fire", false)) {
                 if (random.nextInt(i1 + 10) < 5 && !world.s(i, j, k)) {
                     int k1 = i1 + random.nextInt(5) / 4;
 

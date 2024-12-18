@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
 import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 public class CraftingManager {
 
@@ -61,19 +60,19 @@ public class CraftingManager {
             this.registerShapedRecipe(new ItemStack(Block.PISTON_STICKY, 1), new Object[] { "S", "P", Character.valueOf('S'), Item.SLIME_BALL, Character.valueOf('P'), Block.PISTON });
         }
 
-        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.glowstone_pre1_6_6", false)) {
+        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.glowstone_pre1_6_6", false)) {
             this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.GLOWSTONE_DUST });
         } else {
             this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.GLOWSTONE_DUST });
         }
 
-        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.wool_recipe_pre1_6_6", false)) {
+        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.wool_recipe_pre1_6_6", false)) {
             this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.STRING });
         } else {
             this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.STRING });
         }
 
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.old_slab_recipe", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.old_slab_recipe", false)) {
             this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE });
             if (Uberbukkit.getTargetPVN() >= 9) {
                 this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 1), new Object[] { "###", Character.valueOf('#'), Block.SANDSTONE });
@@ -100,7 +99,7 @@ public class CraftingManager {
 
         // uberbukkit
         ItemStack ladder = new ItemStack(Block.LADDER, 2);
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.allow_ladder_gap", false)) {
             ladder = new ItemStack(Block.LADDER, 1);
         }
         this.registerShapedRecipe(ladder, new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK });

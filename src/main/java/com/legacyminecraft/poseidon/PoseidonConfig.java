@@ -134,6 +134,12 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("world.settings.block-tree-growth.info", "This setting allows for server owners to easily block trees growing from automatically destroying certain blocks. The list must be a string with numerical item ids separated by commas.");
         generateConfigOption("world.settings.block-pistons-pushing-furnaces.info", "This workaround prevents pistons from pushing furnaces which prevents a malicious server crash.");
         generateConfigOption("world.settings.block-pistons-pushing-furnaces.enabled", true);
+        generateConfigOption("world.settings.pistons.transmutation-fix.enabled", true);
+        generateConfigOption("world.settings.pistons.transmutation-fix.info", "This setting fixes block transmutation exploits.");
+        generateConfigOption("world.settings.pistons.sand-gravel-duping-fix.enabled", true);
+        generateConfigOption("world.settings.pistons.sand-gravel-duping-fix.info", "This setting fixes sand/gravel duplication exploits.");
+        generateConfigOption("world.settings.pistons.other-fixes.enabled", true);
+        generateConfigOption("world.settings.pistons.other-fixes.info", "This setting fixes various other piston exploits like creating illegal pistons, breaking bedrock and duplicating redstone torches.");
         generateConfigOption("world.settings.skeleton-shooting-sound-fix.info", "This setting fixes the sound of skeletons and players shooting not playing on clients.");
         generateConfigOption("world.settings.skeleton-shooting-sound-fix.enabled", true);
         generateConfigOption("world.settings.speed-hack-check.enable", true);
@@ -169,6 +175,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.regex", "[a-zA-Z0-9_?]*");
         generateConfigOption("settings.check-username-validity.max-length", 16);
         generateConfigOption("settings.check-username-validity.min-length", 3);
+<<<<<<< HEAD
 
         generateConfigOption("settings.exempt-staff-from-flight-kick", false);
 
@@ -236,9 +243,16 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("fix.illegal-container-interaction.max-distance", 4);
         generateConfigOption("fix.illegal-container-interaction.log-violation", false);
 
+=======
+
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
 		generateConfigOption("version.uberclient.alphamode", false);
+
+        generateConfigOption("settings.update-checker.enabled", true);
+        generateConfigOption("settings.update-checker.info", "This setting allows you to disable the update checker. This is useful if you have a custom build of Poseidon or don't want to be notified of updates.");
+        generateConfigOption("settings.update-checker.notify-staff.enabled", true);
+        generateConfigOption("settings.update-checker.notify-staff.info", "This setting notifies operators and players with the permission poseidon.update when a new version of Poseidon is available on join.");
 
         //Messages
         generateConfigOption("message.kick.banned", "You are banned from this server!");
@@ -249,6 +263,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("message.kick.already-online", "\u00A7cA player with your username or uuid is already online, try reconnecting in a minute.");
         generateConfigOption("message.player.join", "\u00A7e%player% joined the game.");
         generateConfigOption("message.player.leave", "\u00A7e%player% left the game.");
+        generateConfigOption("message.update.available", "\u00A7dA newer version of Poseidon is available: %newversion%");
 
         //Optional Poseidon Commands
         generateConfigOption("command.info", "This section allows you to enable or disable optional Poseidon commands. This is useful if you have a plugin that conflicts with a Poseidon command.");

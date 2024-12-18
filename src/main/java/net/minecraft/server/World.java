@@ -30,9 +30,8 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-
 import uk.betacraft.uberbukkit.Uberbukkit;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -40,7 +39,7 @@ import uk.betacraft.uberbukkit.Uberbukkit;
 public class World implements IBlockAccess {
 
     // uberbukkit
-    private static boolean pre1_5_placement_rules = PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_5_block_placement_rules", false);
+    private static final boolean pre1_5_placement_rules = UberbukkitConfig.getInstance().getBoolean("mechanics.pre_b1_5_block_placement_rules", false);
 
     public boolean a = false;
     private List C = new ArrayList();
@@ -1633,7 +1632,7 @@ public class World implements IBlockAccess {
     }
 
     public boolean e(int i, int j, int k) {
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_b1_6_block_opacity", false)) {
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.pre_b1_6_block_opacity", false)) {
             return this.p(i, j, k);
         }
         Block block = Block.byId[this.getTypeId(i, j, k)];
@@ -1993,7 +1992,7 @@ public class World implements IBlockAccess {
                     }
 
                     // uberbukkit
-                    boolean blocked = PoseidonConfig.getInstance().getBoolean("version.mechanics.ice_generate_only_when_snowing", false) && !this.v();
+                    boolean blocked = UberbukkitConfig.getInstance().getBoolean("mechanics.ice_generate_only_when_snowing", false) && !this.v();
 
                     // CraftBukkit start
                     if (!blocked && l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
@@ -2456,7 +2455,7 @@ public class World implements IBlockAccess {
 
     public boolean v() {
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true))
+        if (UberbukkitConfig.getInstance().getBoolean("mechanics.do_weather", true))
             return (double) this.d(1.0F) > 0.2D;
 
         return false;

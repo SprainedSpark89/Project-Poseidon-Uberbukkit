@@ -1,5 +1,10 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.Poseidon;
+import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
+import com.projectposeidon.ConnectionType;
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,31 +28,18 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.packet.PacketReceivedEvent;
-import org.bukkit.event.packet.PacketSentEvent;
-import org.bukkit.event.player.PlayerAnimationEvent;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
-
-import com.legacyminecraft.poseidon.PoseidonConfig;
-import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
-import com.projectposeidon.ConnectionType;
+import org.bukkit.event.packet.*;
+import org.bukkit.event.player.*;
 
 import me.devcody.uberbukkit.nms.patch.IllegalContainerInteractionFix;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 import uk.betacraft.uberbukkit.packet.Packet62Sound;
 import uk.betacraft.uberbukkit.packet.Packet63Digging;
 import uk.betacraft.uberbukkit.protocol.Protocol;
 
 public class NetServerHandler extends NetHandler implements ICommandListener {
 
-    private static boolean isStaffExemptFromFlyKick = PoseidonConfig.getInstance().getBoolean("settings.exempt-staff-from-flight-kick", false);
+    private static boolean isStaffExemptFromFlyKick = UberbukkitConfig.getInstance().getBoolean("settings.exempt-staff-from-flight-kick", false);
     public static Logger a = Logger.getLogger("Minecraft");
     public NetworkManager networkManager;
     public boolean disconnected = false;
@@ -348,6 +340,19 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 if (packet10flying.h && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
                     d5 = packet10flying.x;
                     d4 = packet10flying.z;
+
+                    // Project Poseidon - Start
+                    // Boat crash fix ported from UberBukkit
+
+                    double d8 = d5 * d5 + d4 * d4;
+                    if (d8 > 100.0D) {
+                        a.warning("[Poseidon]" + this.player.name + " tried crashing server on entity " + this.player.vehicle.toString() + ". They have been kicked.");
+                        player.kickPlayer("Boat crash attempt detected!");
+                        return;
+                    }
+
+                    // Project Poseidon - End
+
                 }
 
                 this.player.onGround = packet10flying.g;
@@ -1167,7 +1172,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 //Hide commands from being logged in console
                 String cmdName = s.split(" ")[0].replaceAll("/", "");
 
-                if (server.isCommandHidden(cmdName)) {
+                if (Poseidon.getServer().isCommandHidden(cmdName)) {
                     a.info(player.getName() + " issued server command: COMMAND REDACTED");
                 } else {
                     a.info(player.getName() + " issued server command: " + s);

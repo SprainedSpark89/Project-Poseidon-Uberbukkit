@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.*;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import uk.betacraft.uberbukkit.UberbukkitConfig;
 
 import java.util.List;
 
@@ -123,7 +123,7 @@ public class EntityBoat extends Entity {
                 }
 
                 // uberbukkit - drop boat on damage, not planks & sticks
-                if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boats.drop_boat_not_wood", false)) {
+                if (!UberbukkitConfig.getInstance().getBoolean("mechanics.boats.drop_boat_not_wood", false)) {
                     int j;
 
                     for (j = 0; j < 3; ++j) {
@@ -291,11 +291,11 @@ public class EntityBoat extends Entity {
             if (this.positionChanged && d4 > 0.15D) {
                 if (!this.world.isStatic) {
 
-                    if (PoseidonConfig.getInstance().getBoolean("version.mechanics.boat.break_boat_on_collision", true)) {
+                    if (UberbukkitConfig.getInstance().getBoolean("mechanics.boat.break_boat_on_collision", true)) {
                         this.die();
 
                         // uberbukkit - drop boat on damage, not planks & sticks
-                        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.boats.drop_boat_not_wood", false)) {
+                        if (!UberbukkitConfig.getInstance().getBoolean("mechanics.boats.drop_boat_not_wood", false)) {
                             int k;
 
                             for (k = 0; k < 3; ++k) {
