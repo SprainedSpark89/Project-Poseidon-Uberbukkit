@@ -175,7 +175,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.regex", "[a-zA-Z0-9_?]*");
         generateConfigOption("settings.check-username-validity.max-length", 16);
         generateConfigOption("settings.check-username-validity.min-length", 3);
-<<<<<<< HEAD
+
 
         generateConfigOption("settings.exempt-staff-from-flight-kick", false);
 
@@ -243,7 +243,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("fix.illegal-container-interaction.max-distance", 4);
         generateConfigOption("fix.illegal-container-interaction.log-violation", false);
 
-=======
+
 
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
