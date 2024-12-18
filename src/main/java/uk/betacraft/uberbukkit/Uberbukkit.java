@@ -45,9 +45,7 @@ public class Uberbukkit {
 
     // Separate target version from other allowed PVNs
     int commaIndex = pvnstr.indexOf(",");
-    if(commaIndex !=-1)
-
-    {
+    if(commaIndex !=-1) {
         pvnstr = pvnstr.substring(0, commaIndex);
     }
 
