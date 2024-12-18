@@ -3,6 +3,7 @@ package uk.betacraft.uberbukkit;
 import net.minecraft.server.MinecraftServer;
 import org.bukkit.Bukkit;
 import uk.betacraft.uberbukkit.protocol.Protocol;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
 import java.util.LinkedList;
 import java.util.List;
