@@ -3,7 +3,7 @@ package net.minecraft.server;
 import java.util.Random;
 
 import uk.betacraft.uberbukkit.UberbukkitConfig;
-import org.bukkit.util.config.Configuration.PoseidonConfig;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
 public class ChunkProviderGenerate implements IChunkProvider {
 
