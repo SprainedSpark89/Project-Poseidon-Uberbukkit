@@ -3,8 +3,7 @@ name: Release Workflow
 on:
   push:
     branches:
-      - main
-      - master
+      - stable
 
 jobs:
   build:
