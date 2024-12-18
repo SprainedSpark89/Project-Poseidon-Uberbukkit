@@ -16,8 +16,9 @@ public class Uberbukkit {
     public static int getTargetPVN() {
 
 
-    // If cached, apply the special case only if Alpha Mode is enabled
-    if (pvn != null) return (pvn == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) ? 6 : pvn;
+        // If cached, apply the special case only if Alpha Mode is enabled
+        if (pvn != null)
+            return (pvn == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) ? 6 : pvn;
 
 
         // If cached, apply the special case only if Alpha Mode is enabled
