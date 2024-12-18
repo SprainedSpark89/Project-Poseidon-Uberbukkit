@@ -15,8 +15,15 @@ public class Uberbukkit {
 
     public static int getTargetPVN() {
 
+
     // If cached, apply the special case only if Alpha Mode is enabled
     if (pvn != null) return (pvn == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) ? 6 : pvn;
+
+
+        // If cached, apply the special case only if Alpha Mode is enabled
+        if (pvn != null)
+            return (pvn == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) ? 6 : pvn;
+
 
         String pvnstr = UberbukkitConfig.getInstance().getString("client.allowed_protocols.value", "14");
 
@@ -42,13 +49,17 @@ public class Uberbukkit {
 
     // Separate target version from other allowed PVNs
     int commaIndex = pvnstr.indexOf(",");
-    if (commaIndex != -1) {
+    if(commaIndex !=-1)
+
+    {
         pvnstr = pvnstr.substring(0, commaIndex);
     }
 
-    pvn = 14; // Default PVN
+    pvn =14; // Default PVN
 
-    try {
+    try
+
+    {
         int parsedPVN = Integer.parseInt(pvnstr);
         // Custom logic: override 2000 with 6 only if Alpha Mode is enabled
         if (parsedPVN == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) {
@@ -56,7 +67,10 @@ public class Uberbukkit {
         } else {
             pvn = parsedPVN;
         }
-    } catch (Throwable t) {
+    } catch(
+    Throwable t)
+
+    {
         MinecraftServer.log.warning("[Uberbukkit] Target PVN is not a number! Can't proceed!");
         Bukkit.getServer().shutdown();
     }

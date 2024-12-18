@@ -176,7 +176,6 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.max-length", 16);
         generateConfigOption("settings.check-username-validity.min-length", 3);
 
-
         generateConfigOption("settings.exempt-staff-from-flight-kick", false);
 
         // Uberbukkit settings
@@ -191,7 +190,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.generate_tallgrass", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
-		generateConfigOption("version.worldgen.generate_lakes", true);
+        generateConfigOption("version.worldgen.generate_lakes", true);
 
         generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
@@ -247,7 +246,7 @@ public class PoseidonConfig extends Configuration {
 
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.enable", false);
         generateConfigOption("emergency.debug.regenerate-corrupt-chunks.info", "This setting allows you to automatically regenerate corrupt chunks. This is useful after a ungraceful shutdown while a file is being written to or out of memory exception.");
-		generateConfigOption("version.uberclient.alphamode", false);
+        generateConfigOption("version.uberclient.alphamode", false);
 
         generateConfigOption("settings.update-checker.enabled", true);
         generateConfigOption("settings.update-checker.info", "This setting allows you to disable the update checker. This is useful if you have a custom build of Poseidon or don't want to be notified of updates.");
