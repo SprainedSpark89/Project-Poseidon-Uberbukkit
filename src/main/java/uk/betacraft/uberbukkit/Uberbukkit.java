@@ -21,11 +21,6 @@ public class Uberbukkit {
             return (pvn == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) ? 6 : pvn;
 
 
-        // If cached, apply the special case only if Alpha Mode is enabled
-        if (pvn != null)
-            return (pvn == 2000 && PoseidonConfig.getInstance().getBoolean("version.uberclient.alphamode", false)) ? 6 : pvn;
-
-
         String pvnstr = UberbukkitConfig.getInstance().getString("client.allowed_protocols.value", "14");
 
         // separate target version from other allowed PVNs
