@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
-import me.devcody.uberbukkit.util.math.Vec3i;
+import me.devcody.uberbukkit.math.Vec3i;
 import uk.betacraft.uberbukkit.Uberbukkit;
 
 public abstract class EntityHuman extends EntityLiving {

@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import me.devcody.uberbukkit.util.math.Vec3i;
+import me.devcody.uberbukkit.math.Vec3i;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

@@ -107,12 +107,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         modLoaderSupport = PoseidonConfig.getInstance().getBoolean("settings.support.modloader.enable", false);
 
         if (modLoaderSupport) {
-            log.info("EXPERIMENTAL MODLOADERMP SUPPORT ENABLED.");
-            if (!isModloaderPresent()) {
-                log.severe("ModLoaderMP support is enabled, however, it isn't present. Please install it before enabling this setting");
-                return false;
-            }
-            net.minecraft.server.ModLoader.Init(this);
+            log.info("[UberBukkit] ModLoaderMP support is enabled, but has been removed.");
         }
 
         log.info("Starting minecraft server... Accepting PVNs: " + String.join(", ", UberbukkitConfig.getInstance().getString("client.allowed_protocols.value", "14").split(",")));
@@ -392,10 +387,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 long i = System.currentTimeMillis();
 
                 for (long j = 0L; this.isRunning; Thread.sleep(1L)) {
-                    if (modLoaderSupport) {
-                        net.minecraft.server.ModLoader.OnTick(this);
-                    }
-
                     long k = System.currentTimeMillis();
                     long l = k - i;
 

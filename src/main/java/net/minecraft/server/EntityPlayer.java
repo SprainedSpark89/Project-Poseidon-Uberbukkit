@@ -21,7 +21,7 @@ import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
 import com.projectposeidon.api.PoseidonUUID;
 
-import me.devcody.uberbukkit.util.math.Vec3i;
+import me.devcody.uberbukkit.math.Vec3i;
 import uk.betacraft.uberbukkit.UberbukkitConfig;
 import uk.betacraft.uberbukkit.alpha.inventory.ProcessPacket5;
 import uk.betacraft.uberbukkit.packet.Packet62Sound;

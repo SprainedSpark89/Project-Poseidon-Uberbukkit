@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import me.devcody.uberbukkit.patch.Patches;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -31,7 +32,6 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.packet.*;
 import org.bukkit.event.player.*;
 
-import me.devcody.uberbukkit.nms.patch.IllegalContainerInteractionFix;
 import uk.betacraft.uberbukkit.UberbukkitConfig;
 import uk.betacraft.uberbukkit.packet.Packet62Sound;
 import uk.betacraft.uberbukkit.packet.Packet63Digging;
@@ -262,7 +262,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
 
         // If the packet contains look information then we update the To location with the correct Yaw & Pitch.
-        if (packet10flying.hasLook) {
+        if (packet10flying.hasLook && Patches.HEAD_ROTATION.check(this.player, packet10flying.yaw, packet10flying.pitch)) {
             to.setYaw(packet10flying.yaw);
             to.setPitch(packet10flying.pitch);
         }
@@ -293,12 +293,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 /* If a Plugin has changed the To destination then we teleport the Player
                    there to avoid any 'Moved wrongly' or 'Moved too quickly' errors.
                    We only do this if the Event was not cancelled. */
-                if (!to.equals(event.getTo()) && !event.isCancelled()) {
+                if (!to.equals(event.getTo())) {
                     this.player.getBukkitEntity().teleport(event.getTo());
                     return;
                 }
 
-                /* Check to see if the Players Location has some how changed during the call of the event.
+                /* Check to see if the Players Location has somehow changed during the call of the event.
                    This can happen due to a plugin teleporting the player instead of using .setTo() */
                 if (!from.equals(this.getPlayer().getLocation()) && this.justTeleported) {
                     this.justTeleported = false;
@@ -1438,10 +1438,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (this.player.dead) return; // CraftBukkit
 
         if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
-            if (this.player.activeContainer.isPositioned()) {
-                if (IllegalContainerInteractionFix.checkForViolations(this.player.activeContainer.getPosition(), this.player)) {
-                    return;
-                }
+            if (this.player.activeContainer.isPositioned() && !Patches.CONTAINER_DISTANCE.check(this.player, this.player.activeContainer.getPosition())) {
+                return;
             }
 
             ItemStack itemstack = this.player.activeContainer.a(packet102windowclick.b, packet102windowclick.c, packet102windowclick.f, this.player);
@@ -1453,7 +1451,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.player.z();
                 this.player.h = false;
             } else {
-                this.n.put(Integer.valueOf(this.player.activeContainer.windowId), Short.valueOf(packet102windowclick.d));
+                this.n.put(this.player.activeContainer.windowId, packet102windowclick.d);
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false));
                 this.player.activeContainer.a(this.player, false);
                 ArrayList arraylist = new ArrayList();
@@ -1475,13 +1473,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         if (this.player.dead) return; // CraftBukkit
 
-        Short oshort = (Short) this.n.get(Integer.valueOf(this.player.activeContainer.windowId));
+        Short oshort = (Short) this.n.get(this.player.activeContainer.windowId);
 
-        if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
-            if (this.player.activeContainer.isPositioned()) {
-                if (IllegalContainerInteractionFix.checkForViolations(this.player.activeContainer.getPosition(), this.player)) {
-                    return;
-                }
+        if (oshort != null && packet106transaction.b == oshort && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
+            if (this.player.activeContainer.isPositioned() && !Patches.CONTAINER_DISTANCE.check(this.player, this.player.activeContainer.getPosition())) {
+                return;
             }
 
             this.player.activeContainer.a(this.player, true);

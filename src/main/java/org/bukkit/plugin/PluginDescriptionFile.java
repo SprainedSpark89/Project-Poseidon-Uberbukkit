@@ -2,6 +2,7 @@ package org.bukkit.plugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.Permission;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 
@@ -18,7 +19,7 @@ import java.util.logging.Level;
  * Provides access to a Plugins description file, plugin.yaml
  */
 public final class PluginDescriptionFile {
-    private static final Yaml yaml = new Yaml(new SafeConstructor());
+    private static final Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
     private String name = null;
     private String main = null;
     private String classLoaderOf = null;

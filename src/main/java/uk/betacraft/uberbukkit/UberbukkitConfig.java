@@ -60,13 +60,15 @@ public class UberbukkitConfig extends Configuration {
         migrateSubKeys("version.worldgen.biomes", "worldgen.biomes");
         migrateSubKeys("version.worldgen.ores.world", "worldgen.ores.world");
         migrateSubKeys("version.experimental", "experimental");
-        migrateSubKeys("fix.illegal-container-interaction", "fix.illegal-container-interaction");
 
         migrateExact("settings.exempt-staff-from-flight-kick", Boolean.class);
         migrateExact("version.allow_join.protocol", "client.allowed_protocols.value", String.class);
 
-        PoseidonConfig.getInstance().removeProperty("version");
+        migrateExact("fix.illegal-container-interaction.info", "patch.container-interaction.info", String.class);
+        migrateExact("fix.illegal-container-interaction.max-distance", "patch.container-interaction.max-distance", Integer.class);
+        migrateExact("fix.illegal-container-interaction.log-violation", "patch.container-interaction.log", Boolean.class);
 
+        PoseidonConfig.getInstance().removeProperty("version");
         PoseidonConfig.getInstance().save();
     }
 
@@ -131,9 +133,10 @@ public class UberbukkitConfig extends Configuration {
 
         writeDefault("settings.exempt-staff-from-flight-kick", false);
 
-        writeDefault("fix.illegal-container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
-        writeDefault("fix.illegal-container-interaction.max-distance", 4);
-        writeDefault("fix.illegal-container-interaction.log-violation", false);
+        writeDefault("patch.container-interaction.info", "Prevents interactions in a container if the player is farther away than the max distance.");
+        writeDefault("patch.container-interaction.enabled", true);
+        writeDefault("patch.container-interaction.max-distance", 4);
+        writeDefault("patch.container-interaction.log", false);
 
         writeDefault("experimental.force_fix_chunk_coords_corruption", false);
 
