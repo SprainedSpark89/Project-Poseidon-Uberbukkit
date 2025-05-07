@@ -1,7 +1,6 @@
 package org.bukkit.util.config;
 
 import org.yaml.snakeyaml.DumperOptions;
-import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.introspector.Property;
@@ -58,7 +57,7 @@ public class Configuration extends ConfigurationNode {
         options.setIndent(4);
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
-        yaml = new Yaml(new SafeConstructor(new LoaderOptions()), new EmptyNullRepresenter(new DumperOptions()), options);
+        yaml = new Yaml(new SafeConstructor(), new EmptyNullRepresenter(new DumperOptions()), options);
 
         this.file = file;
     }
@@ -190,7 +189,6 @@ public class Configuration extends ConfigurationNode {
 class EmptyNullRepresenter extends Representer {
 
     public EmptyNullRepresenter(DumperOptions options) {
-        super(options);
         this.nullRepresenter = new EmptyRepresentNull();
     }
 

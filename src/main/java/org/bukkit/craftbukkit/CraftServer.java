@@ -41,7 +41,6 @@ import org.bukkit.scheduler.BukkitWorker;
 import org.bukkit.util.config.Configuration;
 import org.bukkit.util.config.ConfigurationNode;
 import org.bukkit.util.permissions.DefaultPermissions;
-import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.error.MarkedYAMLException;
@@ -70,7 +69,7 @@ public final class CraftServer implements Server {
     protected final ServerConfigurationManager server;
     private final Map<String, World> worlds = new LinkedHashMap<String, World>();
     private final Configuration configuration;
-    private final Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
+    private final Yaml yaml = new Yaml(new SafeConstructor());
     private boolean shuttingdown = false;
     private final List<String> hiddenCommands = new ArrayList<>(); //Project Poseidon - Create variable
 
