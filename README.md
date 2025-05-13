@@ -11,7 +11,7 @@ Discord (Project Poseidon): https://discord.gg/FwKg676
 - **Cracked + Online mode:** You can whitelist cracked players when your server has `online-mode` on.
 - **Exclusive exploit & dupe fixes**
 
-## ‼️ You can get pre-configured `uberbukkit.yml` file for your desired version [here](/defaults/).
+## ‼️ You can grab a pre-configured `uberbukkit.yml` file for your desired version from [here](/defaults/).
 
 ## Features (Poseidon)
 - **UUID Support:** Settings to enable UUID-based inventories alongside methods for plugins to transition to UUID-based systems similar to modern Minecraft server implementations.
