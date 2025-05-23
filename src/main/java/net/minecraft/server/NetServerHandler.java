@@ -1032,6 +1032,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.g = this.f;
                 return;
             }
+        } else if (packet instanceof Packet8UpdateHealth) {
+            Packet8UpdateHealth packet8 = (Packet8UpdateHealth) packet;
+            if (this.networkManager.pvn <= 7 && packet8.a < 0) {
+                packet8.a = 0;
+            }
         }
 
         // CraftBukkit start
