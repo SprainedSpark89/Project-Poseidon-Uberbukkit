@@ -173,7 +173,7 @@ public final class CraftServer implements Server {
 
     @Override
     public String getGameVersion() {
-        return getGameVersion();
+        return this.GameVersion;
     }
 
     @Override
