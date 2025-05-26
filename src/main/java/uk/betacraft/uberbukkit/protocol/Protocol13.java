@@ -1,5 +1,7 @@
 package uk.betacraft.uberbukkit.protocol;
 
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 public class Protocol13 extends Protocol14 {
 
     @Override
@@ -10,7 +12,7 @@ public class Protocol13 extends Protocol14 {
             case 34: // piston extension
             case 36: // piston moving piece
             case 359: // shears
-                return false;
+                return Uberbukkit.getPrereleaseStatus();
             default:
                 return super.canReceiveBlockItem(id);
         }
