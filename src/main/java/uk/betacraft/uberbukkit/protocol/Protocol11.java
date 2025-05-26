@@ -1,6 +1,6 @@
 package uk.betacraft.uberbukkit.protocol;
 
-public class Protocol11 extends Protocol13 {
+public class Protocol11 extends Protocol12 {
 
     @Override
     public boolean canReceiveBlockItem(int id) {

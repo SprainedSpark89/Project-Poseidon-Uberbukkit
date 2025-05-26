@@ -105,7 +105,7 @@ public class CraftingManager {
         this.registerShapedRecipe(ladder, new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK });
 
         this.registerShapedRecipe(new ItemStack(Item.WOOD_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Block.WOOD });
-        if (Uberbukkit.getTargetPVN() >= 13) {
+        if (Uberbukkit.getTargetPVN() >= 12) {
             this.registerShapedRecipe(new ItemStack(Block.TRAP_DOOR, 2), new Object[] { "###", "###", Character.valueOf('#'), Block.WOOD });
         }
         this.registerShapedRecipe(new ItemStack(Item.IRON_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Item.IRON_INGOT });

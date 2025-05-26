@@ -31,6 +31,8 @@ public interface Protocol {
                 return new Protocol10();
             case 11:
                 return new Protocol11();
+            case 12:
+                return new Protocol12();
             case 13:
                 return new Protocol13();
             case 14:
