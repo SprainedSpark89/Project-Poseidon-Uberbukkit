@@ -88,6 +88,7 @@ public class UberbukkitConfig extends Configuration {
         writeDefault("worldgen.generate_steveco_chests", false);
         writeDefault("worldgen.generate_lapis_ores", true);
         writeDefault("worldgen.generate_tallgrass", true);
+        writeDefault("worldgen.generate_deadbush", true); //b1.6-preview needs this...
         writeDefault("worldgen.ores.world.custom_seed", false);
         writeDefault("worldgen.ores.world.seed", 0L);
 
@@ -143,6 +144,8 @@ public class UberbukkitConfig extends Configuration {
         writeDefault("client.allowed_protocols.value", "14");
         writeDefault("client.allowed_protocols.info1", "Specify client versions to accept (separated by commas - first PVN is treated as target PVN of the server)");
         writeDefault("client.allowed_protocols.info2", "6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3");
+        writeDefault("client.allowed_protocols.prerelease", false);
+        writeDefault("client.allowed_protocols.info3", "Enable this to change b1.5(_01) to b1.6-preview and b1.6-b1.6.6 to b1.7-PRERELEASE");
     }
 
     private void writeDefault(String key, Object defaultValue) {

@@ -20,6 +20,7 @@ worldgen:
             seed: 0
     pre_b1_2_ore_generation: false
     generate_tallgrass: true
+	generate_deadbush: true
     cocoabeans_loot: true
     generate_lapis_ores: true
 client:

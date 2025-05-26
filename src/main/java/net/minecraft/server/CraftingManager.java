@@ -51,11 +51,11 @@ public class CraftingManager {
             this.registerShapedRecipe(new ItemStack(Block.DETECTOR_RAIL, 6), new Object[] { "X X", "X#X", "XRX", Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('#'), Block.STONE_PLATE });
         }
 
-        if (Uberbukkit.getTargetPVN() >= 12) {
+        if (Uberbukkit.getTargetPVN() >= 12 || (Uberbukkit.getTargetPVN() >= 11 && Uberbukkit.getPrereleaseStatus())) {
             this.registerShapedRecipe(new ItemStack(Item.MAP, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Item.PAPER, Character.valueOf('X'), Item.COMPASS });
         }
 
-        if (Uberbukkit.getTargetPVN() >= 14) {
+        if (Uberbukkit.getTargetPVN() >= 14 || (Uberbukkit.getTargetPVN() >= 13 && Uberbukkit.getPrereleaseStatus())) {
             this.registerShapedRecipe(new ItemStack(Block.PISTON, 1), new Object[] { "TTT", "#X#", "#R#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('T'), Block.WOOD });
             this.registerShapedRecipe(new ItemStack(Block.PISTON_STICKY, 1), new Object[] { "S", "P", Character.valueOf('S'), Item.SLIME_BALL, Character.valueOf('P'), Block.PISTON });
         }
@@ -105,7 +105,7 @@ public class CraftingManager {
         this.registerShapedRecipe(ladder, new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK });
 
         this.registerShapedRecipe(new ItemStack(Item.WOOD_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Block.WOOD });
-        if (Uberbukkit.getTargetPVN() >= 13) {
+        if (Uberbukkit.getTargetPVN() >= 12 || (Uberbukkit.getTargetPVN() >= 11 && Uberbukkit.getPrereleaseStatus())){
             this.registerShapedRecipe(new ItemStack(Block.TRAP_DOOR, 2), new Object[] { "###", "###", Character.valueOf('#'), Block.WOOD });
         }
         this.registerShapedRecipe(new ItemStack(Item.IRON_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Item.IRON_INGOT });

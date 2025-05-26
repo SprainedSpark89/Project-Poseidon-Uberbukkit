@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 public class EntityTrackerEntry {
 
     public Entity tracker;
@@ -407,7 +409,7 @@ public class EntityTrackerEntry {
                 // uberbukkit
             } else if (this.tracker instanceof EntitySnowball || (this.tracker instanceof EntityFireball && pvn < 12)) {
                 return new Packet23VehicleSpawn(this.tracker, 61);
-            } else if (this.tracker instanceof EntityFireball && pvn >= 12) {
+            } else if (this.tracker instanceof EntityFireball && (pvn >= 12 || (pvn >= 11 && Uberbukkit.getPrereleaseStatus()))) {
                 EntityFireball entityfireball = (EntityFireball) this.tracker;
                 // CraftBukkit start - added check for null shooter
                 int shooter = ((EntityFireball) this.tracker).shooter != null ? ((EntityFireball) this.tracker).shooter.id : 1;

@@ -77,7 +77,7 @@ public class BlockDispenser extends BlockContainer {
     // CraftBukkit - private -> public
     public void dispense(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
-        byte b0 = 0;
+        byte b0 = 0; // why are these bytes? ints in tb3 and floats in preview
         byte b1 = 0;
 
         if (l == 3) {

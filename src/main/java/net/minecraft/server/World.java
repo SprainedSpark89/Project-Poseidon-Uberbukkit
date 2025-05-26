@@ -508,7 +508,7 @@ public class World implements IBlockAccess {
                 int l = this.getTypeId(i, j, k);
 
                 boolean check = false;
-                if (Uberbukkit.getTargetPVN() >= 12) {
+                if (Uberbukkit.getTargetPVN() >= 12 || (Uberbukkit.getTargetPVN() >= 11 && Uberbukkit.getPrereleaseStatus())) {
                     check = l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id;
                 }
 

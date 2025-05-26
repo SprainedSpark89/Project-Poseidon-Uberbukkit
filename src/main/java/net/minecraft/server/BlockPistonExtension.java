@@ -3,6 +3,8 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.Random;
 
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 public class BlockPistonExtension extends Block {
 
     private int a = -1;
@@ -10,7 +12,7 @@ public class BlockPistonExtension extends Block {
     public BlockPistonExtension(int i, int j) {
         super(i, j, Material.PISTON);
         this.a(h);
-        this.c(0.5F);
+        this.c((Uberbukkit.getTargetPVN() == 13 && Uberbukkit.getPrereleaseStatus()) ? -1.0F : 0.5F);
     }
 
     public void remove(World world, int i, int j, int k) {

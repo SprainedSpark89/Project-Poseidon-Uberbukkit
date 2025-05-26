@@ -10,7 +10,7 @@ config-version: 1
 worldgen:
     generate_sandstone: true
     pre_b1_2_tree_generation: false
-    generate_steveco_chests: true
+    generate_steveco_chests: false
     biomes:
         generate_spruces: true
         generate_birches: true
@@ -19,56 +19,56 @@ worldgen:
             custom_seed: false
             seed: 0
     pre_b1_2_ore_generation: false
-    generate_tallgrass: false
-	generate_deadbush: false
+    generate_tallgrass: true
+    generate_deadbush: false
     cocoabeans_loot: true
     generate_lapis_ores: true
 client:
     allowed_protocols:
         info1: Specify client versions to accept (separated by commas - first PVN is treated as target PVN of the server)
-        value: '10'
+        value: '11'
         info2: 6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3
-		prerelease: false
-		info3: Enable this to change b1.5(_01) to b1.6-preview and b1.6-b1.6.6 to b1.7-PRERELEASE
+        prerelease: true
+        info3: Enable this to change b1.5(_01) to b1.6-preview and b1.6-b1.6.6 to b1.7-PRERELEASE
 mechanics:
-    pre_1_6_fire: true
-    nether_bed_explode: false
+    pre_1_6_fire: false
+    nether_bed_explode: true
     glowstone_pre1_6_6: true
     old_slab_recipe: false
     drop_lapis_as_b1_2: false
     spawn_brown_and_pink_sheep: true
     seeds_replace_blocks: false
-    trample_farmland_above_fence: true
-    arrows_pickup_by_others: false
-    allow_blocks_at_y_127: true
+    trample_farmland_above_fence: false
+    arrows_pickup_by_others: true
+    allow_blocks_at_y_127: false
     tnt_require_lighter: false
     spawn_sheep_with_shades_of_black: true
-    allow_minecart_boosters: true
-    do_weather: false
+    allow_minecart_boosters: false
+    do_weather: true
     spawn_squids: true
     spawn_wolves: true
     sheep_drop_wool_on_punch: true
     allow_milking_squids: false
     allow_grow_tallgrass: false
-    beds_set_spawnpoint: false
-    mushroom_spread: false
-    pre_b1_5_block_placement_rules: true
+    beds_set_spawnpoint: true
+    mushroom_spread: true
+    pre_b1_5_block_placement_rules: false
     allow_1_7_fence_placement: false
-    drop_saplings_of_leaf_type: false
-    tile_grass_drop_seeds: true
-    allow_ladder_gap: true
+    drop_saplings_of_leaf_type: true
+    tile_grass_drop_seeds: false
+    allow_ladder_gap: false
     boats:
         drop_boat_not_wood: false
         break_boat_on_collision: true
-    burning_pig_drop_cooked_meat: false
-    pre_b1_6_block_opacity: true
+    burning_pig_drop_cooked_meat: true
+    pre_b1_6_block_opacity: false
     beds_pre_b1_6_5: true
     spiders_climb_walls: true
-    pre_b1_5_pumpkins: true
+    pre_b1_5_pumpkins: false
     wool_recipe_pre1_6_6: true
-    ice_generate_only_when_snowing: true
+    ice_generate_only_when_snowing: false
     spiders_trample_crops: false
-    flammable_fences_stairs: false
+    flammable_fences_stairs: true
     allow_bone_meal_on_grass: false
     spawn_slimes: true
 experimental:

@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 public class Packet9Respawn extends Packet {
 
     public byte a;
@@ -23,7 +25,7 @@ public class Packet9Respawn extends Packet {
 
     public void a(DataInputStream datainputstream) throws IOException {
         // uberbukkit
-        if (this.pvn >= 12) {
+        if (this.pvn >= 12 || (this.pvn >= 11 && Uberbukkit.getPrereleaseStatus())) {
             this.a = datainputstream.readByte();
         } else {
             this.a = 0;
@@ -38,7 +40,7 @@ public class Packet9Respawn extends Packet {
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
         // uberbukkit
-        if (this.pvn >= 12) {
+        if (this.pvn >= 12 || (this.pvn >= 11 && Uberbukkit.getPrereleaseStatus())) {
             dataoutputstream.writeByte(this.a);
         }
 
@@ -49,6 +51,6 @@ public class Packet9Respawn extends Packet {
 
     public int a() {
         // uberbukkit
-        return (this.pvn >= 12 ? 1 : 0) + (this.pvn >= 2000 ? 8 : 0);
+        return (this.pvn >= 12 || (this.pvn >= 11 && Uberbukkit.getPrereleaseStatus()) ? 1 : 0) + (this.pvn >= 2000 ? 8 : 0);
     }
 }

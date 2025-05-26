@@ -566,7 +566,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         // uberbukkit
-        if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_tallgrass", true)) {
+        if (UberbukkitConfig.getInstance().getBoolean("worldgen.generate_deadbush", true)) {
             for (k2 = 0; k2 < b1; ++k2) {
                 i3 = k + this.j.nextInt(16) + 8;
                 l2 = this.j.nextInt(128);

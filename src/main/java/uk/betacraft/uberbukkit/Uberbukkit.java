@@ -12,6 +12,7 @@ public class Uberbukkit {
     private static final String version = "2.0.2";
     private static Integer pvn = null;
     private static List<Integer> pvns = null;
+    private static Boolean prerelease = null;
 
     public static int getTargetPVN() {
         if (pvn != null) return pvn;
@@ -34,6 +35,10 @@ public class Uberbukkit {
         }
 
         return pvn;
+    }
+    
+    public static boolean getPrereleaseStatus() {
+    	return prerelease = UberbukkitConfig.getInstance().getBoolean("client.allowed_protocols.prerelease", false);
     }
 
     public static List<Integer> getAllowedPVNs() {

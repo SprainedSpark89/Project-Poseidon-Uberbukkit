@@ -1,11 +1,13 @@
 package net.minecraft.server;
 
+import uk.betacraft.uberbukkit.Uberbukkit;
+
 public class ItemShears extends Item {
 
     public ItemShears(int i) {
         super(i);
         this.c(1);
-        this.d(238);
+        this.d((Uberbukkit.getTargetPVN() == 13 && Uberbukkit.getPrereleaseStatus()) ? 789 : 238);
     }
 
     public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {

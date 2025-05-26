@@ -23,7 +23,7 @@ public class RecipesTools {
         }
 
         // uberbukkit
-        if (Uberbukkit.getTargetPVN() >= 14) {
+        if (Uberbukkit.getTargetPVN() >= 14 || (Uberbukkit.getTargetPVN() >= 13 && Uberbukkit.getPrereleaseStatus())) {
             craftingmanager.registerShapedRecipe(new ItemStack(Item.SHEARS), new Object[] { " #", "# ", Character.valueOf('#'), Item.IRON_INGOT });
         }
     }
