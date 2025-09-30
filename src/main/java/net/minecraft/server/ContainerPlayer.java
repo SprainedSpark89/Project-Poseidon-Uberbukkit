@@ -6,14 +6,31 @@ public class ContainerPlayer extends Container {
     public IInventory resultInventory;
     public boolean c;
 
+    // Uberbukkit start
+    private Boolean canShiftClick = null;
+    private EntityHuman entityHuman;
+
+    public boolean canShiftClick() {
+        if (this.canShiftClick != null) {
+            return this.canShiftClick;
+        }
+
+        if (this.entityHuman instanceof EntityPlayer) {
+            return this.canShiftClick = ((EntityPlayer) this.entityHuman).netServerHandler.networkManager.pvn >= 12;
+        }
+
+        return true; // assume true for NPCs
+    }
+    // Uberbukkit end
+
     public ContainerPlayer(InventoryPlayer inventoryplayer) {
         this(inventoryplayer, true);
     }
 
     public ContainerPlayer(InventoryPlayer inventoryplayer, boolean flag) {
+        this.entityHuman = inventoryplayer.d; // Uberbukkit
         this.craftInventory = new InventoryCrafting(this, 2, 2);
         this.resultInventory = new InventoryCraftResult();
-        this.c = false;
         this.c = flag;
         this.a((Slot) (new SlotResult(inventoryplayer.d, this.craftInventory, this.resultInventory, 0, 144, 36)));
 
@@ -74,6 +91,10 @@ public class ContainerPlayer extends Container {
     }
 
     public ItemStack a(int i) {
+        if (!this.canShiftClick()) { // Uberbukkit
+            return super.a(i);
+        }
+
         ItemStack itemstack = null;
         Slot slot = (Slot) this.e.get(i);
 

@@ -9,7 +9,25 @@ public class ContainerWorkbench extends Container {
     private int i;
     private int j;
 
+    // Uberbukkit start
+    private Boolean canShiftClick = null;
+    private EntityHuman entityHuman;
+
+    public boolean canShiftClick() {
+        if (this.canShiftClick != null) {
+            return this.canShiftClick;
+        }
+
+        if (this.entityHuman instanceof EntityPlayer) {
+            return this.canShiftClick = ((EntityPlayer) this.entityHuman).netServerHandler.networkManager.pvn >= 12;
+        }
+
+        return true; // assume true for NPCs
+    }
+    // Uberbukkit end
+
     public ContainerWorkbench(InventoryPlayer inventoryplayer, World world, int i, int j, int k) {
+        this.entityHuman = inventoryplayer.d; // Uberbukkit
         this.c = world;
         this.h = i;
         this.i = j;
@@ -69,6 +87,10 @@ public class ContainerWorkbench extends Container {
     }
 
     public ItemStack a(int i) {
+        if (!this.canShiftClick()) { // Uberbukkit
+            return super.a(i);
+        }
+
         ItemStack itemstack = null;
         Slot slot = (Slot) this.e.get(i);
 

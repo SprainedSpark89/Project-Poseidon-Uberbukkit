@@ -508,6 +508,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 0, iinventory.getName(), iinventory.getSize()));
         this.activeContainer = new ContainerChest(this.inventory, iinventory);
+        ((ContainerChest) this.activeContainer).setEntityHuman(this); // Uberbukkit
         this.activeContainer.windowId = this.bO;
         this.activeContainer.a((ICrafting) this);
     }
@@ -517,6 +518,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 0, iinventory.getName(), iinventory.getSize()));
         this.activeContainer = new ContainerChest(this.inventory, iinventory);
+        ((ContainerChest) this.activeContainer).setEntityHuman(this); // Uberbukkit
         this.activeContainer.setPosition(position);
         this.activeContainer.windowId = this.bO;
         this.activeContainer.a((ICrafting) this);

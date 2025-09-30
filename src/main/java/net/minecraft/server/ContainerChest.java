@@ -5,6 +5,24 @@ public class ContainerChest extends Container {
     private IInventory a;
     private int b;
 
+    // Uberbukkit start
+    private Boolean canShiftClick = null;
+
+    protected void setEntityHuman(EntityHuman entityHuman) {
+        if (entityHuman instanceof EntityPlayer) {
+            this.canShiftClick = ((EntityPlayer) entityHuman).netServerHandler.networkManager.pvn >= 12;
+        }
+    }
+
+    public boolean canShiftClick() {
+        if (this.canShiftClick != null) {
+            return this.canShiftClick;
+        }
+
+        return true; // assume true for NPCs
+    }
+    // Uberbukkit end
+
     public ContainerChest(IInventory iinventory, IInventory iinventory1) {
         this.a = iinventory1;
         this.b = iinventory1.getSize() / 9;
@@ -43,7 +61,7 @@ public class ContainerChest extends Container {
 
             itemstack = itemstack1.cloneItemStack();
             if (i < this.b * 9) {
-                this.a(itemstack1, this.b * 9, this.e.size(), true);
+                this.a(itemstack1, this.b * 9, this.e.size(), this.canShiftClick()); // Uberbukkit: true --> this.canShiftClick()
             } else {
                 this.a(itemstack1, 0, this.b * 9, false);
             }

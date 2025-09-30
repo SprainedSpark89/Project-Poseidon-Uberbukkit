@@ -7,7 +7,25 @@ public class ContainerFurnace extends Container {
     private int c = 0;
     private int h = 0;
 
+    // Uberbukkit start
+    private Boolean canShiftClick = null;
+    private EntityHuman entityHuman;
+
+    public boolean canShiftClick() {
+        if (this.canShiftClick != null) {
+            return this.canShiftClick;
+        }
+
+        if (this.entityHuman instanceof EntityPlayer) {
+            return this.canShiftClick = ((EntityPlayer) this.entityHuman).netServerHandler.networkManager.pvn >= 12;
+        }
+
+        return true; // assume true for NPCs
+    }
+    // Uberbukkit end
+
     public ContainerFurnace(InventoryPlayer inventoryplayer, TileEntityFurnace tileentityfurnace) {
+        this.entityHuman = inventoryplayer.d; // Uberbukkit
         this.a = tileentityfurnace;
         this.a(new Slot(tileentityfurnace, 0, 56, 17));
         this.a(new Slot(tileentityfurnace, 1, 56, 53));
@@ -62,6 +80,10 @@ public class ContainerFurnace extends Container {
     }
 
     public ItemStack a(int i) {
+        if (!this.canShiftClick()) { // Uberbukkit
+            return super.a(i);
+        }
+
         ItemStack itemstack = null;
         Slot slot = (Slot) this.e.get(i);
 
