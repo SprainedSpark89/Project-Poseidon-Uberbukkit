@@ -639,7 +639,20 @@ public abstract class EntityHuman extends EntityLiving {
     }
 
     public boolean K() {
-        return !this.sleeping && super.K();
+        if (this.sleeping) {
+            return false;
+        }
+
+        // Uberbukkit - different conditions for suffocation pre-b1.6
+        if (this instanceof EntityPlayer && ((EntityPlayer) this).netServerHandler.networkManager.pvn < 12) {
+            int i = MathHelper.floor(this.locX);
+            int j = MathHelper.floor(this.locY + (double) this.t());
+            int k = MathHelper.floor(this.locZ);
+
+            return this.world.e(i, j, k);
+        }
+
+        return super.K();
     }
 
     public EnumBedError a(int i, int j, int k) {
