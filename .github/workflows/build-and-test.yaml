@@ -19,19 +19,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Java ${{ matrix.java-version }}
+
+
+      - name: Set up Java 8
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: 8
           distribution: temurin
           java-package: jdk
-          cache: maven
-      - name: Build with Maven
+          cache: gradle
+
+      # for gradle build
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+          java-package: jdk
+          cache: gradle
+
+      - name: Build with Gradle
         shell: bash
         run: |
-          mvn clean install
-      - run: mkdir staging && cp target/*.jar staging
-      - run: echo "NOW=$(date +'%d-%m-%Y_%H-%M')" >> $GITHUB_ENV
+          ./gradlew build -Pjava_version=${{ matrix.java-version }}
+      - run: mkdir staging && cp build/libs/*.jar staging
+      - run: echo "NOW=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_ENV
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
